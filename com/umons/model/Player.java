@@ -6,7 +6,7 @@ public class Player {
 	private int numberOfWall;
 	private final int NB_WALL = 10;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
-	final static Location POS1 = new Location(8, 16);
+	public final static Location POS1 = new Location(8, 16);
 	final static Location POS2 = new Location(8, 0);
 	final static Location POS3 = new Location(0, 8);
 	final static Location POS4 = new Location(16, 8);
