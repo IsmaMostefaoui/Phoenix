@@ -9,7 +9,7 @@ import java.util.*;
 public abstract class ARules {
 
 	protected static Grid board;
-	List<Location> squareAvaliable = new ArrayList<Location>();
+	static List<Location> squareAvailable = new ArrayList<Location>();
 	
 	//joueur doit être une variable d'instance, on l utilise partout
 	
@@ -151,7 +151,7 @@ public abstract class ARules {
 		ytemp = loc.getLocY() + ytemp/2;
 		xtemp = loc.getLocX() + xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
-		return loctemp.inGrid(board) && board.getItem(new Location(xtemp, ytemp)).getFull();
+		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
 	
 	/**
@@ -192,6 +192,123 @@ public abstract class ARules {
 			return false;
 		}
 	}*/
+	
+	
+	public static void rSquareAvailable(Player player) {
+		int x = player.getLoc().getLocX();
+		int y = player.getLoc().getLocY();
+		Location locUP = new Location(x, y -2);
+		Location locDOWN = new Location(x, y +2);
+		Location locLEFT = new Location(x-2, y);
+		Location locRIGHT = new Location(x+2, y);
+		
+		
+		if (rMovePion(player, locUP)) {
+			squareAvailable.add(locUP);		
+		}
+		if(rMovePion(player, locDOWN)) {
+			squareAvailable.add(locDOWN);
+		}
+		if(rMovePion(player, locLEFT)) {
+			squareAvailable.add(locLEFT);
+		}
+		if(rMovePion(player, locRIGHT)) {
+			squareAvailable.add(locRIGHT);
+		}
+		//Diago haut gauche et haut Droite + faceToFace UP
+		if (!rCheckWall(player, locUP)) { //si pas de mur UP
+			System.out.println("pas de mur");
+			if (locUP.inGrid(board) && board.getItem(locUP).getFull()) { // et que la case UP est remplie
+				Location locUPUP = new Location(locUP.getLocX(), locUP.getLocY() - 2); //LOC de la case upup (saut)
+				Location locDHG = new Location(locUP.getLocX() - 2, locUP.getLocY()); //loc de la pos en haut à gauche
+				Location locDHD = new Location(locUP.getLocX() + 2, locUP.getLocY()); //loc de la pos en haut à droite
+				Player joueurtempUP = new Player(locUP);//Instance player de la case UP pour utiliser les autres méthodes
+				System.out.println("jtUP = " + "[" + joueurtempUP.getLoc().getLocX()+ ", " + joueurtempUP.getLoc().getLocY() + "]");
+				if (rMovePion(joueurtempUP, locUPUP)) { //si on peut bouger de la case up à la case UPUP -> Saut
+					squareAvailable.add(locUPUP);
+					System.out.println("UPUP  " + "[" + locUPUP.getLocX()+ ", " + locUPUP.getLocY() + "]");
+				
+				}else if (rCheckWall(joueurtempUP, locUPUP) && (rMovePion(joueurtempUP, locDHG))) { //si il y a un mur au dessus de la case UP et case à gauche libre diagHG ok 
+					squareAvailable.add(locDHG);
+					System.out.println("DHG  " + "[" + locDHG.getLocX()+ ", " + locDHG.getLocY() + "]");
+					
+				}else if (rCheckWall(joueurtempUP,locUPUP) && (rMovePion(joueurtempUP, locDHD))) { //si il y a un mur au dessus de la case UP et case à droite libre diagHD ok
+					squareAvailable.add(locDHD);
+					System.out.println("DHD " + "[" + locDHD.getLocX()+ ", " + locDHD.getLocY() + "]");
+				}	
+			}	
+		}
+		
+		//Diago haut droite et bas droite + faceToFace Right 
+		else if (!rCheckWall(player, locRIGHT)) { //si pas de mur RIGHT
+			if (locRIGHT.inGrid(board) && board.getItem(locRIGHT).getFull()) { // et que la case RIGHT est remplie
+				Location locRIGHTRIGHT = new Location(locRIGHT.getLocX() + 2, locRIGHT.getLocY()); //LOC de la case RIGHT (saut)
+				Location locDHD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() -2); //loc de la pos en haut à droite VIA RIGHT
+				Location locDBD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() +2 ); //loc de la pos en Bas à droite
+				Player joueurtempRIGHT = new Player(locRIGHT);//Instance player de la case RIGHT pour utiliser les autres méthodes
+				if (rMovePion(joueurtempRIGHT, locRIGHTRIGHT)) { //si on peut bouger de la case RIGHT à la case RIGHRIGHT -> Saut
+					squareAvailable.add(locRIGHTRIGHT);
+					
+				}else if (rCheckWall(joueurtempRIGHT, locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDHD))) { //si il y a un mur au dessus de la case RIGHT et case en haut libre diagHD ok 
+					squareAvailable.add(locDHD);
+					System.out.println("DHD  " + "[" + locDHD.getLocX()+ ", " + locDHD.getLocY() + "]");
+					
+				}else if (rCheckWall(joueurtempRIGHT,locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDBD))) { //si il y a un mur en dessous  de la case right et case en bas libre diagHD ok
+					squareAvailable.add(locDBD);
+					System.out.println("DBD  " + "[" + locDBD.getLocX()+ ", " + locDBD.getLocY() + "]");
+				}		
+			}		
+		}
+		//Diago bas droite et bas gauche + faceToFace DOWN
+		else if (!rCheckWall(player, locDOWN)) { //si pas de mur DOWN
+			if (locDOWN.inGrid(board) && board.getItem(locDOWN).getFull()) { // et que la case DOWN est remplie
+				Location locDOWNDOWN = new Location(locDOWN.getLocX(), locDOWN.getLocY() +2 ); //LOC de la case DOWNDOWN (saut)
+				Location locDBG = new Location(locDOWN.getLocX() -2, locDOWN.getLocY()); //loc de la pos en BAS  à GAUCHE VIA RIGHT
+				Location locDBD = new Location(locDOWN.getLocX() +2, locDOWN.getLocY()); //loc de la pos en Bas à droite
+				Player joueurtempDOWN = new Player(locDOWN);//Instance player de la case DOWN pour utiliser les autres méthodes
+				if (rMovePion(joueurtempDOWN, locDOWNDOWN)) { //si on peut bouger de la case DOWN à la case DOWN -> Saut
+					squareAvailable.add(locDOWNDOWN);
+					System.out.println("DOWNDOWN  " + "[" + locDOWNDOWN.getLocX()+ ", " + locDOWNDOWN.getLocY() + "]");
+				
+				}else if (rCheckWall(joueurtempDOWN, locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBD))) { //si il y a un mur EN dessOus de la case DOWN et case en BAS DROITE libre diagBD ok 
+					squareAvailable.add(locDBD);
+					System.out.println("DBD  " + "[" + locDBD.getLocX()+ ", " + locDBD.getLocY() + "]");
+					
+				}else if (rCheckWall(joueurtempDOWN,locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBG))) { //si il y a un mur en dessous  de la case right et case en bas A GAUCHE libre diagBG ok
+					squareAvailable.add(locDBG);
+					System.out.println("DBG  " + "[" + locDBG.getLocX()+ ", " + locDBG.getLocY() + "]");
+				}	
+			}
+		}
+		//Diago HAUT GAUCHE et bas gauche + faceToFace LEFT
+		else if (!rCheckWall(player, locLEFT)) { //si pas de mur LEFT
+			if (locLEFT.inGrid(board) && board.getItem(locLEFT).getFull()) { // et que la case LEFT est remplie
+				Location locLEFTLEFT = new Location(locLEFT.getLocX() - 2, locLEFT.getLocY()); //LOC de la case LEFTLEFT (saut)
+				Location locDBG = new Location(locLEFT.getLocX(), locLEFT.getLocY() +2); //loc de la pos en BAS A GAUCHE VIA RIGHT
+				Location locDHG = new Location(locLEFT.getLocX(), locLEFT.getLocY() -2 ); //loc de la pos en HAUT A GAUCHE
+				Player joueurtempLEFT = new Player(locLEFT);//Instance player de la case LEFT pour utiliser les autres méthodes
+				if (rMovePion(joueurtempLEFT, locLEFTLEFT)) { //si on peut bouger de la case LEFT à la case LEFTLEFT -> Saut
+					squareAvailable.add(locLEFTLEFT);
+					System.out.println("LEFLEFT  " + "[" + locLEFTLEFT.getLocX()+ ", " + locLEFTLEFT.getLocY() + "]");
+				
+				}else if (rCheckWall(joueurtempLEFT, locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDBG))) { //si il y a un mur A GAUCHE de la case LEFT et case BAS GAUCHE LIBRE -> diagBG ok 
+					squareAvailable.add(locDBG);
+					System.out.println("DBG  " + "[" + locDBG.getLocX()+ ", " + locDBG.getLocY() + "]"); 
+					
+				}else if (rCheckWall(joueurtempLEFT,locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDHG))) { //si il y a un mur A GAUCHE  de la case LEFT et case en HAUT GAUCHE  libre diagHG ok
+					squareAvailable.add(locDHG);
+					System.out.println("DHG  " + "[" + locDHG.getLocX()+ ", " + locDHG.getLocY() + "]");
+				}
+				
+			}
+		}
+		
+		for (int i =0; i < squareAvailable.size(); i++) {
+			System.out.println("[" + squareAvailable.get(i).getLocX()+ ", " + squareAvailable.get(i).getLocY() + "]" ); //Test pour afficher les loc dans la listes
+		}
+		
+		squareAvailable.clear();
+	}
 	
 }
 	
