@@ -19,8 +19,38 @@ public class MyMouseListener implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		x1 = e.getX(); y1 = e.getY();
 		temp = new Location(x1, y1);
-		System.out.println("test dans mouse listener temp: " + temp);
-		
+		if (Main.tour == 1) {
+			while(MyMouseListener.temp == null){
+				System.out.println("dans la boucle du main");
+			}
+			System.out.println("sorti du xhile dans main");
+			if (MyMouseListener.temp.pixelToCoord().lSquare()) {
+				System.out.println("in temp");
+				Main.locPawn1 = MyMouseListener.temp.pixelToCoord();
+				Main.tour++;
+			}else {
+				if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
+					Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
+					Main.tour++;
+				}else {
+					Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
+					Main.tour++;
+				}
+			}panel.repaint();
+		}else if (tour == 2){
+			if (MyMouseListener.temp.pixelToCoord().lSquare()) {
+				Main.locPawn2 = MyMouseListener.temp.pixelToCoord();
+				Main.tour--;
+			}else {
+				if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
+					Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
+					Main.tour--;
+				}else {
+					Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
+					Main.tour--;
+				}
+			}panel.repaint();
+		}
 		
 	}
 

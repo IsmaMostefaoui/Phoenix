@@ -11,7 +11,6 @@ import com.umons.view.QuoridorGUI;
 
 public class Main {
 
-	public static int tour = 1;
 	public static Location locPawn1 = Player.POS1;
 	public static Location locPawn2 = Player.POS2;
 	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
@@ -28,51 +27,13 @@ public class Main {
 		int x = 0;
 		int y = 0;
 		board.afficheGrid(joueur1, joueur2);
-		
+		Game game = new Game(2);
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
 		JPanel panel = new BoardGUI(joueur1, joueur2);
 		panel.setFocusable(true);
 		panel.addMouseListener(new MyMouseListener(panel));
 		frame.setContentPane(panel);
 		//LA PIRE BOUCLE DE TOUS LES TEMPS, ELLE TOURNE SANS CESSER... CE QUI A TENDANCE A FAIRE LAGUER LE PC, ESSAYE DE LANCER MAIN TU VA VOIR
-		do {
-			if (Main.tour == 1) {
-				while(MyMouseListener.temp == null){
-					System.out.println("dans la boucle du main");
-				}
-				System.out.println("sorti du xhile dans main");
-				if (MyMouseListener.temp.pixelToCoord().lSquare()) {
-					System.out.println("in temp");
-					Main.locPawn1 = MyMouseListener.temp.pixelToCoord();
-					System.out.println("locPawn1 dans main: " + locPawn1);
-					System.out.println("tour dans main: " + tour);
-					Main.tour++;
-					System.out.println("tour apres l'incrementation: " + tour);
-				}else {
-					if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
-						Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour++;
-					}else {
-						Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour++;
-					}
-				}panel.repaint();
-			}else if (tour == 2){
-				if (MyMouseListener.temp.pixelToCoord().lSquare()) {
-					Main.locPawn2 = MyMouseListener.temp.pixelToCoord();
-					Main.tour--;
-				}else {
-					if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
-						Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour--;
-					}else {
-						Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour--;
-					}
-				}panel.repaint();
-			}
-			
-		}while(true);
 		/*
 		do{
 			if (tour == 1) {

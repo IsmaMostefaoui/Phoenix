@@ -22,15 +22,11 @@ public class BoardGUI extends JPanel{
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 25;
 	public static final int START_Y = 25;
-	public static Location loc1;
-	public static Location loc2;
 	
 	public BoardGUI(Player player1, Player player2) {
 		this.player1 = player1; this.player2 = player2;
 		System.out.println("coord player: " + player1.getLoc());
 		System.out.println("");
-		loc1 = new Location (player1.getLoc().getLocX(), player1.getLoc().getLocY());
-		loc2 = new Location (player2.getLoc().getLocX(), player2.getLoc().getLocY());
 	}
 	
 	public void paintComponent(Graphics g) {
