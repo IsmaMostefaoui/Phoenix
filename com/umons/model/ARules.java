@@ -206,9 +206,9 @@ public abstract class ARules {
 		if (locUP != null && !rCheckWall(player, locUP)) {
 			if (!board.getItem(locUP).getFull()) {
 				squareAvailable.add(locUP);
-			}else if (locUP.inGrid(board) && !rCheckWall(locUP, locUP.squareUp()) && !board.getItem(locUP.squareUp()).getFull()){
+			}else if (locUP.squareUp().inGrid(board) && !rCheckWall(locUP, locUP.squareUp()) && !board.getItem(locUP.squareUp()).getFull()){
 				squareAvailable.add(locUP.squareUp());
-			}else if (ARules.rMovePion(locUP, locUP.squareRight()) && !ARules.rCheckWall(locUP, locUP.squareRight()) && !squareAvailable.contains(locUP.squareRight())){
+			}else if (ARules.rMovePion(locUP, locUP.squareRight()) && !rCheckWall(locUP, locUP.squareRight())){
 				squareAvailable.add(locUP.squareRight());
 			}
 		}

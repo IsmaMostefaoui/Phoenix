@@ -41,7 +41,7 @@ public class Player {
 			if (list.get(i).isEquals(loc)) {
 				board.setItemInGrid(this.getLoc(), false);
 				this.setLoc(loc);
-				board.setItemInGrid(this.getLoc(), true);
+				board.setItemInGrid(loc, true);
 				return true;
 			}
 		}
