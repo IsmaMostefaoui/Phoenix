@@ -148,7 +148,7 @@ public abstract class ARules {
 	 */
 	public static boolean rCheckWall(Player player, Location loc) {
 		int xPion = player.getLoc().getLocX();
-		int yPion = player.getLoc().getLocX();
+		int yPion = player.getLoc().getLocY();
 		int ytemp = loc.getLocY() - yPion;
 		int xtemp = loc.getLocX() - xPion;
 		ytemp = loc.getLocY() + ytemp/2;
@@ -167,8 +167,8 @@ public abstract class ARules {
 	public static boolean rCheckWall(Location locPion, Location loc) {
 		int ytemp = loc.getLocY() - locPion.getLocY();
 		int xtemp = loc.getLocX() - locPion.getLocX();
-		ytemp = loc.getLocY() + ytemp/2;
-		xtemp = loc.getLocX() + xtemp/2;
+		ytemp = loc.getLocY() - ytemp/2;
+		xtemp = loc.getLocX() - xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
 		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
@@ -203,12 +203,8 @@ public abstract class ARules {
 		Location locRIGHT = new Location(x+2, y);
 		if (!locRIGHT.inGrid(board)) { locRIGHT = null; }
 		//UP
-		System.out.println("aaaaa");
-		System.out.println("locup != null " + (locUP != null) + " rcheckwall " + rCheckWall(player, locUP));
 		if (locUP != null && !rCheckWall(player, locUP)) {
-			System.out.println("test dans arules in locup verification");
 			if (!board.getItem(locUP).getFull()) {
-				System.out.println("test de getitem");
 				squareAvailable.add(locUP);
 			}else if (locUP.inGrid(board) && !rCheckWall(locUP, locUP.squareUp()) && !board.getItem(locUP.squareUp()).getFull()){
 				squareAvailable.add(locUP.squareUp());
@@ -245,6 +241,11 @@ public abstract class ARules {
 			}else if (ARules.rMovePion(locLEFT, locLEFT.squareRight()) && !ARules.rCheckWall(locLEFT, locLEFT.squareRight()) && !squareAvailable.contains(locLEFT.squareRight())){
 				squareAvailable.add(locLEFT.squareRight());
 			}
+		}
+		
+		System.out.println("--Toutes les loc de la list dans player :");
+		for (int i = 0; i < squareAvailable.size(); i++) {
+			System.out.println("element " + i + " : " + squareAvailable.get(i));
 		}
 		return squareAvailable;
 		

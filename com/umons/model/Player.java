@@ -37,14 +37,11 @@ public class Player {
 	public boolean move(Grid board, Location loc) {
 		//ATTENTION JE NE CHANGE PAS LA POSTION DU PION SUR LA GRILLE
 		List<Location> list = ARules.rSquareAvailable(this);
-		System.out.println("loc dans move dans player: " + loc);
-		System.out.println("--Toutes les loc de la list dans player :");
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println("element " + i + " : " + list.get(i));
 			if (list.get(i).isEquals(loc)) {
-				board.getItem(this.getLoc()).setFull(false);
+				board.setItemInGrid(this.getLoc(), false);
 				this.setLoc(loc);
-				board.getItem(this.getLoc()).setFull(true);
+				board.setItemInGrid(this.getLoc(), true);
 				return true;
 			}
 		}
