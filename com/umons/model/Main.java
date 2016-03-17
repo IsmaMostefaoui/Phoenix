@@ -28,52 +28,14 @@ public class Main {
 		int x = 0;
 		int y = 0;
 		board.afficheGrid(joueur1, joueur2);
+		int choix = 0;
+		Scanner sc = new Scanner(System.in);
+		String direction = "";
+		boolean stop = false;
 		
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
-		JPanel panel = new BoardGUI(joueur1, joueur2);
-		panel.setFocusable(true);
-		panel.addMouseListener(new MyMouseListener(panel));
-		frame.setContentPane(panel);
-		//LA PIRE BOUCLE DE TOUS LES TEMPS, ELLE TOURNE SANS CESSER... CE QUI A TENDANCE A FAIRE LAGUER LE PC, ESSAYE DE LANCER MAIN TU VA VOIR
-		do {
-			if (Main.tour == 1) {
-				while(MyMouseListener.temp == null){
-					System.out.println("dans la boucle du main");
-				}
-				System.out.println("sorti du xhile dans main");
-				if (MyMouseListener.temp.pixelToCoord().lSquare()) {
-					System.out.println("in temp");
-					Main.locPawn1 = MyMouseListener.temp.pixelToCoord();
-					System.out.println("locPawn1 dans main: " + locPawn1);
-					System.out.println("tour dans main: " + tour);
-					Main.tour++;
-					System.out.println("tour apres l'incrementation: " + tour);
-				}else {
-					if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
-						Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour++;
-					}else {
-						Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour++;
-					}
-				}panel.repaint();
-			}else if (tour == 2){
-				if (MyMouseListener.temp.pixelToCoord().lSquare()) {
-					Main.locPawn2 = MyMouseListener.temp.pixelToCoord();
-					Main.tour--;
-				}else {
-					if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
-						Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour--;
-					}else {
-						Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
-						Main.tour--;
-					}
-				}panel.repaint();
-			}
-			
-		}while(true);
-		/*
+		
+		
+		
 		do{
 			if (tour == 1) {
 				System.out.println("Joueur1, Pion ou Mur (1 ou 2) >>> ");
@@ -102,6 +64,7 @@ public class Main {
 						}while (y < 0 || x > board.getLen());
 						System.out.println();
 						wallOk = joueur1.putWall(board,new Location(x, y));
+						board.afficheGrid(joueur1, joueur2);
 						tour++;
 					}while (!wallOk);
 				}
@@ -133,12 +96,14 @@ public class Main {
 						}while (y < 0 || x > board.getLen());
 						System.out.println();
 						wallOk = joueur2.putWall(board,new Location(x, y));
-						tour++;
+						board.afficheGrid(joueur1, joueur2);
+						tour--;
 					}while (!wallOk);
 				}
 			}
 			
-		}while(!stop);*/
+		}while(!stop);
+		
 	}
 
 }

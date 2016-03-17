@@ -1,6 +1,6 @@
 package com.umons.model;
 
-public class Player {
+public class Player{
 
 	private Location loc;
 	private int numberOfWall;
@@ -29,32 +29,20 @@ public class Player {
 	 * Deplace le pion selon une direction (donné en tableau de coordonnées (x, y))
 	 * @param grid un objet de type Grid representant le tableau sur lequel le pion doit se deplacer
 	 * @param loc un objet Location correspondant à la case cible
+	 * @return true si le deplacement est autorisé, sinon false
 	 */
 	public boolean move(Grid board, Location loc) {
-		int[] tabDep = ARules.rDeplacement(this, loc);
-		if (tabDep[0] > 4 || tabDep[1] > 4) { return false; } //si l'utilisateur clique sur une  des case en dehors du carré autour du pion.
-		if ((tabDep[0] == 4 ^ tabDep[1] == 4) && ARules.rFaceToFace(this, loc)) {
-			board.setItemInGrid(this.loc, false);
-			setLoc(loc);
-			board.setItemInGrid(this.loc, true);
-			return true;
-			
-		    // ^ corespond a l'operateur XOR en bit a bit, aussi connu sous le nom : "ou exclusif"
-		}else if ((tabDep[0] == 2 ^ tabDep[1] == 2) && ARules.rMovePion(this, loc)) {	
-			board.setItemInGrid(this.loc, false);
-			setLoc(loc);
-			board.setItemInGrid(this.loc, true);
-			return true;
-			
-		}/*else if (tabDep[0] == 2 && tabDep[1] == 2 && ARules.rDiagFace(this, loc)) {
-			grid.setItemInGrid(loc.getLocY(), loc.getLocX(), false);
-			setLoc(loc);
-			grid.setItemInGrid(loc, true);
-			return true;	
-			
-		}*/else{
-			return false;
+		ARules.squareAvailable.clear();
+		ARules.rSquareAvailable(this);
+		for (int i =0; i < ARules.squareAvailable.size(); i++) {
+			if(ARules.squareAvailable.get(i).getLocX() == loc.getLocX() && ARules.squareAvailable.get(i).getLocY() == loc.getLocY()) {
+				board.setItemInGrid(this.loc, false);
+				this.loc = loc;
+				board.setItemInGrid(loc, true);
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	/**
