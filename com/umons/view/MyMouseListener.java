@@ -2,6 +2,9 @@ package com.umons.view;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
+
+import com.umons.model.Game;
+import com.umons.model.Grid;
 import com.umons.model.Location;
 import com.umons.model.Main;
 import com.umons.model.Player;
@@ -10,46 +13,58 @@ public class MyMouseListener implements MouseListener{
 
 	private int x1, y1;
 	final JPanel panel;
-	public static Location temp;
-	public MyMouseListener(JPanel panel) {
+	public static Location clickCoord;
+	Game game;
+	Player joueur1;
+	Player joueur2;
+	Grid board;
+	
+	
+	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
+	public MyMouseListener(Grid board, Player joueur1, Player joueur2, JPanel panel, Game game) {
 		this.panel = panel;
+		this.game = game;
+		this.joueur1 = joueur1; this.joueur2 = joueur2;
+		this.board = board;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		x1 = e.getX(); y1 = e.getY();
-		temp = new Location(x1, y1);
-		if (Main.tour == 1) {
-			while(MyMouseListener.temp == null){
-				System.out.println("dans la boucle du main");
+		clickCoord = new Location(x1, y1);
+		Location temp = clickCoord.pixelToCoord();
+		System.out.println("clickcoord: " + clickCoord);
+		if (game.getTour() == 0) {
+			System.out.println("temp (coordonnées du click transformé en coord tableau) : " + temp); 
+			System.out.println("test dans mymouselistener: " + joueur1.move(temp));
+			if (temp.lSquare() && joueur1.move(temp)) {
+				System.out.println("in carre et move ");
+				BoardGUI.locPawn1 = temp;
+				game.nextPlayer();
+				panel.repaint();
+			}else if (temp.isWallHorizontal() && joueur1.putWall(board, temp)){
+				BoardGUI.locWallHorizontal.add(temp);
+				game.nextPlayer();
+				panel.repaint();
+			}else if (temp.isWallVertical() && joueur1.putWall(board, temp)){
+				BoardGUI.locWallVertical.add(temp);
+				game.nextPlayer();
+				panel.repaint();
 			}
-			System.out.println("sorti du xhile dans main");
-			if (MyMouseListener.temp.pixelToCoord().lSquare()) {
-				System.out.println("in temp");
-				Main.locPawn1 = MyMouseListener.temp.pixelToCoord();
-				Main.tour++;
-			}else {
-				if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
-					Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
-					Main.tour++;
-				}else {
-					Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
-					Main.tour++;
-				}
-			}panel.repaint();
-		}else if (tour == 2){
-			if (MyMouseListener.temp.pixelToCoord().lSquare()) {
-				Main.locPawn2 = MyMouseListener.temp.pixelToCoord();
-				Main.tour--;
-			}else {
-				if (MyMouseListener.temp.pixelToCoord().isWallHorizontal()){
-					Main.locWallHorizontal.add(MyMouseListener.temp.pixelToCoord());
-					Main.tour--;
-				}else {
-					Main.locWallVertical.add(MyMouseListener.temp.pixelToCoord());
-					Main.tour--;
-				}
-			}panel.repaint();
+		}else if (game.getTour() == 1){
+			if (temp.lSquare() && joueur2.move(temp)) {
+				BoardGUI.locPawn2 = temp;
+				game.nextPlayer();
+				panel.repaint();
+			}else if (temp.isWallHorizontal() && joueur2.putWall(board, temp)){
+				BoardGUI.locWallHorizontal.add(temp);
+				game.nextPlayer();
+				panel.repaint();
+			}else if (temp.isWallVertical() && joueur2.putWall(board, temp)){
+				BoardGUI.locWallVertical.add(temp);
+				game.nextPlayer();
+				panel.repaint();
+			}
 		}
 		
 	}

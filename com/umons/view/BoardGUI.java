@@ -2,6 +2,8 @@ package com.umons.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import com.umons.model.*;
 
@@ -13,6 +15,7 @@ public class BoardGUI extends JPanel{
 	private static final long serialVersionUID = 1;
 	
 	public static int SQUARE_NUMBER = 9;
+	Game game;
 	Player player1;
 	Player player2;
 	//constante representant la taille des carre, des murs et des pions
@@ -22,11 +25,15 @@ public class BoardGUI extends JPanel{
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 25;
 	public static final int START_Y = 25;
+	//position des joueurs et des murs horizontaux et verticaux
+	public static Location locPawn1 = Player.POS1;
+	public static Location locPawn2 = Player.POS2;
+	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
+	public static ArrayList<Location>locWallVertical = new ArrayList<Location>();
 	
-	public BoardGUI(Player player1, Player player2) {
+	public BoardGUI(Game game, Player player1, Player player2) {
 		this.player1 = player1; this.player2 = player2;
-		System.out.println("coord player: " + player1.getLoc());
-		System.out.println("");
+		this.game = game;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -45,24 +52,24 @@ public class BoardGUI extends JPanel{
 			SPACE =0;
 			HEIGHT += lSquare + lWall;
 		}
-		if (Main.tour == 1) {
+		if (game.getTour() == 0) {
 			g2d.setColor(Color.ORANGE);
 			g2d.drawString("JOUEUR 1", 735, 60);
-		}else if (Main.tour == 2){
+		}else if (game.getTour() == 1){
 			g2d.setColor(Color.GREEN);
 			g2d.drawString("JOUEUR 2", 735, 60);
 		}
 		g2d.setColor(Color.ORANGE);
-		g2d.fillOval(Main.locPawn1.coordToPixel().getLocX(), Main.locPawn1.coordToPixel().getLocY(), lPawn, lPawn);
+		g2d.fillOval(locPawn1.coordToPixel().getLocX(), locPawn1.coordToPixel().getLocY(), lPawn, lPawn);
 		g2d.setColor(Color.GREEN);
-		g2d.fillOval(Main.locPawn2.coordToPixel().getLocX(), Main.locPawn2.coordToPixel().getLocY(), lPawn, lPawn);
+		g2d.fillOval(locPawn2.coordToPixel().getLocX(), locPawn2.coordToPixel().getLocY(), lPawn, lPawn);
 		g2d.setColor(Color.RED);
-		for (int i = 0; i < Main.locWallHorizontal.size(); i++) {
-			Location loc = Main.locWallHorizontal.get(i);
+		for (int i = 0; i < locWallHorizontal.size(); i++) {
+			Location loc = locWallHorizontal.get(i);
 			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
 		}
-		for (int i = 0; i < Main.locWallVertical.size(); i++) {
-			Location loc = Main.locWallVertical.get(i);
+		for (int i = 0; i < locWallVertical.size(); i++) {
+			Location loc = locWallVertical.get(i);
 			g2d.fillRect(loc.coordToPixel().getLocX()+5, loc.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
 		}
 	}

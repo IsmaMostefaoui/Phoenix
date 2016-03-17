@@ -9,7 +9,6 @@ import java.util.*;
 public abstract class ARules {
 
 	protected static Grid board;
-	List<Location> squareAvaliable = new ArrayList<Location>();
 	
 	//joueur doit être une variable d'instance, on l utilise partout
 	
@@ -33,12 +32,16 @@ public abstract class ARules {
 		return (inGrid && !ARules.rCheckWall(player, loc) && !board.getItem(loc).getFull());
 	}
 	
-	
-	/*surcharge pour pouvoir utiliser la méthode avec des coordonnées indépendante
-	public static boolean rMovePion(Player joueur, int x, int y) {
-		boolean inGrid = rStillInGrid(x, y);
-		return (inGrid && !Rules.rCheckWall(joueur.getPawnX(), joueur.getPawnY() , x, y) && !board.getItem(y, x).getFull());
-	}*/
+	/**
+	 * Vérifie si le pion peut sauter sur la case cible (pas de pion et pas de mur)
+	 * @param locPion un objet Location representant les coordonnées de la case cible
+	 * @param loc la position de la case cible
+	 * @return un boolean vrai si le pion peut bouger, faux sinon
+	 */
+	public static boolean rMovePion(Location locPion, Location loc) {
+		boolean inGrid = loc.inGrid(board) && locPion.inGrid(board);
+		return (inGrid && !ARules.rCheckWall(locPion, loc) && !board.getItem(loc).getFull());
+	}
 	
 	/**
 	 * @param joueur une instance de Player
@@ -56,16 +59,14 @@ public abstract class ARules {
 	
 	
 	
-	/**
+	/*
 	 * Vérifie si le joueur est dans une situation de faceToFace
 	 * @param joueur une instance de la class Player
 	 * @param tabCoord un tableau de type int contenant les coordonées (x, y) correspondant à la position ou le pion compte se rendre
 	 * @return true si le joueur peu sauter au dessus du Pion adverse(pas de mur derriere,pas en dehors du board de jeu),sinon false
-	 */
-	public static boolean rFaceToFace (Player joueur, Location loc) {
-		return true;
-	}
-	
+	 *
+	public abstract boolean rFaceToFace (Player joueur, Location loc);
+	*/
 	
 	/*
 	 * INUTILE FINALEMENT
@@ -137,7 +138,7 @@ public abstract class ARules {
 		}
 		return false;
 	}
-
+	
 	
 	/**
 	 * Check si un mur se situe dans la direction souhaitée
@@ -146,54 +147,222 @@ public abstract class ARules {
 	 * @return true s'il y a un mur false sinon
 	 */
 	public static boolean rCheckWall(Player player, Location loc) {
-		int ytemp = loc.getLocY() - player.getLoc().getLocY();
-		int xtemp = loc.getLocX() - player.getLoc().getLocX();
-		ytemp = loc.getLocY() + ytemp/2;
-		xtemp = loc.getLocX() + xtemp/2;
-		Location loctemp = new Location(xtemp, ytemp);
-		return loctemp.inGrid(board) && board.getItem(new Location(xtemp, ytemp)).getFull();
-	}
-	
-	/**
-	 * Check si un mur se situe dans la direction souhaitée
-	 * @param player l'instance du joueur qui doit verifier le mur
-	 * @param loc un objet Location représentant la position de la case cible
-	 * @return true s'il y a un mur false sinon
-	 */
-	public static boolean rCheckWall(int xPion, int yPion, Location loc) {
+		int xPion = player.getLoc().getLocX();
+		int yPion = player.getLoc().getLocX();
 		int ytemp = loc.getLocY() - yPion;
 		int xtemp = loc.getLocX() - xPion;
 		ytemp = loc.getLocY() + ytemp/2;
 		xtemp = loc.getLocX() + xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
-		return loctemp.inGrid(board) && board.getItem(new Location(xtemp, ytemp)).getFull();
+		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
 	
-	/*
-	//surcharge de checkWall pour pourvoir l'utiliser avec des coordonnées indépendante
+	
+	/**
+	 * Check si un mur se situe dans la direction souhaitée
+	 * @param locPion laocattion du pion courant
+	 * @param loc un objet Location représentant la position de la case cible
+	 * @return true s'il y a un mur false sinon
+	 */
+	public static boolean rCheckWall(Location locPion, Location loc) {
+		int ytemp = loc.getLocY() - locPion.getLocY();
+		int xtemp = loc.getLocX() - locPion.getLocX();
+		ytemp = loc.getLocY() + ytemp/2;
+		xtemp = loc.getLocX() + xtemp/2;
+		Location loctemp = new Location(xtemp, ytemp);
+		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
+	}
+	
 	/**
 	 * Check si un mur se situe dans la direction souhaitée
 	 * @param xPion la coordonnée x du pion
 	 * @param yPion la coordonnée y du pion
 	 * @param x et y les coordonées (x, y) correspondant à la position sur laquelle le pion compte se rendre
 	 * @return true s'il y a un mur false sinon
-	 *
+	 */
 	public static boolean rCheckWall(int xPion, int yPion, int x, int y) {
-		if (rStillInGrid(x, y)) { //ATTENTION, quand on regarde s'il n'y a pas de mur, on ne regarde plus si la postion est dans la grille
-								  // car quand on fait !rChecWall(), on aura vrai si l'item est vide en position ytemp et xtemp
-								  // mais on a aussi vrai quand rStillInGrid(x, y) retourne faux, et qu'on entre pas de le if !!!
-								  // a regler urgent !
-			int ytemp = y - yPion;
-			int xtemp = x - xPion; // inutile non ? Puisque c'est le meme calcul que dans facetoface
-			ytemp = yPion + ytemp/2; // mettre un test de stillingrid des qu'un param peut potentielment nous causer probleme
-			xtemp = xPion + xtemp/2; // donc a changer, je crois
-			return board.getItem(ytemp, xtemp).getFull();
-		}else {
-			return false;
+		int ytemp = y - yPion;
+		int xtemp = x - xPion;
+		ytemp = yPion + ytemp/2;
+		xtemp = xPion + xtemp/2;
+		Location loctemp = new Location(xtemp, ytemp);
+		return board.getItem(loctemp).getFull();
+	}
+	
+	
+	public static List<Location> rSquareAvailable(Player player) {
+		List<Location> squareAvailable = new ArrayList<Location>();
+		int x = player.getLoc().getLocX();
+		int y = player.getLoc().getLocY();
+		Location locUP = new Location(x, y -2);
+		if (!locUP.inGrid(board)) { locUP = null; }
+		Location locDOWN = new Location(x, y +2);
+		if (!locDOWN.inGrid(board)) { locDOWN = null; }
+		Location locLEFT = new Location(x-2, y);
+		if (!locLEFT.inGrid(board)) { locLEFT = null; }
+		Location locRIGHT = new Location(x+2, y);
+		if (!locRIGHT.inGrid(board)) { locRIGHT = null; }
+		//UP
+		if (locUP != null && !rCheckWall(player, locUP)) {
+			System.out.println("test dans arules in locup verification");
+			if (!board.getItem(locUP).getFull()) {
+				System.out.println("test de getitem");
+				squareAvailable.add(locUP);
+			}else if (locUP.inGrid(board) && !rCheckWall(locUP, locUP.squareUp()) && !board.getItem(locUP.squareUp()).getFull()){
+				squareAvailable.add(locUP.squareUp());
+			}else if (ARules.rMovePion(locUP, locUP.squareRight()) && !ARules.rCheckWall(locUP, locUP.squareRight()) && !squareAvailable.contains(locUP.squareRight())){
+				squareAvailable.add(locUP.squareRight());
+			}
 		}
-	}*/
+		//DOWN
+		if (locDOWN != null && !rCheckWall(player, locDOWN)) {
+			if (!board.getItem(locDOWN).getFull()) {
+				squareAvailable.add(locDOWN);
+			}else if (locDOWN.inGrid(board) && !rCheckWall(locDOWN, locDOWN.squareUp()) && !board.getItem(locDOWN.squareUp()).getFull()){
+				squareAvailable.add(locDOWN.squareUp());
+			}else if (ARules.rMovePion(locDOWN, locDOWN.squareRight()) && !ARules.rCheckWall(locDOWN, locDOWN.squareRight()) && !squareAvailable.contains(locDOWN.squareRight())){
+				squareAvailable.add(locDOWN.squareRight());
+			}
+		}
+		//RIGHT
+		if (locRIGHT != null && !rCheckWall(player, locRIGHT)) {
+			if (!board.getItem(locRIGHT).getFull()) {
+				squareAvailable.add(locRIGHT);
+			}else if (locRIGHT.inGrid(board) && !rCheckWall(locRIGHT, locRIGHT.squareUp()) && !board.getItem(locRIGHT.squareUp()).getFull()){
+				squareAvailable.add(locRIGHT.squareUp());
+			}else if (ARules.rMovePion(locRIGHT, locRIGHT.squareRight()) && !ARules.rCheckWall(locRIGHT, locRIGHT.squareRight()) && !squareAvailable.contains(locRIGHT.squareRight())){
+				squareAvailable.add(locRIGHT.squareRight());
+			}
+		}
+		//LEFT
+		if (locLEFT != null && !rCheckWall(player, locLEFT)) {
+			if (!board.getItem(locLEFT).getFull()) {
+				squareAvailable.add(locLEFT);
+			}else if (locLEFT.inGrid(board) && !rCheckWall(locLEFT, locLEFT.squareUp()) && !board.getItem(locLEFT.squareUp()).getFull()){
+				squareAvailable.add(locLEFT.squareUp());
+			}else if (ARules.rMovePion(locLEFT, locLEFT.squareRight()) && !ARules.rCheckWall(locLEFT, locLEFT.squareRight()) && !squareAvailable.contains(locLEFT.squareRight())){
+				squareAvailable.add(locLEFT.squareRight());
+			}
+		}
+		return squareAvailable;
+		
+		
+		
+		/*
+		//pas bon parce qu'alors, meme s'il y a un mur en face, tu l'autorise a aller dessus
+		if (rMovePion(player, locUP)) {
+			squareAvailable.add(locUP);		
+		}
+		if(rMovePion(player, locDOWN)) {
+			squareAvailable.add(locDOWN);
+		}
+		if(rMovePion(player, locLEFT)) {
+			squareAvailable.add(locLEFT);
+		}
+		if(rMovePion(player, locRIGHT)) {
+			squareAvailable.add(locRIGHT);
+		}
+		//Diago haut gauche et haut Droite + faceToFace UP
+		if (!rCheckWall(player, locUP)) { //si pas de mur UP
+			System.out.println("pas de mur");
+			if (locUP.inGrid(board) && board.getItem(locUP).getFull()) { // et que la case UP est remplie
+				Location locUPUP = new Location(locUP.getLocX(), locUP.getLocY() - 2); //LOC de la case upup (saut)
+				Location locDHG = new Location(locUP.getLocX() - 2, locUP.getLocY()); //loc de la pos en haut à gauche
+				Location locDHD = new Location(locUP.getLocX() + 2, locUP.getLocY()); //loc de la pos en haut à droite
+				Player joueurtempUP = new Player(locUP);//Instance player de la case UP pour utiliser les autres méthodes
+				System.out.println("jtUP = " + "[" + joueurtempUP.getLoc().getLocX()+ ", " + joueurtempUP.getLoc().getLocY() + "]");
+				if (rMovePion(joueurtempUP, locUPUP)) { //si on peut bouger de la case up à la case UPUP -> Saut
+					squareAvailable.add(locUPUP);
+					System.out.println("UPUP  " + "[" + locUPUP.getLocX()+ ", " + locUPUP.getLocY() + "]");
+				
+				}else if (rCheckWall(joueurtempUP, locUPUP) && (rMovePion(joueurtempUP, locDHG))) { //si il y a un mur au dessus de la case UP et case à gauche libre diagHG ok 
+					squareAvailable.add(locDHG);
+					System.out.println("DHG  " + "[" + locDHG.getLocX()+ ", " + locDHG.getLocY() + "]");
+					
+				}else if (rCheckWall(joueurtempUP,locUPUP) && (rMovePion(joueurtempUP, locDHD))) { //si il y a un mur au dessus de la case UP et case à droite libre diagHD ok
+					squareAvailable.add(locDHD);
+					System.out.println("DHD " + "[" + locDHD.getLocX()+ ", " + locDHD.getLocY() + "]");
+				}	
+			}	
+		}
+		
+		//Diago haut droite et bas droite + faceToFace Right 
+		else if (!rCheckWall(player, locRIGHT)) { //si pas de mur RIGHT
+			if (locRIGHT.inGrid(board) && board.getItem(locRIGHT).getFull()) { // et que la case RIGHT est remplie
+				Location locRIGHTRIGHT = new Location(locRIGHT.getLocX() + 2, locRIGHT.getLocY()); //LOC de la case RIGHT (saut)
+				Location locDHD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() -2); //loc de la pos en haut à droite VIA RIGHT
+				Location locDBD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() +2 ); //loc de la pos en Bas à droite
+				Player joueurtempRIGHT = new Player(locRIGHT);//Instance player de la case RIGHT pour utiliser les autres méthodes
+				if (rMovePion(joueurtempRIGHT, locRIGHTRIGHT)) { //si on peut bouger de la case RIGHT à la case RIGHRIGHT -> Saut
+					squareAvailable.add(locRIGHTRIGHT);
+					
+				}else if (rCheckWall(joueurtempRIGHT, locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDHD))) { //si il y a un mur au dessus de la case RIGHT et case en haut libre diagHD ok 
+					squareAvailable.add(locDHD);
+					System.out.println("DHD  " + "[" + locDHD.getLocX()+ ", " + locDHD.getLocY() + "]");
+					
+				}else if (rCheckWall(joueurtempRIGHT,locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDBD))) { //si il y a un mur en dessous  de la case right et case en bas libre diagHD ok
+					squareAvailable.add(locDBD);
+					System.out.println("DBD  " + "[" + locDBD.getLocX()+ ", " + locDBD.getLocY() + "]");
+				}		
+			}		
+		}
+		//Diago bas droite et bas gauche + faceToFace DOWN
+		else if (!rCheckWall(player, locDOWN)) { //si pas de mur DOWN
+			if (locDOWN.inGrid(board) && board.getItem(locDOWN).getFull()) { // et que la case DOWN est remplie
+				Location locDOWNDOWN = new Location(locDOWN.getLocX(), locDOWN.getLocY() +2 ); //LOC de la case DOWNDOWN (saut)
+				Location locDBG = new Location(locDOWN.getLocX() -2, locDOWN.getLocY()); //loc de la pos en BAS  à GAUCHE VIA RIGHT
+				Location locDBD = new Location(locDOWN.getLocX() +2, locDOWN.getLocY()); //loc de la pos en Bas à droite
+				Player joueurtempDOWN = new Player(locDOWN);//Instance player de la case DOWN pour utiliser les autres méthodes
+				if (rMovePion(joueurtempDOWN, locDOWNDOWN)) { //si on peut bouger de la case DOWN à la case DOWN -> Saut
+					squareAvailable.add(locDOWNDOWN);
+					System.out.println("DOWNDOWN  " + "[" + locDOWNDOWN.getLocX()+ ", " + locDOWNDOWN.getLocY() + "]");
+				
+				}else if (rCheckWall(joueurtempDOWN, locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBD))) { //si il y a un mur EN dessOus de la case DOWN et case en BAS DROITE libre diagBD ok 
+					squareAvailable.add(locDBD);
+					System.out.println("DBD  " + "[" + locDBD.getLocX()+ ", " + locDBD.getLocY() + "]");
+					
+				}else if (rCheckWall(joueurtempDOWN,locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBG))) { //si il y a un mur en dessous  de la case right et case en bas A GAUCHE libre diagBG ok
+					squareAvailable.add(locDBG);
+					System.out.println("DBG  " + "[" + locDBG.getLocX()+ ", " + locDBG.getLocY() + "]");
+				}	
+			}
+		}
+		//Diago HAUT GAUCHE et bas gauche + faceToFace LEFT
+		else if (!rCheckWall(player, locLEFT)) { //si pas de mur LEFT
+			if (locLEFT.inGrid(board) && board.getItem(locLEFT).getFull()) { // et que la case LEFT est remplie
+				Location locLEFTLEFT = new Location(locLEFT.getLocX() - 2, locLEFT.getLocY()); //LOC de la case LEFTLEFT (saut)
+				Location locDBG = new Location(locLEFT.getLocX(), locLEFT.getLocY() +2); //loc de la pos en BAS A GAUCHE VIA RIGHT
+				Location locDHG = new Location(locLEFT.getLocX(), locLEFT.getLocY() -2 ); //loc de la pos en HAUT A GAUCHE
+				Player joueurtempLEFT = new Player(locLEFT);//Instance player de la case LEFT pour utiliser les autres méthodes
+				if (rMovePion(joueurtempLEFT, locLEFTLEFT)) { //si on peut bouger de la case LEFT à la case LEFTLEFT -> Saut
+					squareAvailable.add(locLEFTLEFT);
+					System.out.println("LEFLEFT  " + "[" + locLEFTLEFT.getLocX()+ ", " + locLEFTLEFT.getLocY() + "]");
+				
+				}else if (rCheckWall(joueurtempLEFT, locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDBG))) { //si il y a un mur A GAUCHE de la case LEFT et case BAS GAUCHE LIBRE -> diagBG ok 
+					squareAvailable.add(locDBG);
+					System.out.println("DBG  " + "[" + locDBG.getLocX()+ ", " + locDBG.getLocY() + "]"); 
+					
+				}else if (rCheckWall(joueurtempLEFT,locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDHG))) { //si il y a un mur A GAUCHE  de la case LEFT et case en HAUT GAUCHE  libre diagHG ok
+					squareAvailable.add(locDHG);
+					System.out.println("DHG  " + "[" + locDHG.getLocX()+ ", " + locDHG.getLocY() + "]");
+				}
+				
+			}
+		}
+		
+		for (int i =0; i < squareAvailable.size(); i++) {
+			System.out.println("[" + squareAvailable.get(i).getLocX()+ ", " + squareAvailable.get(i).getLocY() + "]" ); //Test pour afficher les loc dans la listes
+		}
+		
+		squareAvailable.clear();
+		return null;*/
+	}
 	
 }
+	
+
+	
+
 	
 
 	

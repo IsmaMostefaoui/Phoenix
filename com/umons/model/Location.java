@@ -73,6 +73,25 @@ public class Location {
 		}
 		return new Location(xtemp, ytemp);
 	}
+	
+	
+	public Location squareUp() {
+		return new Location(x, y-2);
+	}
+	
+	public Location squareDown() {
+		return new Location(x, y+2);
+	}
+	
+	public Location squareLeft() {
+		return new Location (x-2, y);
+	}
+	
+	public Location squareRight() {
+		return new Location (x+2, y);
+	}
+	
+	
 
 	/**
 	 * Modifie les entrées consoles en coordonées de type Location

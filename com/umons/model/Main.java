@@ -10,11 +10,8 @@ import com.umons.view.MyMouseListener;
 import com.umons.view.QuoridorGUI;
 
 public class Main {
-
-	public static Location locPawn1 = Player.POS1;
-	public static Location locPawn2 = Player.POS2;
-	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
-	public static ArrayList<Location>locWallVertical = new ArrayList<Location>();
+	
+	
 	
 	public static void main(String[] args){
 		Player joueur1 = new Player(Player.POS1);
@@ -27,11 +24,11 @@ public class Main {
 		int x = 0;
 		int y = 0;
 		board.afficheGrid(joueur1, joueur2);
-		Game game = new Game(2);
+		Game game = new Game(board, 2);
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
-		JPanel panel = new BoardGUI(joueur1, joueur2);
+		JPanel panel = new BoardGUI(game, joueur1, joueur2);
 		panel.setFocusable(true);
-		panel.addMouseListener(new MyMouseListener(panel));
+		panel.addMouseListener(new MyMouseListener(board, joueur1, joueur2, panel, game));
 		frame.setContentPane(panel);
 		//LA PIRE BOUCLE DE TOUS LES TEMPS, ELLE TOURNE SANS CESSER... CE QUI A TENDANCE A FAIRE LAGUER LE PC, ESSAYE DE LANCER MAIN TU VA VOIR
 		/*
