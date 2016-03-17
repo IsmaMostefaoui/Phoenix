@@ -19,7 +19,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		// TEST EN LIGNE DE COMMANDE (FONCTIONELLE) //
+		// TEST EN LIGNE DE COMMANDE (FONCTION
 		Player joueur1 = new Player(Player.POS1);
 		Player joueur2 = new Player(Player.POS2);
 		Grid board = new Grid(joueur1, joueur2);

@@ -197,7 +197,7 @@ public abstract class ARules {
 	public static void rSquareAvailable(Player player) {
 		int x = player.getLoc().getLocX();
 		int y = player.getLoc().getLocY();
-		
+		//Location de toutes les cases autour du joueur
 		Location locUP = new Location(x, y -2);
 		Location locUPUP = new Location(locUP.getLocX(), locUP.getLocY() - 2); //LOC de la case upup (saut)
 
@@ -215,18 +215,6 @@ public abstract class ARules {
 		Location locDBD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() +2 ); //loc de la pos en Bas à droite
 		Location locDBG = new Location(locDOWN.getLocX() -2, locDOWN.getLocY()); //loc de la pos en BAS  à GAUCHE VIA down
 		
-		if (rMovePion(player, locUP)) {
-			squareAvailable.add(locUP);		
-		}
-		if(rMovePion(player, locDOWN)) {
-			squareAvailable.add(locDOWN);
-		}
-		if(rMovePion(player, locLEFT)) {
-			squareAvailable.add(locLEFT);
-		}
-		if(rMovePion(player, locRIGHT)) {
-			squareAvailable.add(locRIGHT);
-		}
 		//Diago haut gauche et haut Droite + faceToFace UP
 		if (!rCheckWall(player, locUP)) { //si pas de mur UP
 			if (locUP.inGrid(board) && board.getItem(locUP).getFull()) { // et que la case UP est remplie
@@ -240,7 +228,9 @@ public abstract class ARules {
 				if (rCheckWall(joueurtempUP,locUPUP) && (rMovePion(joueurtempUP, locDHD))) { //si il y a un mur au dessus de la case UP et case à droite libre diagHD ok
 					squareAvailable.add(locDHD);
 				}	
-			}	
+			}else if(locUP.inGrid(board)) {
+				squareAvailable.add(locUP);	
+			}
 		}
 		
 		//Diago haut droite et bas droite + faceToFace Right 
@@ -256,7 +246,9 @@ public abstract class ARules {
 				if (rCheckWall(joueurtempRIGHT,locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDBD))) { //si il y a un mur en dessous  de la case right et case en bas libre diagHD ok
 					squareAvailable.add(locDBD);
 				}		
-			}		
+			}else if(locRIGHT.inGrid(board)) {
+				squareAvailable.add(locRIGHT);
+			}
 		}
 		//Diago bas droite et bas gauche + faceToFace DOWN
 		if (!rCheckWall(player, locDOWN)) { //si pas de mur DOWN
@@ -271,6 +263,8 @@ public abstract class ARules {
 				if (rCheckWall(joueurtempDOWN,locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBG))) { //si il y a un mur en dessous  de la case right et case en bas A GAUCHE libre diagBG ok
 					squareAvailable.add(locDBG);
 				}	
+			}else if (locDOWN.inGrid(board)) {
+				squareAvailable.add(locDOWN);
 			}
 		}
 		//Diago HAUT GAUCHE et bas gauche + faceToFace LEFT
@@ -285,9 +279,13 @@ public abstract class ARules {
 				} 
 				if (rCheckWall(joueurtempLEFT,locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDHG))) { //si il y a un mur A GAUCHE  de la case LEFT et case en HAUT GAUCHE  libre diagHG ok
 					squareAvailable.add(locDHG);
-				}
-				
+				}	
+			}else if(locLEFT.inGrid(board)) { //si pas de mur et que la case n'est pas remplie
+				squareAvailable.add(locLEFT);
 			}
+		}
+		for (int i = 0; i < squareAvailable.size(); i++) {//TESt Pour voir tous les elements qui sont dans le tableau 
+			System.out.println("[" + squareAvailable.get(i).getLocX() + ", " + squareAvailable.get(i).getLocY() + "]");
 		}
 	}
 	
