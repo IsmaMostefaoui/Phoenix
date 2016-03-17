@@ -194,6 +194,116 @@ public abstract class ARules {
 		List<Location> squareAvailable = new ArrayList<Location>();
 		int x = player.getLoc().getLocX();
 		int y = player.getLoc().getLocY();
+		//Location de toutes les cases autour du joueur
+		Location locUP = new Location(x, y -2);
+		Location locUPUP = new Location(locUP.getLocX(), locUP.getLocY() - 2); //LOC de la case upup (saut)
+
+		Location locDOWN = new Location(x, y +2);
+		Location locDOWNDOWN = new Location(locDOWN.getLocX(), locDOWN.getLocY() +2 ); //LOC de la case DOWNDOWN (saut)
+	
+		Location locLEFT = new Location(x-2, y);
+		Location locLEFTLEFT = new Location(locLEFT.getLocX() - 2, locLEFT.getLocY()); //LOC de la case LEFTLEFT (saut)
+	
+		Location locRIGHT = new Location(x+2, y);
+		Location locRIGHTRIGHT = new Location(locRIGHT.getLocX() + 2, locRIGHT.getLocY()); //LOC de la case RIGHT (saut)
+		
+		Location locDHG = new Location(locUP.getLocX() - 2, locUP.getLocY()); //loc de la pos en haut à gauche
+		Location locDHD = new Location(locUP.getLocX() + 2, locUP.getLocY()); //loc de la pos en haut à droite
+		Location locDBD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() +2 ); //loc de la pos en Bas à droite
+		Location locDBG = new Location(locDOWN.getLocX() -2, locDOWN.getLocY()); //loc de la pos en BAS  à GAUCHE VIA down
+		
+		//Diago haut gauche et haut Droite + faceToFace UP
+		if (!rCheckWall(player, locUP)) { //si pas de mur UP
+			if (locUP.inGrid(board) && board.getItem(locUP).getFull()) { // et que la case UP est remplie
+				Player joueurtempUP = new Player(locUP);//Instance player de la case UP pour utiliser les autres méthodes
+				if (rMovePion(joueurtempUP, locUPUP)) { //si on peut bouger de la case up à la case UPUP -> Saut
+					squareAvailable.add(locUPUP);
+				} 
+				if (rCheckWall(joueurtempUP, locUPUP) && (rMovePion(joueurtempUP, locDHG))) { //si il y a un mur au dessus de la case UP et case à gauche libre diagHG ok 
+					squareAvailable.add(locDHG);
+				} 
+				if (rCheckWall(joueurtempUP,locUPUP) && (rMovePion(joueurtempUP, locDHD))) { //si il y a un mur au dessus de la case UP et case à droite libre diagHD ok
+					squareAvailable.add(locDHD);
+				}	
+			}else if(locUP.inGrid(board)) {
+				squareAvailable.add(locUP);	
+			}
+		}
+		
+		//Diago haut droite et bas droite + faceToFace Right 
+		if (!rCheckWall(player, locRIGHT)) { //si pas de mur RIGHT
+			if (locRIGHT.inGrid(board) && board.getItem(locRIGHT).getFull()) { // et que la case RIGHT est remplie
+				Player joueurtempRIGHT = new Player(locRIGHT);//Instance player de la case RIGHT pour utiliser les autres méthodes
+				if (rMovePion(joueurtempRIGHT, locRIGHTRIGHT)) { //si on peut bouger de la case RIGHT à la case RIGHRIGHT -> Saut
+					squareAvailable.add(locRIGHTRIGHT);	
+				} 
+				if (rCheckWall(joueurtempRIGHT, locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDHD))) { //si il y a un mur au dessus de la case RIGHT et case en haut libre diagHD ok 
+					squareAvailable.add(locDHD);	
+				} 
+				if (rCheckWall(joueurtempRIGHT,locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDBD))) { //si il y a un mur en dessous  de la case right et case en bas libre diagHD ok
+					squareAvailable.add(locDBD);
+				}		
+			}else if(locRIGHT.inGrid(board)) {
+				squareAvailable.add(locRIGHT);
+			}
+		}
+		//Diago bas droite et bas gauche + faceToFace DOWN
+		if (!rCheckWall(player, locDOWN)) { //si pas de mur DOWN
+			if (locDOWN.inGrid(board) && board.getItem(locDOWN).getFull()) { // et que la case DOWN est remplie
+				Player joueurtempDOWN = new Player(locDOWN);//Instance player de la case DOWN pour utiliser les autres méthodes
+				if (rMovePion(joueurtempDOWN, locDOWNDOWN)) { //si on peut bouger de la case DOWN à la case DOWN -> Saut
+					squareAvailable.add(locDOWNDOWN);
+				} 
+				if (rCheckWall(joueurtempDOWN, locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBD))) { //si il y a un mur EN dessOus de la case DOWN et case en BAS DROITE libre diagBD ok 
+					squareAvailable.add(locDBD);
+				} 
+				if (rCheckWall(joueurtempDOWN,locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBG))) { //si il y a un mur en dessous  de la case right et case en bas A GAUCHE libre diagBG ok
+					squareAvailable.add(locDBG);
+				}	
+			}else if (locDOWN.inGrid(board)) {
+				squareAvailable.add(locDOWN);
+			}
+		}
+		//Diago HAUT GAUCHE et bas gauche + faceToFace LEFT
+		if (!rCheckWall(player, locLEFT)) { //si pas de mur LEFT	
+			if (locLEFT.inGrid(board) && board.getItem(locLEFT).getFull()) { // et que la case LEFT est remplie
+				Player joueurtempLEFT = new Player(locLEFT);//Instance player de la case LEFT pour utiliser les autres méthodes
+				if (rMovePion(joueurtempLEFT, locLEFTLEFT)) { //si on peut bouger de la case LEFT à la case LEFTLEFT -> Saut
+					squareAvailable.add(locLEFTLEFT);
+				} 
+				if (rCheckWall(joueurtempLEFT, locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDBG))) { //si il y a un mur A GAUCHE de la case LEFT et case BAS GAUCHE LIBRE -> diagBG ok 
+					squareAvailable.add(locDBG);
+				} 
+				if (rCheckWall(joueurtempLEFT,locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDHG))) { //si il y a un mur A GAUCHE  de la case LEFT et case en HAUT GAUCHE  libre diagHG ok
+					squareAvailable.add(locDHG);
+				}	
+			}else if(locLEFT.inGrid(board)) { //si pas de mur et que la case n'est pas remplie
+				squareAvailable.add(locLEFT);
+			}
+		}
+		for (int i = 0; i < squareAvailable.size(); i++) {//TESt Pour voir tous les elements qui sont dans le tableau 
+			System.out.println("[" + squareAvailable.get(i).getLocX() + ", " + squareAvailable.get(i).getLocY() + "]");
+		}
+		return squareAvailable;
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		int x = player.getLoc().getLocX();
+		int y = player.getLoc().getLocY();
 		Location locUP = new Location(x, y -2);
 		if (!locUP.inGrid(board)) { locUP = null; }
 		Location locDOWN = new Location(x, y +2);
@@ -248,7 +358,7 @@ public abstract class ARules {
 			System.out.println("element " + i + " : " + squareAvailable.get(i));
 		}
 		return squareAvailable;
-		
+		*/
 		
 		
 		/*
@@ -359,7 +469,6 @@ public abstract class ARules {
 		
 		squareAvailable.clear();
 		return null;*/
-	}
 	
 }
 	
