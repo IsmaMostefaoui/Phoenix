@@ -2,6 +2,8 @@ package com.umons.model;
 
 import java.util.List;
 
+import com.umons.view.BoardGUI;
+
 public class Player {
 
 	private Location loc;
@@ -32,14 +34,17 @@ public class Player {
 	 * @param grid un objet de type Grid representant le tableau sur lequel le pion doit se deplacer
 	 * @param loc un objet Location correspondant à la case cible
 	 */
-	public boolean move(Location loc) {
+	public boolean move(Grid board, Location loc) {
+		//ATTENTION JE NE CHANGE PAS LA POSTION DU PION SUR LA GRILLE
 		List<Location> list = ARules.rSquareAvailable(this);
-		System.out.println("loc dans move ans player: " + loc);
-		System.out.println("toutes les loc de la list dans player ");
+		System.out.println("loc dans move dans player: " + loc);
+		System.out.println("--Toutes les loc de la list dans player :");
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println("element " + i + " : " + list.get(i));
-			if (list.get(i).equals(loc)) {
-				System.out.println("oui je suis dedans");
+			if (list.get(i).isEquals(loc)) {
+				board.getItem(this.getLoc()).setFull(false);
+				this.setLoc(loc);
+				board.getItem(this.getLoc()).setFull(true);
 				return true;
 			}
 		}

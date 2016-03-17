@@ -203,6 +203,8 @@ public abstract class ARules {
 		Location locRIGHT = new Location(x+2, y);
 		if (!locRIGHT.inGrid(board)) { locRIGHT = null; }
 		//UP
+		System.out.println("aaaaa");
+		System.out.println("locup != null " + (locUP != null) + " rcheckwall " + rCheckWall(player, locUP));
 		if (locUP != null && !rCheckWall(player, locUP)) {
 			System.out.println("test dans arules in locup verification");
 			if (!board.getItem(locUP).getFull()) {

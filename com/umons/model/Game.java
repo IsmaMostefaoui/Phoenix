@@ -21,7 +21,7 @@ public class Game {
 
 	public boolean play(Player player, Location loc) {
 		if (loc.lSquare()) {
-			return player.move(loc);
+			return player.move(board, loc);
 		}else if (loc.isWallHorizontal() || loc.isWallVertical()) {
 			return player.putWall(board, loc);
 		}return false;

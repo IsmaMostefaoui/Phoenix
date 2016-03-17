@@ -36,9 +36,10 @@ public class MyMouseListener implements MouseListener{
 		System.out.println("clickcoord: " + clickCoord);
 		if (game.getTour() == 0) {
 			System.out.println("temp (coordonnées du click transformé en coord tableau) : " + temp); 
-			System.out.println("test dans mymouselistener: " + joueur1.move(temp));
-			if (temp.lSquare() && joueur1.move(temp)) {
+			System.out.println("est ce que la case 8, 12 est remplie ? >>> " + board.getItem(new Location(8, 12)).getFull());
+			if (temp.lSquare() && joueur1.move(board, temp)) {
 				System.out.println("in carre et move ");
+				board.afficheGrid(joueur1, joueur2);
 				BoardGUI.locPawn1 = temp;
 				game.nextPlayer();
 				panel.repaint();
@@ -52,7 +53,7 @@ public class MyMouseListener implements MouseListener{
 				panel.repaint();
 			}
 		}else if (game.getTour() == 1){
-			if (temp.lSquare() && joueur2.move(temp)) {
+			if (temp.lSquare() && joueur2.move(board, temp)) {
 				BoardGUI.locPawn2 = temp;
 				game.nextPlayer();
 				panel.repaint();
