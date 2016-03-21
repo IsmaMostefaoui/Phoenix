@@ -36,43 +36,67 @@ public class Location {
 	public Location pixelToCoord() {
 		int xtemp = -1;
 		int ytemp = -1;
-		if (x < 0 || x > 810 || y < 0 || y > 810) {
+		if (x < BoardGUI.lWall || x > 810 || y < BoardGUI.lWall || y > 810) {
 			return new Location(-1, -1);
 		}
 		for (int i = 0; i < BoardGUI.SQUARE_NUMBER; i++) {
 			//carre
-			if (x >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.lWall && x <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + BoardGUI.lWall)) {
+			if (x >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.START_X && x <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + BoardGUI.START_X)) {
 				xtemp = 2*i;
 			//fente
-			}else if (x >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.lWall+BoardGUI.lSquare && x <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + 2*BoardGUI.lWall)){
+			}else if (x >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.START_X+BoardGUI.lSquare && x <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + BoardGUI.START_X + BoardGUI.lWall)){
 				xtemp = (2*i)+1;
 			}
-			if (y >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.lWall && y <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + BoardGUI.lWall)) {
+			if (y >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.START_Y && y <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + BoardGUI.START_Y)) {
 				ytemp = 2*i;
-			}else if (y >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.lWall+BoardGUI.lSquare && y <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare + 2*BoardGUI.lWall)){
+			}else if (y >= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + BoardGUI.START_Y+BoardGUI.lSquare && y <= (i)*(BoardGUI.lWall+BoardGUI.lSquare) + (BoardGUI.lSquare +  BoardGUI.START_Y + BoardGUI.lWall)){
 				ytemp = (2*i)+1;
 			}
 		}return new Location(xtemp, ytemp);
 	}
 	
 	public Location coordToPixel() {
-		int xtemp, ytemp;
+		int xtemp;
+		int ytemp;
 		if (this.x == 0) {
-			xtemp = BoardGUI.lWall;
+			xtemp = BoardGUI.START_X;
+		}else if (this.x == 1){
+			xtemp = BoardGUI.START_X + BoardGUI.lSquare;
 		}else if (this.x % 2 == 0) {
-			xtemp = BoardGUI.lWall + x/2*(BoardGUI.lSquare + BoardGUI.lWall);
+			xtemp = BoardGUI.START_X + x/2*(BoardGUI.lSquare + BoardGUI.lWall);
 		}else {
-			xtemp = (BoardGUI.lWall + BoardGUI.lSquare) + x*BoardGUI.lWall + BoardGUI.lSquare;
+			xtemp = BoardGUI.START_X + BoardGUI.lSquare + (x/2)*(BoardGUI.lSquare + BoardGUI.lWall);
 		}
 		if (this.y == 0) {
-			ytemp = BoardGUI.lWall;
+			ytemp = BoardGUI.START_Y;
+		}else if (this.y == 1) {
+			ytemp = BoardGUI.START_Y + BoardGUI.lSquare;
 		}else if (this.y % 2 == 0) {
-			ytemp = BoardGUI.lWall + y/2*(BoardGUI.lSquare + BoardGUI.lWall);
+			ytemp = BoardGUI.START_Y + y/2*(BoardGUI.lSquare + BoardGUI.lWall);
 		}else {
-			ytemp = (BoardGUI.lWall + BoardGUI.lSquare) + y*BoardGUI.lWall + BoardGUI.lSquare;
+			ytemp = BoardGUI.START_Y + BoardGUI.lSquare + (y/2)*(BoardGUI.lSquare + BoardGUI.lWall);
 		}
 		return new Location(xtemp, ytemp);
 	}
+	
+	
+	public Location squareUp() {
+		return new Location(x, y-2);
+	}
+	
+	public Location squareDown() {
+		return new Location(x, y+2);
+	}
+	
+	public Location squareLeft() {
+		return new Location (x-2, y);
+	}
+	
+	public Location squareRight() {
+		return new Location (x+2, y);
+	}
+	
+	
 
 	/**
 	 * Modifie les entrées consoles en coordonées de type Location
