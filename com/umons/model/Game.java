@@ -28,4 +28,16 @@ public class Game {
 
 	}
 	
+	public boolean win(Player player) {
+		if (player.getOrder() == 1) {
+			return player.getLoc().isEquals(Player.POS2);
+		}else if (player.getOrder() == 2) {
+			return player.getLoc().isEquals(Player.POS1);
+		}else if (player.getOrder() == 3) {
+			return player.getLoc().isEquals(Player.POS4);
+		}else if (player.getOrder() == 4) {
+			return player.getLoc().isEquals(Player.POS3);
+		}return false;
+	}
+
 }

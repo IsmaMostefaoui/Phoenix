@@ -14,8 +14,8 @@ public class Main {
 	
 	
 	public static void main(String[] args){
-		Player joueur1 = new Player(Player.POS1);
-		Player joueur2 = new Player(Player.POS2);
+		Player joueur1 = new Player(Player.POS1, 1);
+		Player joueur2 = new Player(Player.POS2, 2);
 		Grid board = new Grid(joueur1, joueur2);
 		Rules rules = new Rules(board);
 		System.out.println("***DEBUT DU TEST***");

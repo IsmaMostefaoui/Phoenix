@@ -126,13 +126,13 @@ public abstract class ARules {
 		if (loc.isWallHorizontal()) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				loctemp = new Location(j, loc.getLocY());
-				if (!loctemp.inGrid(board) && board.getItem(new Location(j, loc.getLocY())).getFull())
+				if (!loctemp.inGrid(board) || board.getItem(new Location(j, loc.getLocY())).getFull())
 					return false;	
 			}return true;
 		}else if (loc.isWallVertical()){
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				loctemp = new Location(loc.getLocX(), i);
-				if (!loctemp.inGrid(board) && board.getItem(new Location(loc.getLocX(), i)).getFull())
+				if (!loctemp.inGrid(board) || board.getItem(new Location(loc.getLocX(), i)).getFull())
 					return false;	
 			}return true;
 		}
@@ -151,8 +151,8 @@ public abstract class ARules {
 		int yPion = player.getLoc().getLocY();
 		int ytemp = loc.getLocY() - yPion;
 		int xtemp = loc.getLocX() - xPion;
-		ytemp = loc.getLocY() + ytemp/2;
-		xtemp = loc.getLocX() + xtemp/2;
+		ytemp = yPion + ytemp/2;
+		xtemp = xPion + xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
 		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
@@ -167,8 +167,8 @@ public abstract class ARules {
 	public static boolean rCheckWall(Location locPion, Location loc) {
 		int ytemp = loc.getLocY() - locPion.getLocY();
 		int xtemp = loc.getLocX() - locPion.getLocX();
-		ytemp = loc.getLocY() - ytemp/2;
-		xtemp = loc.getLocX() - xtemp/2;
+		ytemp = locPion.getLocY() + ytemp/2;
+		xtemp = locPion.getLocX() + xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
 		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
@@ -215,7 +215,7 @@ public abstract class ARules {
 		//Diago haut gauche et haut Droite + faceToFace UP
 		if (!rCheckWall(player, locUP)) { //si pas de mur UP
 			if (locUP.inGrid(board) && board.getItem(locUP).getFull()) { // et que la case UP est remplie
-				Player joueurtempUP = new Player(locUP);//Instance player de la case UP pour utiliser les autres méthodes
+				Player joueurtempUP = new Player(locUP, 1);//Instance player de la case UP pour utiliser les autres méthodes
 				if (rMovePion(joueurtempUP, locUPUP)) { //si on peut bouger de la case up à la case UPUP -> Saut
 					squareAvailable.add(locUPUP);
 				} 
@@ -233,7 +233,7 @@ public abstract class ARules {
 		//Diago haut droite et bas droite + faceToFace Right 
 		if (!rCheckWall(player, locRIGHT)) { //si pas de mur RIGHT
 			if (locRIGHT.inGrid(board) && board.getItem(locRIGHT).getFull()) { // et que la case RIGHT est remplie
-				Player joueurtempRIGHT = new Player(locRIGHT);//Instance player de la case RIGHT pour utiliser les autres méthodes
+				Player joueurtempRIGHT = new Player(locRIGHT, 1);//Instance player de la case RIGHT pour utiliser les autres méthodes
 				if (rMovePion(joueurtempRIGHT, locRIGHTRIGHT)) { //si on peut bouger de la case RIGHT à la case RIGHRIGHT -> Saut
 					squareAvailable.add(locRIGHTRIGHT);	
 				} 
@@ -250,7 +250,7 @@ public abstract class ARules {
 		//Diago bas droite et bas gauche + faceToFace DOWN
 		if (!rCheckWall(player, locDOWN)) { //si pas de mur DOWN
 			if (locDOWN.inGrid(board) && board.getItem(locDOWN).getFull()) { // et que la case DOWN est remplie
-				Player joueurtempDOWN = new Player(locDOWN);//Instance player de la case DOWN pour utiliser les autres méthodes
+				Player joueurtempDOWN = new Player(locDOWN, 1);//Instance player de la case DOWN pour utiliser les autres méthodes
 				if (rMovePion(joueurtempDOWN, locDOWNDOWN)) { //si on peut bouger de la case DOWN à la case DOWN -> Saut
 					squareAvailable.add(locDOWNDOWN);
 				} 
@@ -267,7 +267,7 @@ public abstract class ARules {
 		//Diago HAUT GAUCHE et bas gauche + faceToFace LEFT
 		if (!rCheckWall(player, locLEFT)) { //si pas de mur LEFT	
 			if (locLEFT.inGrid(board) && board.getItem(locLEFT).getFull()) { // et que la case LEFT est remplie
-				Player joueurtempLEFT = new Player(locLEFT);//Instance player de la case LEFT pour utiliser les autres méthodes
+				Player joueurtempLEFT = new Player(locLEFT, 1);//Instance player de la case LEFT pour utiliser les autres méthodes
 				if (rMovePion(joueurtempLEFT, locLEFTLEFT)) { //si on peut bouger de la case LEFT à la case LEFTLEFT -> Saut
 					squareAvailable.add(locLEFTLEFT);
 				} 
@@ -284,23 +284,10 @@ public abstract class ARules {
 		for (int i = 0; i < squareAvailable.size(); i++) {//TESt Pour voir tous les elements qui sont dans le tableau 
 			System.out.println("[" + squareAvailable.get(i).getLocX() + ", " + squareAvailable.get(i).getLocY() + "]");
 		}
+		
+		
 		return squareAvailable;
 	}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		/*
 		int x = player.getLoc().getLocX();
 		int y = player.getLoc().getLocY();
@@ -359,7 +346,6 @@ public abstract class ARules {
 		}
 		return squareAvailable;
 		*/
-		
 		
 		/*
 		//pas bon parce qu'alors, meme s'il y a un mur en face, tu l'autorise a aller dessus
@@ -470,10 +456,8 @@ public abstract class ARules {
 		squareAvailable.clear();
 		return null;*/
 	
-}
-	
 
-	
+}	
 
 	
 

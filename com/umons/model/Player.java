@@ -9,6 +9,7 @@ public class Player {
 	private Location loc;
 	private int numberOfWall;
 	private final int NB_WALL = 10;
+	private final int orderNumber;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
 	public final static Location POS1 = new Location(8, 16);
 	public final static Location POS2 = new Location(8, 0);
@@ -19,14 +20,16 @@ public class Player {
 	 * Initialise un joueur avec une position
 	 * @param loc un objet de type Location, la position du joueur sur la grille
 	 */
-	public Player(Location loc) {
+	public Player(Location loc, int orderNumber) {
 		this.loc = loc;
 		numberOfWall = NB_WALL;
+		this.orderNumber = orderNumber;
 	}
 	
-	public Player(Location loc, int nbreOfWall) {
+	public Player(Location loc, int nbreOfWall, int orderNumber) {
 		this.loc = loc;
 		this.numberOfWall = nbreOfWall;
+		this.orderNumber = orderNumber;
 	}
 	
 	/**
@@ -117,5 +120,13 @@ public class Player {
 	
 	public int getNbreOfWall() {
 		return numberOfWall;
+	}
+	
+	/**
+	 * getter
+	 * @return le "numero" du joueur (joueur 1, 2, 3 ou 4)
+	 */
+	public int getOrder() {
+		return orderNumber;
 	}
 }
