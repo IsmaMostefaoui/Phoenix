@@ -1,8 +1,5 @@
 package com.umons.model;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import javax.swing.JPanel;
 
 import com.umons.view.BoardGUI;
@@ -10,18 +7,10 @@ import com.umons.view.MyMouseListener;
 import com.umons.view.QuoridorGUI;
 
 public class Main {
-
-	public static int tour = 1;
-	public static Location locPawn1 = Player.POS1;
-	public static Location locPawn2 = Player.POS2;
-	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
-	public static ArrayList<Location>locWallVertical = new ArrayList<Location>();
 	
 	public static void main(String[] args){
-		
-		// TEST EN LIGNE DE COMMANDE (FONCTION
-		Player joueur1 = new Player(Player.POS1);
-		Player joueur2 = new Player(Player.POS2);
+		Player joueur1 = new Player(Player.POS1, 1);
+		Player joueur2 = new Player(Player.POS2, 2);
 		Grid board = new Grid(joueur1, joueur2);
 		Rules rules = new Rules(board);
 		System.out.println("***DEBUT DU TEST***");
@@ -30,14 +19,15 @@ public class Main {
 		int x = 0;
 		int y = 0;
 		board.afficheGrid(joueur1, joueur2);
-		int choix = 0;
-		Scanner sc = new Scanner(System.in);
-		String direction = "";
-		boolean stop = false;
-		
-		
-		
-		
+		Game game = new Game(board, 2);
+		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
+		JPanel panel = new BoardGUI(game, joueur1, joueur2);
+		panel.setFocusable(true);
+		panel.addMouseListener(new MyMouseListener(board, joueur1, joueur2, panel, game));
+		frame.setContentPane(panel);
+		//LA PIRE BOUCLE DE TOUS LES TEMPS, ELLE TOURNE SANS CESSER... CE QUI A TENDANCE A FAIRE LAGUER LE PC, ESSAYE DE LANCER MAIN TU VA VOIR
+		/*
+>>>>>>> pumpGui
 		do{
 			if (tour == 1) {
 				System.out.println("Joueur1, Pion ou Mur (1 ou 2) >>> ");
@@ -105,7 +95,6 @@ public class Main {
 			}
 			
 		}while(!stop);
-		
+	*/	
 	}
-
 }
