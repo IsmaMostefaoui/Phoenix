@@ -54,23 +54,24 @@ public class Player{
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Grid board, Location loc){
-		System.out.println("test in putwall: " + ARules.rSlotFull(loc));
-		if (loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc)) {
-			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
-				board.setItemInGrid(new Location(j, loc.getLocY()), true);
-			}
-			numberOfWall--; //anticipation pour quand on va devoir check si il a encore des murs etc...
-			return true;
+		if (numberOfWall > 0) {
+			if (loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc)) {
+				for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
+					board.setItemInGrid(new Location(j, loc.getLocY()), true);
+				}
+				numberOfWall--; //anticipation pour quand on va devoir check si il a encore des murs etc...
+				return true;
 			
-		}else if (loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc)) {
-			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
-				board.setItemInGrid(new Location(loc.getLocX(), i), true);
+			}else if (loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc)) {
+				for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
+					board.setItemInGrid(new Location(loc.getLocX(), i), true);
+				}
+				numberOfWall--;
+				return true;
 			}
-			numberOfWall--;
-			return true;
+			return false;
 		}
-		System.out.println("impossible de placer un mur à cet endroit");
-		return false; 
+		return false;
 	}
 	
 	
