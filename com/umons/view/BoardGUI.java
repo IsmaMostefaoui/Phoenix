@@ -43,19 +43,6 @@ public class BoardGUI extends JPanel{
 	public static Location locPawn2 = Player.POS2;
 	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
 	public static ArrayList<Location>locWallVertical = new ArrayList<Location>();
-	Font customFont;
-	
-	{try {
-        //create the font to use. Specify the size!
-        customFont = Font.createFont(Font.TRUETYPE_FONT, new File("misc\\FunSized.ttf")).deriveFont(15f);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        //register the font
-        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("misc\\FunSized.ttf")));
-    }catch (IOException e1) {
-        e1.printStackTrace();
-    }catch(FontFormatException e){
-        e.printStackTrace();
-    }}
 	
 	public BoardGUI(Game game, Player player1, Player player2) {
 		this.player1 = player1; this.player2 = player2;
@@ -75,15 +62,14 @@ public class BoardGUI extends JPanel{
 		
 		drawWallHorizontal(g2d, new Color(100, 0, 0));
 		drawWallVertical(g2d, new Color(200, 0, 0));
-			//temporaire
-			if (game.getTour() == 0) {
-				System.out.println("in");
-				g2d.setColor(new Color(100, 250, 50));
-				g2d.drawString("JOUEUR 1", 750, 20);
-			}else if (game.getTour() == 1){
-				g2d.setColor(new Color(100, 50, 250));
-				g2d.drawString("JOUEUR 2", 750, 20);
-			}//temporaire
+		if (game.getTour() == 0) {
+			System.out.println("in");
+			g2d.setColor(new Color(100, 250, 50));
+			g2d.drawString("JOUEUR 1", 750, 20);
+		}else if (game.getTour() == 1){
+			g2d.setColor(new Color(100, 50, 250));
+			g2d.drawString("JOUEUR 2", 750, 20);
+		}
 	}
 	/**
 	 * Dessine un Cercle dans la grille representant le Pion d'un joueur
@@ -117,7 +103,6 @@ public class BoardGUI extends JPanel{
 		if (numberOfWall != 10) {
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font ("Comic Sans Ms", Font.BOLD, 15));
-			g2d.setFont(customFont);
 			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 23, locPawn.coordToPixel().getLocY() + 33);
 		}
 		/*
@@ -202,5 +187,8 @@ public class BoardGUI extends JPanel{
 	
 	public void drawPreviewWall() {
 		
+	}
+	
+	public void drawVictory(Graphics g2d) {
 	}
 }

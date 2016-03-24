@@ -195,7 +195,6 @@ public class Location {
 	public boolean inGrid(Grid board) {
 		return ((getLocX() >= 0) && (getLocX() < board.getLen()) && (getLocY() >= 0 && getLocY() < board.getLen()));
 	}
-	
 
 	
 	/**
@@ -204,6 +203,7 @@ public class Location {
 	 * @return true si les Objets Location ont les mêmes attributs x et y, sinon false
 	 */
 	public boolean equals(Location loc) {
+		Location loc = (Location) obj;
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}
 	
