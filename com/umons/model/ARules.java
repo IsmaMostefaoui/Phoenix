@@ -113,7 +113,7 @@ public abstract class ARules {
 	 * @return un boolean, true si le mur peut potentiellement être posé à cette position, sinon false
 	 */
 	public static boolean rPutWall(Location loc) {
-		return !loc.lSquare();
+		return !loc.isSquare();
 	}
 	
 	/**

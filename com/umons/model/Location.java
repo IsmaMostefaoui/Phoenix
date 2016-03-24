@@ -138,7 +138,7 @@ public class Location {
 	 * 
 	 * @return true si la case est square, false si c'est un wall
 	 */
-	public boolean lSquare() {
+	public boolean isSquare() {
 		return getLocX() % 2 == 0 && getLocY() % 2 == 0;
 	}
 	
@@ -159,7 +159,7 @@ public class Location {
 		return ((getLocX() >= 0) && (getLocX() < board.getLen()) && (getLocY() >= 0 && getLocY() < board.getLen()));
 	}
 	
-	public boolean isEquals(Location loc) {
+	public boolean equals(Location loc) {
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}
 	

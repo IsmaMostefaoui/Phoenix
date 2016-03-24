@@ -82,9 +82,9 @@ public class Grid {
 				System.out.print("" + i + " ");
 			}
 			for (int j = 0; j < board.length; j++) {
-				if (player1.getLoc().isEquals(board[i][j].getLocation())) {
+				if (player1.getLoc() == board[i][j].getLocation()) {
 					System.out.print("[1]");
-				}else if (player2.getLoc().isEquals(board[i][j].getLocation())) {
+				}else if (player2.getLoc() == board[i][j].getLocation()) {
 					System.out.print("[2]");
 				}else {
 					System.out.print(board[i][j]);
@@ -93,17 +93,6 @@ public class Grid {
 			System.out.println();
 		}
 		System.out.println("    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16");
-	}
-	
-	/**
-	 * Rempli ou non  la case
-	 * @param x est l'abcisse
-	 * @param y l'ordonnée
-	 * @param full le caractère rempli de la case associé à la position (i, j)
-	 */
-	public void setItemInGrid(int x, int y, boolean full) {
-		
-		board[y][x].setFull(full);
 	}
 	
 	/**
@@ -124,8 +113,24 @@ public class Grid {
 		return board[loc.getLocY()][loc.getLocX()];
 	}
 
+	/**
+	 * Rempli ou non  la case
+	 * @param x est l'abcisse
+	 * @param y l'ordonnée
+	 * @param full le caractère rempli de la case associé à la position (i, j)
+	 */
+	public void setItemInGrid(int x, int y, boolean full) {
+		
+		board[y][x].setFull(full);
+	}
+	
+	/**
+	 * surcharge de setItemIngrid
+	 * @param loc un objet Location représentant la position de l'item cible dans la grile
+	 * @param b un boolean true si la case doit etre remplie, false sinon
+	 */
 	public void setItemInGrid(Location loc, boolean b) {
-		board[loc.getLocY()][loc.getLocX()].setFull(b);
+		this.getItem(loc).setFull(b);
 		
 	}
 	

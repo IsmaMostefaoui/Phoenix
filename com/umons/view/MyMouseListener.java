@@ -39,7 +39,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 		Location temp = clickCoord.pixelToCoord();
 		System.out.println("coordonnées tableau du click: " + temp);
 		if (game.getTour() == 0) {
-			if (temp.lSquare() && joueur1.move(board, temp)) {
+			if (temp.isSquare() && joueur1.move(board, temp)) {
 				BoardGUI.locPawn1 = temp;
 				game.nextPlayer();
 				if (game.win(joueur1)) {
@@ -56,7 +56,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 				panel.repaint();
 			}
 		}else if (game.getTour() == 1){
-			if (temp.lSquare() && joueur2.move(board, temp)) {
+			if (temp.isSquare() && joueur2.move(board, temp)) {
 				BoardGUI.locPawn2 = temp;
 				game.nextPlayer();
 				if (game.win(joueur2)) {

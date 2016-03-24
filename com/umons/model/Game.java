@@ -20,7 +20,7 @@ public class Game {
 	}
 
 	public boolean play(Player player, Location loc) {
-		if (loc.lSquare()) {
+		if (loc.isSquare()) {
 			return player.move(board, loc);
 		}else if (loc.isWallHorizontal() || loc.isWallVertical()) {
 			return player.putWall(board, loc);
@@ -30,13 +30,13 @@ public class Game {
 	
 	public boolean win(Player player) {
 		if (player.getOrder() == 1) {
-			return player.getLoc().isEquals(Player.POS2);
+			return player.getLoc()== Player.POS2;
 		}else if (player.getOrder() == 2) {
-			return player.getLoc().isEquals(Player.POS1);
+			return player.getLoc() == Player.POS1;
 		}else if (player.getOrder() == 3) {
-			return player.getLoc().isEquals(Player.POS4);
+			return player.getLoc() == Player.POS4;
 		}else if (player.getOrder() == 4) {
-			return player.getLoc().isEquals(Player.POS3);
+			return player.getLoc() == Player.POS3;
 		}return false;
 	}
 
