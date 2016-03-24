@@ -1,15 +1,22 @@
 package com.umons.view;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import com.umons.model.*;
 
@@ -42,12 +49,28 @@ public class BoardGUI extends JPanel{
 		
 		this.player1 = player1; this.player2 = player2;
 		this.game = game;
+		/*
+		Font customFont = new Font("comic sans ms", 10, 11);
+		try {
+            //create the font to use. Specify the size!
+			InputStream myStream = new BufferedInputStream(new FileInputStream("/home/isma/Documents/worksplace/Phoenix/src/com/umons/misc/FunSized.ttf"));
+            customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch(FontFormatException e)
+        {
+            e.printStackTrace();
+        }
+        */
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 11));
+		g2d.setFont(new Font("Comics Sans MS", Font.BOLD, 11));
 		g2d.setColor(new Color(170, 57, 43));
 		g2d.fillRect(0, 0, 835, 835);
 		
@@ -75,7 +98,7 @@ public class BoardGUI extends JPanel{
 		System.out.println("numbofwall: " + numberOfWall);
 		if (numberOfWall != 10) {
 			g2d.setColor(Color.BLACK);
-			g2d.setFont(new Font ("Comic Sans Ms", Font.BOLD, 15));
+			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 23, locPawn.coordToPixel().getLocY() + 33);
 		}

@@ -1,5 +1,15 @@
 package com.umons.model;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.umons.view.BoardGUI;
@@ -13,6 +23,7 @@ public class Main {
 		Player joueur2 = new Player(Player.POS2, 2);
 		Grid board = new Grid(joueur1, joueur2);
 		ARules.setBoard(board);
+		
 		System.out.println("***DEBUT DU TEST***");
 		boolean posOk = false;
 		boolean wallOk = false;
@@ -27,5 +38,6 @@ public class Main {
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
+		
 	}
 }
