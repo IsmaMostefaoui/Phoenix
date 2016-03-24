@@ -75,6 +75,7 @@ public class Grid {
 	
 	public void afficheGrid(Player player1, Player player2){
 		for (int i = 0; i < board.length; i++) {
+			//ne fonctionne pas, doit changer les == par equals (elle veut pas se surcharger c'est bizarre)
 			//Affiche les numéros de lignes pour faciliter les tests
 			if (i<10){
 				System.out.print("" + i + "  ");
@@ -102,6 +103,7 @@ public class Grid {
 		
 		return LENGTH;
 	}
+	
 	
 	/**
 	 * 

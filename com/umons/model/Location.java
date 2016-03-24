@@ -159,7 +159,9 @@ public class Location {
 		return ((getLocX() >= 0) && (getLocX() < board.getLen()) && (getLocY() >= 0 && getLocY() < board.getLen()));
 	}
 	
-	public boolean equals(Location loc) {
+	@Override
+	public boolean equals(Object obj) {
+		Location loc = (Location) obj;
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}
 	

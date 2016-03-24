@@ -42,7 +42,7 @@ public class Player {
 	public boolean move(Grid board, Location loc) {
 		List<Location> list = ARules.rSquareAvailable(this);
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) == loc) {
+			if (list.get(i).equals(loc)) {
 				board.setItemInGrid(this.getLoc(), false);
 				this.setLoc(loc);
 				board.setItemInGrid(loc, true);
@@ -55,10 +55,8 @@ public class Player {
 
 	/**
 	 * Pose un mur sur la grille en remplissant les wall
-	 * @param grid grille du jeu
-	 * @param position prend "horizontal" ou "vertical"
-	 * @param x prend la position en x de l'extremite gauche du mur horizontal, ou la colonne pour un mur vertical
-	 * @param y prend la position en y de l'extremite supperieur du mur vertical, ou la ligne pour un mur horizontal
+	 * @param board grille du jeu
+	 * @param loc la position du début du mur (le premier bloc à gauche [horizontal], le premier bloc en haut[vertical]
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Grid board, Location loc){
