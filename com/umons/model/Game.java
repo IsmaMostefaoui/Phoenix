@@ -10,11 +10,13 @@ public class Game {
 		this.numberPlayer = numberPlayer;
 		this.board = board;
 	}
+	
 	/**
 	 * Passe au joueur suivant
 	 */
 	public void nextPlayer() {
 		tour = ((tour+1)%numberPlayer);
+		
 	}
 	/**
 	 * Accesseur de l'Attribut tour
