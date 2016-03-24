@@ -54,7 +54,7 @@ public class Location {
 			}
 		}return new Location(xtemp, ytemp);
 	}
-	
+
 	public Location coordToPixel() {
 		int xtemp;
 		int ytemp;
@@ -79,19 +79,37 @@ public class Location {
 		return new Location(xtemp, ytemp);
 	}
 	
-	
+	/**
+	 * Permet d'obtenir l'objet Location au dessus de la location actuelle
+	 * @return un Objet Location 
+	 */
 	public Location squareUp() {
 		return new Location(x, y-2);
 	}
 	
+	
+	/**
+	 * Permet d'obtenir l'objet Location en dessous de la location actuelle
+	 * @return un Objet Location 
+	 */
 	public Location squareDown() {
 		return new Location(x, y+2);
 	}
 	
+	
+	/**
+	 * Permet d'obtenir l'objet Location à gauche de la location actuelle
+	 * @return un Objet Location 
+	 */
 	public Location squareLeft() {
 		return new Location (x-2, y);
 	}
 	
+	
+	/**
+	 * Permet d'obtenir l'objet Location a droite de la location actuelle
+	 * @return un Objet Location 
+	 */
 	public Location squareRight() {
 		return new Location (x+2, y);
 	}
@@ -134,47 +152,90 @@ public class Location {
 			return null;
 		}
 	}
+	
+	
 	/**
-	 * 
+	 * Verifie si l'objet Location est une case
 	 * @return true si la case est square, false si c'est un wall
 	 */
 	public boolean isSquare() {
 		return getLocX() % 2 == 0 && getLocY() % 2 == 0;
 	}
 	
+	
+	/**
+	 * Verifie si un Mur est horizontal
+	 * @return true si il est horizontal,sinon false
+	 */
 	public boolean isWallHorizontal() {
 		return getLocX() % 2 == 0;
 	}
 	
+	
+	/**
+	 * Verifie si un Mur est vertical
+	 * @return true si il est vertical,sinon false
+	 */
 	public boolean isWallVertical() {
 		return getLocY() % 2 == 0;
 	}
 	
+	
 	/**
-	 * vérifie si le pion ne sort pas de la grille
-	 * @param tabCoord la future position du pion
+	 * Verifie si la Location est dans la grillze
 	 * @return true si le déplacement est autorisé,sinon false
 	 */
 	public boolean inGrid(Grid board) {
 		return ((getLocX() >= 0) && (getLocX() < board.getLen()) && (getLocY() >= 0 && getLocY() < board.getLen()));
 	}
+
 	
-	@Override
-	public boolean equals(Object obj) {
+	/**
+	 * Verifie si deux objets Locations ont les même attributs x et y
+	 * @param loc Objet location
+	 * @return true si les Objets Location ont les mêmes attributs x et y, sinon false
+	 */
+	public boolean equals(Location loc) {
 		Location loc = (Location) obj;
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}
 	
+	
+	/**
+	 * Accesseur de L'attribut x (Correspond aux colones dans la grille)
+	 * @return la valeur de x
+	 */
 	public int getLocX() { return this.x; }
+	
+	
+	/**
+	 * Accesseur de L'attribut y (Correspond aux lignes dans la grille)
+	 * @return la valeur de y
+	 */
 	public int getLocY() { return this.y; }
 	
+	
+	/**
+	 * Mutateur de l'attribut x(Correspond aux colones dans la grille)
+	 * @param x nouvelle valeur de x 
+	 */
 	public void setLocX(int x) {
 		this.x = x;
 	}
+	
+	
+	/**
+	 * Mutateur de l'attribut y(Correspond aux lignes dans la grille)
+	 * @param x (int) nouvelle valeur de y 
+	 */
 	public void setLocY(int y) {
 		this.y = y;
 	}
 	
+	/**
+	 * Override de la methode toString
+	 * Ex : " 5, 2 " 
+	 */
 	public String toString() {
 		return this.x + ", " + this.y;
 	}

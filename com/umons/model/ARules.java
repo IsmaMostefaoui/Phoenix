@@ -32,9 +32,10 @@ public abstract class ARules {
 		return (inGrid && !ARules.rCheckWall(player, loc) && !board.getItem(loc).getFull());
 	}
 	
+	
 	/**
 	 * Vérifie si le pion peut sauter sur la case cible (pas de pion et pas de mur)
-	 * @param locPion un objet Location representant les coordonnées de la case cible
+	 * @param locPion un objet Location representant les coordonnées d'une case
 	 * @param loc la position de la case cible
 	 * @return un boolean vrai si le pion peut bouger, faux sinon
 	 */
@@ -43,73 +44,10 @@ public abstract class ARules {
 		return (inGrid && !ARules.rCheckWall(locPion, loc) && !board.getItem(loc).getFull());
 	}
 	
-	/**
-	 * @param joueur une instance de Player
-	 * @param loc un objet location correspondant à la case cible
-	 * @return un tableau comprenant la 'distance' entre la position actuelle du pion en la position souhaitée
-	 */
-	public static int[] rDeplacement(Player joueur, Location loc) {
-		int xtemp = Math.abs(loc.getLocX() - joueur.getLoc().getLocX());
-		int ytemp = Math.abs(loc.getLocY() - joueur.getLoc().getLocY());
-		//on verra, a determiner entre location et tableau ?? !! ?? !!
-		int[] tabDeplacement = { xtemp, ytemp };
-		return tabDeplacement;
-	} 
-		
 	
-	
-	
-	/*
-	 * Vérifie si le joueur est dans une situation de faceToFace
-	 * @param joueur une instance de la class Player
-	 * @param tabCoord un tableau de type int contenant les coordonées (x, y) correspondant à la position ou le pion compte se rendre
-	 * @return true si le joueur peu sauter au dessus du Pion adverse(pas de mur derriere,pas en dehors du board de jeu),sinon false
-	 *
-	public abstract boolean rFaceToFace (Player joueur, Location loc);
-	*/
-	
-	/*
-	 * INUTILE FINALEMENT
-	 */
-	/*
-	public int[] rDiagDirection(Player joueur, int[]tabCoord) {
-		int[] tabDirection = new int [2];
-		if (tabCoord[0] - joueur.getPawnX() == 2 && tabCoord[1] - joueur.getPawnY() == -2) {
-			tabDirection[0] = RIGHT; tabDirection[1] = UP;
-		}else if (tabCoord[0] - joueur.getPawnX() == -2 && tabCoord[1] - joueur.getPawnY() == -2) {
-			tabDirection[0] = UP; tabDirection[1] = LEFT;
-		}else if (tabCoord[0] - joueur.getPawnX() == -2 && tabCoord[1] - joueur.getPawnY() == 2) {
-			tabDirection[0] = LEFT; tabDirection[1] = DOWN;
-		}else if (tabCoord[0] - joueur.getPawnX() == 2 && tabCoord[1] - joueur.getPawnY() == 22) {
-			tabDirection[0] = DOWN; tabDirection[1] = RIGHT;
-		}else{
-			tabDirection[0] = null; tabDirection[1] = null;
-		}return tabDirection;
-	}
-	*/
-	/*
-	public static boolean rDiagFace(Player joueur, Location loc) {
-		int xPion = joueur.getLoc().getLocX(); //parce que c'est chiant d ecrire a chaque joueur.getPawnX()
-		int yPion = joueur.getLoc().getLocY();
-		int xDest = loc.getLocX();
-		int yDest = loc.getLocY();
-		Location locUp, locDown, locRight, locLeft;
-		if (xDest - xPion == 2 && yDest - yPion == -2) { //soit il est bloqué en haut, soit a droite
-			//donc on vérifie si c'est le cas
-			//attention je ne test pas le stillingrid, je dois encore trouver une façon de raccourcir ce bordel
-			//en gros l'idée c'est qu'il peut bouger en diagonal que si la case en face de lui, ou a droite de lui est occupé avec un mur en face
-			return (board.getItem(yPion-2, xPion).getFull() && rCheckWall(xPion, yPion-2, xPion, yPion-4)) || (board.getItem(yPion, xPion+2).getFull() && rCheckWall(xPion+2, yPion, xPion+4, yPion));
-		}else if (tabCoord[0] - joueur.getPawnX() == -2 && tabCoord[1] - joueur.getPawnY() == -2) {
-			return (board.getItem(yPion-2, xPion).getFull() && rCheckWall(xPion, yPion-2, xPion, yPion-4)) || (board.getItem(yPion, xPion-2).getFull() && rCheckWall(xPion-2, yPion, xPion-4, yPion));
-		}else if (tabCoord[0] - joueur.getPawnX() == -2 && tabCoord[1] - joueur.getPawnY() == 2) {
-			return (board.getItem(yPion, xPion-2).getFull() && rCheckWall(xPion-2, yPion, xPion-4, yPion)) || (board.getItem(yPion+2, xPion).getFull() && rCheckWall(xPion, yPion+2, xPion, yPion+4));
-		}else if (tabCoord[0] - joueur.getPawnX() == 2 && tabCoord[1] - joueur.getPawnY() == 2) {
-			return (board.getItem(yPion+2, xPion).getFull() && rCheckWall(xPion, yPion+2, xPion, yPion+4)) || (board.getItem(yPion, xPion+2).getFull() && rCheckWall(xPion+2, yPion, xPion+4, yPion));
-		}return false;
-	}
-	*/
 	/**
 	 * Vérifie si le mur peut être posé aux coordonées souhaitées
+	 * @param loc Un objet Location representant la fente cible
 	 * @return un boolean, true si le mur peut potentiellement être posé à cette position, sinon false
 	 */
 	public static boolean rPutWall(Location loc) {
@@ -141,10 +79,10 @@ public abstract class ARules {
 	
 	
 	/**
-	 * Check si un mur se situe dans la direction souhaitée
+	 * Verifie  si un mur se situe entre le joueur et  dans la position souhaitée souhaitée
 	 * @param player l'instance du joueur qui doit verifier le mur
 	 * @param loc un objet Location représentant la position de la case cible
-	 * @return true s'il y a un mur false sinon
+	 * @return true s'il y a un mur, false sinon
 	 */
 	public static boolean rCheckWall(Player player, Location loc) {
 		int xPion = player.getLoc().getLocX();
@@ -160,7 +98,7 @@ public abstract class ARules {
 	
 	/**
 	 * Check si un mur se situe dans la direction souhaitée
-	 * @param locPion laocattion du pion courant
+	 * @param locPion la locattion du pion courant
 	 * @param loc un objet Location représentant la position de la case cible
 	 * @return true s'il y a un mur false sinon
 	 */
@@ -174,40 +112,42 @@ public abstract class ARules {
 		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
 
-	
+	/**
+	 * Store dans une liste les positions accessibles par un joueur
+	 * @param player l'instance du joueur 
+	 * @return une liste d'objet Location des cases accecibles par le joueur
+	 */
 	public static List<Location> rSquareAvailable(Player player) {
 		List<Location> squareAvailable = new ArrayList<Location>();
-		int x = player.getLoc().getLocX();
-		int y = player.getLoc().getLocY();
+		Location locPlayer = player.getLoc();
 		//Location de toutes les cases autour du joueur
-		Location locUP = new Location(x, y -2);
-		Location locUPUP = new Location(locUP.getLocX(), locUP.getLocY() - 2); //LOC de la case upup (saut)
+		Location locUP = locPlayer.squareUp();
+		Location locUPUP = locUP.squareUp(); //LOC de la case upup (saut)
 
-		Location locDOWN = new Location(x, y +2);
-		Location locDOWNDOWN = new Location(locDOWN.getLocX(), locDOWN.getLocY() +2 ); //LOC de la case DOWNDOWN (saut)
+		Location locDOWN = locPlayer.squareDown() ;
+		Location locDOWNDOWN = locDOWN.squareDown(); //LOC de la case DOWNDOWN (saut)
 	
-		Location locLEFT = new Location(x-2, y);
-		Location locLEFTLEFT = new Location(locLEFT.getLocX() - 2, locLEFT.getLocY()); //LOC de la case LEFTLEFT (saut)
+		Location locLEFT = locPlayer.squareLeft();
+		Location locLEFTLEFT = locLEFT.squareLeft(); //LOC de la case LEFTLEFT (saut)
 	
-		Location locRIGHT = new Location(x+2, y);
-		Location locRIGHTRIGHT = new Location(locRIGHT.getLocX() + 2, locRIGHT.getLocY()); //LOC de la case RIGHT (saut)
+		Location locRIGHT = locPlayer.squareRight();
+		Location locRIGHTRIGHT = locRIGHT.squareRight(); //LOC de la case RIGHT (saut)
 		
-		Location locDHG = new Location(locUP.getLocX() - 2, locUP.getLocY()); //loc de la pos en haut à gauche
-		Location locDHD = new Location(locUP.getLocX() + 2, locUP.getLocY()); //loc de la pos en haut à droite
-		Location locDBD = new Location(locRIGHT.getLocX(), locRIGHT.getLocY() +2 ); //loc de la pos en Bas à droite
-		Location locDBG = new Location(locDOWN.getLocX() -2, locDOWN.getLocY()); //loc de la pos en BAS  à GAUCHE VIA down
+		Location locDHG = locUP.squareLeft(); //loc de la pos en haut à gauche
+		Location locDHD = locUP.squareRight(); //loc de la pos en haut à droite
+		Location locDBD = locDOWN.squareRight(); //loc de la pos en Bas à droite
+		Location locDBG = locDOWN.squareLeft(); //loc de la pos en BAS  à gauche
 		
 		//Diago haut gauche et haut Droite + faceToFace UP
 		if (!rCheckWall(player, locUP)) { //si pas de mur UP
 			if (locUP.inGrid(board) && board.getItem(locUP).getFull()) { // et que la case UP est remplie
-				Player joueurtempUP = new Player(locUP, 1);//Instance player de la case UP pour utiliser les autres méthodes
-				if (rMovePion(joueurtempUP, locUPUP)) { //si on peut bouger de la case up à la case UPUP -> Saut
+				if (rMovePion(locUP, locUPUP)) { //si on peut bouger de la case up à la case UPUP -> Saut
 					squareAvailable.add(locUPUP);
 				} 
-				if (rCheckWall(joueurtempUP, locUPUP) && (rMovePion(joueurtempUP, locDHG))) { //si il y a un mur au dessus de la case UP et case à gauche libre diagHG ok 
+				if ((!locUPUP.inGrid(board) || rCheckWall(locUP, locUPUP)) && (rMovePion(locUP, locDHG))) { //si il y a un mur au dessus de la case UP(ou bord du board) et case à gauche libre diagHG ok 
 					squareAvailable.add(locDHG);
 				} 
-				if (rCheckWall(joueurtempUP,locUPUP) && (rMovePion(joueurtempUP, locDHD))) { //si il y a un mur au dessus de la case UP et case à droite libre diagHD ok
+				if ((!locUPUP.inGrid(board) || rCheckWall(locUP,locUPUP)) && (rMovePion(locUP, locDHD))) { //si il y a un mur au dessus de la case UP(ou bord du board) et case à droite libre diagHD ok
 					squareAvailable.add(locDHD);
 				}	
 			}else if(locUP.inGrid(board)) {
@@ -218,14 +158,13 @@ public abstract class ARules {
 		//Diago haut droite et bas droite + faceToFace Right 
 		if (!rCheckWall(player, locRIGHT)) { //si pas de mur RIGHT
 			if (locRIGHT.inGrid(board) && board.getItem(locRIGHT).getFull()) { // et que la case RIGHT est remplie
-				Player joueurtempRIGHT = new Player(locRIGHT, 1);//Instance player de la case RIGHT pour utiliser les autres méthodes
-				if (rMovePion(joueurtempRIGHT, locRIGHTRIGHT)) { //si on peut bouger de la case RIGHT à la case RIGHRIGHT -> Saut
+				if (rMovePion(locRIGHT, locRIGHTRIGHT)) { //si on peut bouger de la case RIGHT à la case RIGHRIGHT -> Saut
 					squareAvailable.add(locRIGHTRIGHT);	
 				} 
-				if (rCheckWall(joueurtempRIGHT, locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDHD))) { //si il y a un mur au dessus de la case RIGHT et case en haut libre diagHD ok 
+				if ((!locRIGHTRIGHT.inGrid(board) || rCheckWall(locRIGHT, locRIGHTRIGHT)) && (rMovePion(locRIGHT, locDHD))) { //si il y a un mur au dessus(ou bord du board) de la case RIGHT et case en haut libre diagHD ok 
 					squareAvailable.add(locDHD);	
 				} 
-				if (rCheckWall(joueurtempRIGHT,locRIGHTRIGHT) && (rMovePion(joueurtempRIGHT, locDBD))) { //si il y a un mur en dessous  de la case right et case en bas libre diagHD ok
+				if ((!locRIGHTRIGHT.inGrid(board) || rCheckWall(locRIGHT,locRIGHTRIGHT)) && (rMovePion(locRIGHT, locDBD))) { //si il y a un mur en dessous(ou bord du board)  de la case right et case en bas libre diagHD ok
 					squareAvailable.add(locDBD);
 				}		
 			}else if(locRIGHT.inGrid(board)) {
@@ -235,14 +174,13 @@ public abstract class ARules {
 		//Diago bas droite et bas gauche + faceToFace DOWN
 		if (!rCheckWall(player, locDOWN)) { //si pas de mur DOWN
 			if (locDOWN.inGrid(board) && board.getItem(locDOWN).getFull()) { // et que la case DOWN est remplie
-				Player joueurtempDOWN = new Player(locDOWN, 1);//Instance player de la case DOWN pour utiliser les autres méthodes
-				if (rMovePion(joueurtempDOWN, locDOWNDOWN)) { //si on peut bouger de la case DOWN à la case DOWN -> Saut
+				if (rMovePion(locDOWN, locDOWNDOWN)) { //si on peut bouger de la case DOWN à la case DOWN -> Saut
 					squareAvailable.add(locDOWNDOWN);
 				} 
-				if (rCheckWall(joueurtempDOWN, locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBD))) { //si il y a un mur EN dessOus de la case DOWN et case en BAS DROITE libre diagBD ok 
+				if ((!locDOWNDOWN.inGrid(board) || rCheckWall(locDOWN, locDOWNDOWN)) && (rMovePion(locDOWN, locDBD))) { //si il y a un mur EN dessOus de la case DOWN(ou bord du board) et case en BAS DROITE libre diagBD ok 
 					squareAvailable.add(locDBD);
 				} 
-				if (rCheckWall(joueurtempDOWN,locDOWNDOWN) && (rMovePion(joueurtempDOWN, locDBG))) { //si il y a un mur en dessous  de la case right et case en bas A GAUCHE libre diagBG ok
+				if ((!locDOWNDOWN.inGrid(board) || rCheckWall(locDOWN,locDOWNDOWN)) && (rMovePion(locDOWN, locDBG))) { //si il y a un mur en dessous  de la case right(ou bord du board) et case en bas A GAUCHE libre diagBG ok
 					squareAvailable.add(locDBG);
 				}	
 			}else if (locDOWN.inGrid(board)) {
@@ -252,14 +190,13 @@ public abstract class ARules {
 		//Diago HAUT GAUCHE et bas gauche + faceToFace LEFT
 		if (!rCheckWall(player, locLEFT)) { //si pas de mur LEFT	
 			if (locLEFT.inGrid(board) && board.getItem(locLEFT).getFull()) { // et que la case LEFT est remplie
-				Player joueurtempLEFT = new Player(locLEFT, 1);//Instance player de la case LEFT pour utiliser les autres méthodes
-				if (rMovePion(joueurtempLEFT, locLEFTLEFT)) { //si on peut bouger de la case LEFT à la case LEFTLEFT -> Saut
+				if (rMovePion(locLEFT, locLEFTLEFT)) { //si on peut bouger de la case LEFT à la case LEFTLEFT -> Saut
 					squareAvailable.add(locLEFTLEFT);
 				} 
-				if (rCheckWall(joueurtempLEFT, locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDBG))) { //si il y a un mur A GAUCHE de la case LEFT et case BAS GAUCHE LIBRE -> diagBG ok 
+				if ((!locLEFTLEFT.inGrid(board) || rCheckWall(locLEFT, locLEFTLEFT)) && (rMovePion(locLEFT, locDBG))) { //si il y a un mur A GAUCHE de la case LEFT(ou bord du board) et case BAS GAUCHE LIBRE -> diagBG ok 
 					squareAvailable.add(locDBG);
 				} 
-				if (rCheckWall(joueurtempLEFT,locLEFTLEFT) && (rMovePion(joueurtempLEFT, locDHG))) { //si il y a un mur A GAUCHE  de la case LEFT et case en HAUT GAUCHE  libre diagHG ok
+				if ((!locLEFTLEFT.inGrid(board) || rCheckWall(locLEFT,locLEFTLEFT)) && (rMovePion(locLEFT, locDHG))) { //si il y a un mur A GAUCHE  de la case LEFT(ou bord du board) et case en HAUT GAUCHE  libre diagHG ok
 					squareAvailable.add(locDHG);
 				}	
 			}else if(locLEFT.inGrid(board)) { //si pas de mur et que la case n'est pas remplie
