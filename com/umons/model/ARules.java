@@ -12,14 +12,6 @@ public abstract class ARules {
 	
 	//joueur doit être une variable d'instance, on l utilise partout
 	
-	/**
-	 * Initialise un board (celui sur lequel sera appliquer toutes les règles.
-	 * @param grid la board
-	 */
-	public ARules(Grid board) {
-		this.board = board;
-	}
-	
 	
 	/**
 	 * Vérifie si le pion peut sauter sur la case cible (pas de pion et pas de mur)
@@ -372,5 +364,9 @@ public abstract class ARules {
 		
 		squareAvailable.clear();
 		return null;*/
+	
+	public static void setBoard(Grid board) {
+		ARules.board = board;
+	}
 }
 	

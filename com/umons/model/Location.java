@@ -195,7 +195,7 @@ public class Location {
 	 * @param loc Objet location
 	 * @return true si les Objets Location ont les mêmes attributs x et y, sinon false
 	 */
-	public boolean equals(Location loc) {
+	public boolean equals(Object obj) {
 		Location loc = (Location) obj;
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}

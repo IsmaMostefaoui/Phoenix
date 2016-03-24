@@ -4,6 +4,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 
 import com.umons.model.Game;
 import com.umons.model.Grid;
@@ -11,7 +12,7 @@ import com.umons.model.Location;
 import com.umons.model.Main;
 import com.umons.model.Player;
 
-public class MyMouseListener implements MouseListener, MouseMotionListener{
+public class MyMouseListener implements MouseInputListener{
 
 	private int x1, y1;
 	final JPanel panel;
@@ -110,7 +111,12 @@ public class MyMouseListener implements MouseListener, MouseMotionListener{
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		motionCoord = new Location(e.getX(), e.getY()).pixelToCoord();
+		System.out.println("bifhve: " + motionCoord);
 		panel.repaint();
+	}
+	
+	public static Location getMotionCoord() {
+		return motionCoord;
 	}
 
 }

@@ -12,7 +12,7 @@ public class Main {
 		Player joueur1 = new Player(Player.POS1, 1);
 		Player joueur2 = new Player(Player.POS2, 2);
 		Grid board = new Grid(joueur1, joueur2);
-		Rules rules = new Rules(board);
+		ARules.setBoard(board);
 		System.out.println("***DEBUT DU TEST***");
 		boolean posOk = false;
 		boolean wallOk = false;
@@ -23,7 +23,9 @@ public class Main {
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
 		JPanel panel = new BoardGUI(game, joueur1, joueur2);
 		panel.setFocusable(true);
-		panel.addMouseListener(new MyMouseListener(board, joueur1, joueur2, panel, game));
+		MyMouseListener l = new MyMouseListener(board, joueur1, joueur2, panel, game);
+		panel.addMouseListener(l);
+		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
 	}
 }
