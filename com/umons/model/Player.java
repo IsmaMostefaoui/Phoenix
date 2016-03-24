@@ -73,8 +73,10 @@ public class Player {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
 			}
+			numberOfWall--;
+			return true;
 		}
-		return false;	
+		return false; 
 	}
 	
 	
