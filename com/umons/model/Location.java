@@ -32,7 +32,10 @@ public class Location {
 		}
 		return new Location(xtemp, ytemp);
 	}*/
-	
+	/**
+	 * Transforme de coordonées pixel en un objet Location
+	 * @return Un objet Location correspondant à la case ciblée par l'utilisateur
+	 */
 	public Location pixelToCoord() {
 		int xtemp = -1;
 		int ytemp = -1;
@@ -55,6 +58,10 @@ public class Location {
 		}return new Location(xtemp, ytemp);
 	}
 
+	/**
+	 * Transforme un objet Location en des coordonées pixel
+	 * @return un Objet Location
+	 */
 	public Location coordToPixel() {
 		int xtemp;
 		int ytemp;

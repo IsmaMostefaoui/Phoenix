@@ -72,7 +72,11 @@ public class Grid {
 			}
 		}
 	}
-	
+	/**
+	 * Affiche la grille et les joueur en mode console
+	 * @param player1 l'instance d'un joueur
+	 * @param player2 l'instance d'un joueur
+	 */
 	public void afficheGrid(Player player1, Player player2){
 		for (int i = 0; i < board.length; i++) {
 			//Affiche les numéros de lignes pour faciliter les tests

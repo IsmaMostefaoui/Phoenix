@@ -85,7 +85,13 @@ public class BoardGUI extends JPanel{
 				g2d.drawString("JOUEUR 2", 750, 20);
 			}//temporaire
 	}
-	
+	/**
+	 * Dessine un Cercle dans la grille representant le Pion d'un joueur
+	 * @param g2d Objet graphics
+	 * @param locPawn Objet Location du joueur 
+	 * @param c Couleur du Pion
+	 * @param numberOfWall Nombre de mur restant au joueur
+	 */
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		/*
 		// Create a translucent intermediate image in which we can perform
@@ -143,6 +149,12 @@ public class BoardGUI extends JPanel{
         */
 	}
 	
+	
+	/**
+	 * Dessine un mur horizontal dans la grille
+	 * @param g2d Objet Graphics
+	 * @param c Couleur mur
+	 */
 	public void drawWallHorizontal(Graphics2D g2d, Color c) {
 		g2d.setColor(c);
 		for (int i = 0; i < locWallHorizontal.size(); i++) {
@@ -150,7 +162,11 @@ public class BoardGUI extends JPanel{
 			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
 		}
 	}
-	
+	/**
+	 * Dessine un mur vertcal dans la grille
+	 * @param g2d Objet Graphics
+	 * @param c Couleur mur
+	 */
 	public void drawWallVertical(Graphics2D g2d, Color c) {
 		g2d.setColor(c);
 		for (int i = 0; i < locWallVertical.size(); i++) {
@@ -159,6 +175,11 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Dessine les cases dans la grille
+	 * @param g2d Objet Graphics2D
+	 * @param c Le couleur de la case
+	 */
 	public void drawSquares(Graphics2D g2d, Color c) {
 		int SPACE = 0;
 		int HEIGHT = 0;

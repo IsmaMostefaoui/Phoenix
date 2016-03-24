@@ -10,11 +10,16 @@ public class Game {
 		this.numberPlayer = numberPlayer;
 		this.board = board;
 	}
-	
+	/**
+	 * Passe au joueur suivant
+	 */
 	public void nextPlayer() {
 		tour = ((tour+1)%numberPlayer);
 	}
-
+	/**
+	 * Accesseur de l'Attribut tour
+	 * @return un int tour
+	 */
 	public int getTour() {
 		return tour;
 	}
@@ -27,7 +32,11 @@ public class Game {
 		}return false;
 
 	}
-	
+	/**
+	 * Verifie si le Joueur à gagner la partie (A atteint l'extremité opposé de la grille)
+	 * @param player une instance le Player
+	 * @return True si le joueur à gagner,sinon false
+	 */
 	public boolean win(Player player) {
 		if (player.getOrder() == 1) {
 			return player.getLoc()== Player.POS2;
