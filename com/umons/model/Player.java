@@ -42,7 +42,7 @@ public class Player {
 	public boolean move(Grid board, Location loc) {
 		List<Location> list = ARules.rSquareAvailable(this);
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).isEquals(loc)) {
+			if (list.get(i) == loc) {
 				board.setItemInGrid(this.getLoc(), false);
 				this.setLoc(loc);
 				board.setItemInGrid(loc, true);

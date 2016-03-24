@@ -158,7 +158,7 @@ public class Location {
 	 * Verifie si l'objet Location est une case
 	 * @return true si la case est square, false si c'est un wall
 	 */
-	public boolean lSquare() {
+	public boolean isSquare() {
 		return getLocX() % 2 == 0 && getLocY() % 2 == 0;
 	}
 	
@@ -189,13 +189,14 @@ public class Location {
 		return ((getLocX() >= 0) && (getLocX() < board.getLen()) && (getLocY() >= 0 && getLocY() < board.getLen()));
 	}
 	
+
 	
 	/**
 	 * Verifie si deux objets Locations ont les même attributs x et y
 	 * @param loc Objet location
 	 * @return true si les Objets Location ont les mêmes attributs x et y, sinon false
 	 */
-	public boolean isEquals(Location loc) {
+	public boolean equals(Location loc) {
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}
 	
