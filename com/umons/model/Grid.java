@@ -83,9 +83,9 @@ public class Grid {
 				System.out.print("" + i + " ");
 			}
 			for (int j = 0; j < board.length; j++) {
-				if (player1.getLoc() == board[i][j].getLocation()) {
+				if (player1.getLoc().equals(board[i][j].getLocation())) {
 					System.out.print("[1]");
-				}else if (player2.getLoc() == board[i][j].getLocation()) {
+				}else if (player2.getLoc().equals(board[i][j].getLocation())) {
 					System.out.print("[2]");
 				}else {
 					System.out.print(board[i][j]);

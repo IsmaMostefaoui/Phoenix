@@ -2,8 +2,6 @@ package com.umons.model;
 
 import java.util.List;
 
-import com.umons.view.BoardGUI;
-
 public class Player {
 
 

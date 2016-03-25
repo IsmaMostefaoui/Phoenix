@@ -36,9 +36,7 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseClicked(MouseEvent e) {
 		x1 = e.getX(); y1 = e.getY();
 		clickCoord = new Location(x1, y1);
-		System.out.println("clickcoord: " + clickCoord);
 		Location temp = clickCoord.pixelToCoord();
-		System.out.println("coordonnées tableau du click: " + temp);
 		if (game.getTour() == 0) {
 			if (temp.isSquare() && joueur1.move(board, temp)) {
 				BoardGUI.locPawn1 = temp;
@@ -55,7 +53,7 @@ public class MyMouseListener implements MouseInputListener{
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
-			}
+			}board.afficheGrid(joueur1, joueur2);
 		}else if (game.getTour() == 1){
 			if (temp.isSquare() && joueur2.move(board, temp)) {
 				BoardGUI.locPawn2 = temp;
@@ -72,7 +70,7 @@ public class MyMouseListener implements MouseInputListener{
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
-			}
+			}board.afficheGrid(joueur1, joueur2);
 		}
 		
 	}
@@ -111,7 +109,6 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		motionCoord = new Location(e.getX(), e.getY()).pixelToCoord();
-		System.out.println("bifhve: " + motionCoord);
 		panel.repaint();
 	}
 	

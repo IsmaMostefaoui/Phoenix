@@ -5,10 +5,12 @@ public class Game {
 	private int numberPlayer;
 	private static int tour = 0;
 	private Grid board;
+	private Mode mode;
 	
-	public Game(Grid board, int numberPlayer) {
-		this.numberPlayer = numberPlayer;
-		this.board = board;
+	public Game(Mode mode) {
+		this.mode = mode;
+		this.numberPlayer = mode.getNumberOfPlayer();
+		
 	}
 	
 	public void nextPlayer() {
@@ -38,6 +40,10 @@ public class Game {
 		}else if (player.getOrder() == 4) {
 			return player.getLoc().equals(Player.POS3);
 		}return false;
+	}
+	
+	public void init() {
+		mode.init(this);
 	}
 
 }

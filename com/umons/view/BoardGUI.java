@@ -1,22 +1,12 @@
 package com.umons.view;
+
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
-import java.awt.Transparency;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import com.umons.model.*;
 
@@ -33,7 +23,7 @@ public class BoardGUI extends JPanel{
 	Player player2;
 	//constante representant la taille des carre, des murs et des pions
 	public static final int lSquare = 60;
-	public static final int lWall = 30;
+	public static final int lWall = 20;
 	public static final int lPawn = 55;
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 25;
@@ -79,23 +69,22 @@ public class BoardGUI extends JPanel{
 		drawPawn(g2d, locPawn1, new Color(200, 250, 50), player1.getNbreOfWall());
 		drawPawn(g2d, locPawn2, new Color(100, 50, 250), player2.getNbreOfWall());
 		if (game.getTour() == 0) {
-			drawPreview(g2d, player1);
+			drawPreview(g2d, new Color(122, 200, 200, 120), player1);
 		//rajouter des elif quand on sera sûr d'avoir un mode 4 joueur
 		}else {
-			drawPreview(g2d, player2);	
+			drawPreview(g2d, new Color(122, 200, 200, 120), player2);	
 		}
 		
 		drawTour(g2d);
 		
-		drawWallHorizontal(g2d, new Color(100, 0, 0));
-		drawWallVertical(g2d, new Color(200, 0, 0));
+		drawWallHorizontal(g2d, new Color(122, 200, 200));
+		drawWallVertical(g2d, new Color(122, 200, 200));
 	}
 	
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		g2d.setColor(c);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.fillOval(locPawn.coordToPixel().getLocX(), locPawn.coordToPixel().getLocY(), lPawn, lPawn);
-		System.out.println("numbofwall: " + numberOfWall);
 		if (numberOfWall != 10) {
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
@@ -136,9 +125,8 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
-	public void drawPreview(Graphics2D g2d, Player player) {
+	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
-		System.out.println("\nmotioncoord: " + motionCoord);
 		if (motionCoord != null && motionCoord.isSquare()){ 
 			List<Location> list = ARules.rSquareAvailable(player);
 			if (list.contains(motionCoord)) {
@@ -149,10 +137,10 @@ public class BoardGUI extends JPanel{
 				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
 			}
 		}else if (motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord)) {
-			g2d.setColor(new Color(200, 0, 0, 100));
+			g2d.setColor(c);
 			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
 		}else if (motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord)) {
-			g2d.setColor(new Color(100, 0, 0, 100));
+			g2d.setColor(c);
 			g2d.fillRect(motionCoord.coordToPixel().getLocX()+5, motionCoord.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
 		}
 	}
