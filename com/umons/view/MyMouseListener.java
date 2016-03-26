@@ -14,7 +14,7 @@ import com.umons.model.Player;
 
 public class MyMouseListener implements MouseInputListener{
 
-	private int x1, y1;
+	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
 	final JPanel panel;
 	public static Location clickCoord;
 	public static Location motionCoord;
@@ -76,6 +76,26 @@ public class MyMouseListener implements MouseInputListener{
 	}
 
 	@Override
+	public void mousePressed(MouseEvent e) {
+		xpressed = e.getX(); ypressed = e.getY();
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		//Quand on click et puis qu'on lache, si la case presse est la meme que la case
+		//"depressé" (celle ou on lache le click), alors on fait quand même avancer le pion.
+		
+		xreleased = e.getX(); yreleased = e.getY();
+		Location pressed = new Location(xpressed, ypressed);
+		Location released = new Location(xreleased, yreleased);
+		if (pressed.pixelToCoord().equals(released.pixelToCoord())) {
+			mouseClicked(e);
+		}
+		
+	}
+
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
@@ -83,18 +103,6 @@ public class MyMouseListener implements MouseInputListener{
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}

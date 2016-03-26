@@ -2,9 +2,15 @@ package com.umons.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -23,7 +29,7 @@ public class BoardGUI extends JPanel{
 	Player player2;
 	//constante representant la taille des carre, des murs et des pions
 	public static final int lSquare = 60;
-	public static final int lWall = 20;
+	public static final int lWall = 30;
 	public static final int lPawn = 55;
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 25;
@@ -43,7 +49,7 @@ public class BoardGUI extends JPanel{
 		Font customFont = new Font("comic sans ms", 10, 11);
 		try {
             //create the font to use. Specify the size!
-			InputStream myStream = new BufferedInputStream(new FileInputStream("/home/isma/Documents/worksplace/Phoenix/src/com/umons/misc/FunSized.ttf"));
+			InputStream myStream = new BufferedInputStream(new FileInputStream("misc\\FunSized.ttf"));
             customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
@@ -55,12 +61,13 @@ public class BoardGUI extends JPanel{
             e.printStackTrace();
         }
         */
+        
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setFont(new Font("Comics Sans MS", Font.BOLD, 11));
+		g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 11));
 		g2d.setColor(new Color(170, 57, 43));
 		g2d.fillRect(0, 0, 835, 835);
 		
@@ -136,10 +143,10 @@ public class BoardGUI extends JPanel{
 				g2d.setColor(new Color(204, 0, 0, 120));
 				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
 			}
-		}else if (motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord)) {
+		}else if (motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)) {
 			g2d.setColor(c);
 			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
-		}else if (motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord)) {
+		}else if (motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)) {
 			g2d.setColor(c);
 			g2d.fillRect(motionCoord.coordToPixel().getLocX()+5, motionCoord.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
 		}
