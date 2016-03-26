@@ -23,6 +23,7 @@ public class BoardGUI extends JPanel{
 	 */
 	private static final long serialVersionUID = 1;
 	
+	Font customFont;
 	public static int SQUARE_NUMBER = 9;
 	Game game;
 	Player player1;
@@ -45,11 +46,10 @@ public class BoardGUI extends JPanel{
 		
 		this.player1 = player1; this.player2 = player2;
 		this.game = game;
-		/*
-		Font customFont = new Font("comic sans ms", 10, 11);
-		try {
+		customFont = new Font("comic sans ms", 10, 11);
+		/*try {
             //create the font to use. Specify the size!
-			InputStream myStream = new BufferedInputStream(new FileInputStream("misc\\FunSized.ttf"));
+			InputStream myStream = new BufferedInputStream(new FileInputStream("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\FunSized.ttf"));
             customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
@@ -61,13 +61,12 @@ public class BoardGUI extends JPanel{
             e.printStackTrace();
         }
         */
-        
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 11));
+		g2d.setFont(customFont);
 		g2d.setColor(new Color(170, 57, 43));
 		g2d.fillRect(0, 0, 835, 835);
 		

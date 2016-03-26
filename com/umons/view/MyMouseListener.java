@@ -1,7 +1,5 @@
 package com.umons.view;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
@@ -9,8 +7,8 @@ import javax.swing.event.MouseInputListener;
 import com.umons.model.Game;
 import com.umons.model.Grid;
 import com.umons.model.Location;
-import com.umons.model.Main;
 import com.umons.model.Player;
+import com.umons.model.Audio;
 
 public class MyMouseListener implements MouseInputListener{
 
@@ -22,6 +20,8 @@ public class MyMouseListener implements MouseInputListener{
 	Player joueur1;
 	Player joueur2;
 	Grid board;
+	//ajout d'un objet audio pour plus tard
+	Audio aud;
 	
 	
 	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
@@ -30,6 +30,8 @@ public class MyMouseListener implements MouseInputListener{
 		this.game = game;
 		this.joueur1 = joueur1; this.joueur2 = joueur2;
 		this.board = board;
+		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
+		
 	}
 	
 	@Override
@@ -49,10 +51,12 @@ public class MyMouseListener implements MouseInputListener{
 				BoardGUI.locWallHorizontal.add(temp);
 				game.nextPlayer();
 				panel.repaint();
+				//aud.run();
 			}else if (temp.isWallVertical() && joueur1.putWall(board, temp)){
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
+				//aud.run();
 			}board.afficheGrid(joueur1, joueur2);
 		}else if (game.getTour() == 1){
 			if (temp.isSquare() && joueur2.move(board, temp)) {
@@ -66,10 +70,12 @@ public class MyMouseListener implements MouseInputListener{
 				BoardGUI.locWallHorizontal.add(temp);
 				game.nextPlayer();
 				panel.repaint();
+				//aud.run();
 			}else if (temp.isWallVertical() && joueur2.putWall(board, temp)){
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
+				//aud.run();
 			}board.afficheGrid(joueur1, joueur2);
 		}
 		
