@@ -132,7 +132,7 @@ public abstract class ARules {
 	
 		Location locRIGHT = locPlayer.squareRight();
 		Location locRIGHTRIGHT = locRIGHT.squareRight(); //LOC de la case RIGHT (saut)
-		
+
 		Location locDHG = locUP.squareLeft(); //loc de la pos en haut à gauche
 		Location locDHD = locUP.squareRight(); //loc de la pos en haut à droite
 		Location locDBD = locDOWN.squareRight(); //loc de la pos en Bas à droite

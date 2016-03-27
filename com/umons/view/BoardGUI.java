@@ -71,6 +71,7 @@ public class BoardGUI extends JPanel{
 			g2d.drawString("JOUEUR 2", 750, 20);
 		}
 	}
+	
 	/**
 	 * Dessine un Cercle dans la grille representant le Pion d'un joueur
 	 * @param g2d Objet graphics

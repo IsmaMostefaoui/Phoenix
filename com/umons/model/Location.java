@@ -202,7 +202,7 @@ public class Location {
 	 * @param loc Objet location
 	 * @return true si les Objets Location ont les mêmes attributs x et y, sinon false
 	 */
-	public boolean equals(Location loc) {
+	public boolean equals(Object obj) {
 		Location loc = (Location) obj;
 		return getLocX() == loc.getLocX() && getLocY() == loc.getLocY();
 	}
@@ -246,4 +246,25 @@ public class Location {
 	public String toString() {
 		return this.x + ", " + this.y;
 	}
+	
+	public Location wallUp() {
+		return (new Location(x , y -1));
+	}
+	
+	public Location wallLeft() {
+		return (new Location(x - 1, y));
+	}
+	
+	public Location wallRight() {
+		return (new Location(x + 1, y));
+	}
+	
+	public Location wallDown() {
+		return (new Location(x , y +1));
+	}
+	
+	
+	
+	
+	
 }
