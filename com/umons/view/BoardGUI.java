@@ -41,7 +41,12 @@ public class BoardGUI extends JPanel{
 	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
 	public static ArrayList<Location>locWallVertical = new ArrayList<Location>();
 	
-	
+	/**
+	 * Constructeur du JPanel personnalise
+	 * @param game une instance de game utilise principalement pour recuperer le tour courant
+	 * @param player1 une instance du joueur 1
+	 * @param player2 une instance du joueur 2
+	 */
 	public BoardGUI(Game game, Player player1, Player player2) {
 		
 		this.player1 = player1; this.player2 = player2;
@@ -63,6 +68,9 @@ public class BoardGUI extends JPanel{
         */
 	}
 	
+	/**
+	 * Surcharge de paintComponent() pour dessiner le plateau de jeu (les cases, les fentes, les pions, les previews etc...)
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
@@ -87,6 +95,13 @@ public class BoardGUI extends JPanel{
 		drawWallVertical(g2d, new Color(122, 200, 200));
 	}
 	
+	/**
+	 * Dessine un pion sur la case donne en parametre avec un nombre de mur et une couleur predefinie.
+	 * @param g2d l outil pour dessiner le pion
+	 * @param locPawn l objet Location representant la case sur la quelle doit etre dessiner le pion (coordonnee tableau/PAS pixel)
+	 * @param c un objet Color representant la couleur du pion
+	 * @param numberOfWall le nombre de mur restant (selon les joueurs)
+	 */
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		g2d.setColor(c);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -99,6 +114,11 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Dessine un mur horizontal avec une couleur c
+	 * @param g2d l outil pour dessiner le mur
+	 * @param c un objet Color representant la couleur du mur
+	 */
 	public void drawWallHorizontal(Graphics2D g2d, Color c) {
 		g2d.setColor(c);
 		for (int i = 0; i < locWallHorizontal.size(); i++) {
@@ -107,6 +127,11 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Dessine un mur vertical avec une couleur c
+	 * @param g2d l outil pour dessiner le mur
+	 * @param c un objet Color representant la couleur du mur
+	 */
 	public void drawWallVertical(Graphics2D g2d, Color c) {
 		g2d.setColor(c);
 		for (int i = 0; i < locWallVertical.size(); i++) {
@@ -115,6 +140,11 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Dessine toutes les cases du plateau avec une couleur predefinie
+	 * @param g2d l outil pour dessiner
+	 * @param c un objet Color representant la couleur des cases
+	 */
 	public void drawSquares(Graphics2D g2d, Color c) {
 		int SPACE = 0;
 		int HEIGHT = 0;
@@ -131,6 +161,12 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Dessine les preview lorsque la souris passe sur une cases ou une fentes
+	 * @param g2d l outil pour dessiner
+	 * @param c un objet color representant la couleur de la preview
+	 * @param player une instance du joueur courant pour savoir si les case a "previewer" correspondent a des deplacements correcte ou pas
+	 */
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
 		if (motionCoord != null && motionCoord.isSquare()){ 
@@ -151,6 +187,10 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Temporaire, dessine le "tour" courant en haut a droite
+	 * @param g2d l outil pour dessiner
+	 */
 	public void drawTour(Graphics2D g2d) {
 		g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 11));
 		if (game.getTour() == 0) {
@@ -162,6 +202,10 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Pas encore fonctionnel
+	 * @param g2d
+	 */
 	public void drawVictory(Graphics g2d) {
 	}
 }
