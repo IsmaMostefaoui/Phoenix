@@ -1,8 +1,17 @@
 Une fois qu'une tâche a été effectué, faire un commit avec le numéro de la tache résolue et venir mettre un "#" devant la tâche concerné !
 
+************************************
+***[OBLIGATOIRE] FAIRE LE RAPPORT***
+************************************
 
 [OBLIGATOIRE] Faire une interface IBOT qui definira les methodes pour chaque IA (la random et la normal)
 [FACULTATIF] Faire une interface IBehavior(comportement) qui definira une methode behavior (ou autre) qui definira le comportement d'un mur
 [OBLIGATOIRE] Changer MML en Controller et le mettre dans le package du même nom !
 [OBLIGATOIRE] Ajouter le traitements des exceptions !
 [OBLIGATOIRE] Revoir l'encapsulation de toutes nos classes !!
+[OBLIGATOIRE] Faire les test unités !
+[OBLIGATOIRE] Implémenter un Path Finding
+[OBLIGATOIRE] Implémenter une RandomIA et une RegularIA
+[FACULTATIF] Ajouter la possibilité de sauvegarder une partie et de la reprendre
+[FACULTATIF] Ajouter la possibilité de revenir en arrière (Ctrl + Z)
+[OBLIGATOIRE] Ajouter un menu (Nouvelle Partie[->2 Joueurs[->1 vs IA//1 vs Joueur]//4 Joueurs(Joueur seulement)]//Charger Partie(si implémenté)//Quitter)
