@@ -164,7 +164,7 @@ public class BoardGUI extends JPanel{
 	/**
 	 * Dessine les preview lorsque la souris passe sur une cases ou une fentes
 	 * @param g2d l outil pour dessiner
-	 * @param c un objet color representant la couleur de la preview
+	 * @param c un objet color representant la couleur de la preview (pour les murs)
 	 * @param player une instance du joueur courant pour savoir si les case a "previewer" correspondent a des deplacements correcte ou pas
 	 */
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
@@ -207,5 +207,6 @@ public class BoardGUI extends JPanel{
 	 * @param g2d
 	 */
 	public void drawVictory(Graphics g2d) {
+		JPanel victoryPanel = new VictoryPanel();
 	}
 }

@@ -1,6 +1,7 @@
 package com.umons.view;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -13,23 +14,21 @@ import com.umons.model.Audio;
 public class MyMouseListener implements MouseInputListener{
 
 	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
-	final JPanel panel;
-	public static Location clickCoord;
-	public static Location motionCoord;
-	Game game;
-	Player joueur1;
-	Player joueur2;
-	Grid board;
+	private static Location clickCoord;
+	private static Location motionCoord;
+	private Game game;
+	private final JPanel panel;
+	private Player joueur1;
+	private Player joueur2;
 	//ajout d'un objet audio pour plus tard
 	Audio aud;
 	
 	
 	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
-	public MyMouseListener(Grid board, Player joueur1, Player joueur2, JPanel panel, Game game) {
+	public MyMouseListener(Player joueur1, Player joueur2, JPanel panel, Game game) {
 		this.panel = panel;
 		this.game = game;
 		this.joueur1 = joueur1; this.joueur2 = joueur2;
-		this.board = board;
 		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
 		
 	}
@@ -40,43 +39,48 @@ public class MyMouseListener implements MouseInputListener{
 		clickCoord = new Location(x1, y1);
 		Location temp = clickCoord.pixelToCoord();
 		if (game.getTour() == 0) {
-			if (temp.isSquare() && joueur1.move(board, temp)) {
+			//le deplacement du joueur se fait ici, avec la condition
+			//si move retourne vrai, alors le pion se deplace
+			//sinon, alors move retourne faux et ne fait rien
+			if (temp.isSquare() && joueur1.move(temp)) {
 				BoardGUI.locPawn1 = temp;
 				game.nextPlayer();
 				if (game.win(joueur1)) {
 					System.out.println("JOUEUR1 A GAGNE");
+					game.stop(panel);
 				}
 				panel.repaint();
-			}else if (temp.isWallHorizontal() && joueur1.putWall(board, temp)){
+			}else if (temp.isWallHorizontal() && joueur1.putWall(temp)){
 				BoardGUI.locWallHorizontal.add(temp);
 				game.nextPlayer();
 				panel.repaint();
 				//aud.run();
-			}else if (temp.isWallVertical() && joueur1.putWall(board, temp)){
+			}else if (temp.isWallVertical() && joueur1.putWall(temp)){
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
 				//aud.run();
-			}board.afficheGrid(joueur1, joueur2);
+			}
 		}else if (game.getTour() == 1){
-			if (temp.isSquare() && joueur2.move(board, temp)) {
+			if (temp.isSquare() && joueur2.move(temp)) {
 				BoardGUI.locPawn2 = temp;
 				game.nextPlayer();
 				if (game.win(joueur2)) {
 					System.out.println("JOUEUR2 A GAGNE");
+					game.stop(panel);
 				}
 				panel.repaint();
-			}else if (temp.isWallHorizontal() && joueur2.putWall(board, temp)){
+			}else if (temp.isWallHorizontal() && joueur2.putWall(temp)){
 				BoardGUI.locWallHorizontal.add(temp);
 				game.nextPlayer();
 				panel.repaint();
 				//aud.run();
-			}else if (temp.isWallVertical() && joueur2.putWall(board, temp)){
+			}else if (temp.isWallVertical() && joueur2.putWall(temp)){
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
 				//aud.run();
-			}board.afficheGrid(joueur1, joueur2);
+			}
 		}
 		
 	}
