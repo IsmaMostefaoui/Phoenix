@@ -12,7 +12,7 @@ public class Grid {
 	//Herite des methodes de Rules
 
 	private Square[][] board;
-	private final int LENGTH = 17; //sans les bords
+	private static final int LENGTH = 17; //sans les bords
 	
 	
 	/**
@@ -102,7 +102,7 @@ public class Grid {
 	/**
 	 * @return la longueur du board
 	 */
-	public int getLen() {
+	public static int getLen() {
 		
 		return LENGTH;
 	}
