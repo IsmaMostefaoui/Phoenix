@@ -1,4 +1,5 @@
 package com.umons.model;
+//pour apres, si on veut developer une autre technique de path finding pour l'IA
 
 /**
  * A description of an implementation that can find a path from one 
@@ -24,5 +25,5 @@ public interface IPathFinder {
 	 * @param ty Teh y coordinate of the target location
 	 * @return The path found from start to end, or null if no path can be found.
 	 */
-	public Path findPath(int sx, int sy, int tx, int ty);
+	public Path findPath(Location coordWall, int sx, int sy, int tx, int ty);
 }

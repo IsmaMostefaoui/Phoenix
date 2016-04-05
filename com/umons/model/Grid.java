@@ -100,6 +100,22 @@ public class Grid {
 	*/
 	
 	/**
+	 * Calcule le cout d'un mouvement
+	 * @param current la position de la case de depart
+	 * @param target la position de la case d arrive, celle ou l objet va se deplacer
+	 * @return un int 2 ou 4 (pour les saut)
+	 */
+	public int getMovementCost(Location current, Location target) {
+		if(Math.abs(current.getLocX() - target.getLocX()) == 4 ^ Math.abs(current.getLocY() - target.getLocY()) == 4) {
+			return 4;
+		}
+		else {
+			return 2;
+		}
+	}
+	
+	
+	/**
 	 * @return la longueur du board
 	 */
 	public static int getLen() {

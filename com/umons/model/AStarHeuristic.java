@@ -1,6 +1,5 @@
 package com.umons.model;
 
-
 /**
  * I
  * @author Inspired by Kevin Glass's code[1]
