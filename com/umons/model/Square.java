@@ -5,6 +5,15 @@ public class Square {
 	protected boolean full; //placé en protected parce que besoin d'y acceder dans wall, une classe derivée de square
 	protected Location loc;
 	
+	/**
+	 * Initialise une case avec des coordonnes x et y
+	 * @param x la coordonnees x de la case
+	 * @param y la coordonnees y de la case
+	 */
+	public Square(int x, int y) {
+		loc = new Location(x, y);
+	}
+	
 	
 	/**
 	 * Initialise une case comme étant vide
@@ -51,7 +60,7 @@ public class Square {
 	/**
 	 * @return un boolean true si la case est complétement bloquée de tous les côtés
 	 */
-	public boolean blocked() {
+	public boolean isBlocked() {
 		return ARules.rSquareAvailable(this.getLocation()) == null;
 	}
 	
