@@ -11,27 +11,6 @@ public class Location {
 		this.x = x;
 		this.y = y;
 	}
-
-	/*
-	public Location pixelToCoord() {
-		int xtemp; int ytemp;
-		x = x -BoardGUI.lWall; y = y -BoardGUI.lWall;
-		if (x < 0 || x > 775 || y < 0 || y > 775) {
-			return new Location(-1, -1);
-		}
-		if (x >= 0 && x <= BoardGUI.lSquare) {
-			xtemp = 0;
-		}else {
-			System.out.println("test dans location pixetocoord x: " + x + " x/board: " + ((x/BoardGUI.lSquare)- (x/BoardGUI.lWall)));
-			xtemp = (int)Math.abs((x/BoardGUI.lSquare) - (x/BoardGUI.lWall));
-		}
-		if (y >= 0 && y <= BoardGUI.lSquare) {
-			ytemp = 0;
-		}else {
-			ytemp = (int)(Math.abs((y/BoardGUI.lSquare) - (y/BoardGUI.lWall)));
-		}
-		return new Location(xtemp, ytemp);
-	}*/
 	
 	public Location pixelToCoord() {
 		int xtemp = -1;
@@ -115,7 +94,7 @@ public class Location {
 	}
 	
 	
-
+	//POUR TEST CONSOLE
 	/**
 	 * Modifie les entrées consoles en coordonées de type Location
 	 * @param direction String représentant la direction du pion

@@ -52,7 +52,7 @@ public class Square {
 	 * @return un boolean true si la case est complétement bloquée de tous les côtés
 	 */
 	public boolean blocked() {
-		return ARules.rSquareAvailable(new Player(this.getLocation(), 1)) == null;
+		return ARules.rSquareAvailable(this.getLocation()) == null;
 	}
 	
 	/**

@@ -12,7 +12,6 @@ public class Grid {
 	//Herite des methodes de Rules
 
 	private Square[][] board;
-	Player player1, player2, player3, player4;
 	private final int LENGTH = 17; //sans les bords
 	
 	
@@ -21,10 +20,9 @@ public class Grid {
 	 * @param joueur1
 	 * @param joueur2
 	 */
-	public Grid(Player player1, Player player2) {
+	public Grid() {
 
 		board = new Square[LENGTH][LENGTH];
-		this.player1 = player1; this.player2 = player2;
 		
 		for (int i = 0; i < board.length; i+=2) {
 			for (int j = 0; j < board.length; j+=2) {
@@ -43,13 +41,13 @@ public class Grid {
 		}
 	}
 	
-	/**
+	/*
 	 * Initialise la grille avec 4 joueurs. Rempli aussi la grille !!
 	 * @param joueur1
 	 * @param joueur2
 	 * @param joueur3
 	 * @param joueur4
-	 */
+	 
 	public Grid(Player player1, Player player2, Player player3, Player player4) {
 
 		board = new Square[LENGTH][LENGTH];
@@ -71,8 +69,12 @@ public class Grid {
 				board[i][j] = new Wall(new Location(j, i));
 			}
 		}
-	}
+	}*/
 	
+	//********************************************************************
+	//Plus besoin de cette methode, comme on avait besoin des joueurs pour les afficher sur la grille avec cette methode
+	//on a plus beosin de joueurs non plus
+	/*
 	public void afficheGrid(Player player1, Player player2){
 		for (int i = 0; i < board.length; i++) {
 			//ne fonctionne pas, doit changer les == par equals (elle veut pas se surcharger c'est bizarre)
@@ -95,6 +97,7 @@ public class Grid {
 		}
 		System.out.println("    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16");
 	}
+	*/
 	
 	/**
 	 * @return la longueur du board
