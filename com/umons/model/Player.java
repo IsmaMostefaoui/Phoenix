@@ -2,14 +2,13 @@ package com.umons.model;
 
 import java.util.List;
 
-import com.umons.view.BoardGUI;
-
 public class Player {
 
 
 	private Location loc;
 	private int numberOfWall;
 	private final int NB_WALL = 10;
+	private Grid board;
 	private final int orderNumber;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
 	public final static Location POS1 = new Location(8, 16);
@@ -23,35 +22,40 @@ public class Player {
 	 * @param orderNumbrer Le numero d'ordre du joueur
 	 * 
 	 */
-	public Player(Location loc, int orderNumber) {
+	public Player(Grid board, Location loc, int orderNumber) {
 		this.loc = loc;
+		this.board = board;
 		numberOfWall = NB_WALL;
 		this.orderNumber = orderNumber;
 	}
+
 	/**
 	 * Initialise un joueur avec une position
 	 * @param loc un objet de type Location, la position du joueur sur la grille
 	 * @param nbreOfWall le nombre de Mur d'un joueur en debut de partie 
 	 * @param orderNumbrer Le numero d'ordre du joueur
 	 */
-	public Player(Location loc, int nbreOfWall, int orderNumber) {
+	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber) {
+
 		this.loc = loc;
+		this.board = board;
 		this.numberOfWall = nbreOfWall;
 		this.orderNumber = orderNumber;
 	}
 	
 	/**
-	 * Deplace le pion selon une direction (donné en tableau de coordonnées (x, y))
-	 * @param grid un objet de type Grid representant le tableau sur lequel le pion doit se deplacer
+	 * Deplace le pion sur la position donne. Retourne vrai si le deplacement s est bien passe
+	 * Sinon retourne faux, et ne deplace pas le pion
+	 * @param board un objet de type Grid representant le tableau sur lequel le pion doit se deplacer
 	 * @param loc un objet Location correspondant à la case cible
 	 * @return true si le deplacement est autorisé, sinon false
 	 */
-	public boolean move(Grid board, Location loc) {
+	public boolean move(Location loc) {
 		List<Location> list = ARules.rSquareAvailable(this);
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).equals(loc)) {
 				board.setItemInGrid(this.getLoc(), false);
-				this.setLoc(loc);
+				this.loc = loc;
 				board.setItemInGrid(loc, true);
 				return true;
 			}
@@ -66,7 +70,7 @@ public class Player {
 	 * @param loc la position du début du mur (le premier bloc à gauche [horizontal], le premier bloc en haut[vertical]
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
-	public boolean putWall(Grid board, Location loc){
+	public boolean putWall(Location loc){
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
@@ -92,8 +96,8 @@ public class Player {
 	public Location getLoc() { return new Location(loc.getLocX(), loc.getLocY()); }
 	
 	/**
-	 * setter
-	 * @param loc un objet Location représentant la position du joueur(pion) sur la grille
+	 * getter
+	 * @return le nombre de mur actuel du joueur
 	 */
 	public void setLoc(Location loc) {
 		this.loc = loc;
