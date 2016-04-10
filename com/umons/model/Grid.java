@@ -105,12 +105,14 @@ public class Grid {
 	 * @param target la position de la case d arrive, celle ou l objet va se deplacer
 	 * @return un int 2 ou 4 (pour les saut)
 	 */
-	public int getMovementCost(Location current, Location target) {
+	public float getMovementCost(Location current, Location target) {
 		if(Math.abs(current.getLocX() - target.getLocX()) == 4 ^ Math.abs(current.getLocY() - target.getLocY()) == 4) {
-			return 4;
+			return 2f;
 		}
-		else {
-			return 2;
+		else if ((Math.abs(current.getLocX() - target.getLocX()) == 2 && Math.abs(current.getLocY() - target.getLocY()) == 2)){
+			return 1.4f;
+		}else {
+			return 1.f;
 		}
 	}
 	
