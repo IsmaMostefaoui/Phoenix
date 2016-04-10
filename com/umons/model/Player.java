@@ -66,6 +66,7 @@ public class Player {
 	public boolean putWall(Location loc, IPathFinder finder){
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
+				System.out.println("Apres l activation du bloc n° " + j + " du mur");
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
 			}
 			numberOfWall--;
@@ -74,6 +75,7 @@ public class Player {
 		}else if (numberOfWall > 0 && loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
+				System.out.println("Apres l activation du bloc n° " + i + " du mur");
 			}
 			numberOfWall--;
 			return true;
@@ -100,7 +102,7 @@ public class Player {
 	}
 	
 	/**
-	 * Retourne la position de la ligne d arriv� du joueur selon son numero
+	 * Retourne la position de la ligne d arriv� du joueur selon son numero
 	 */
 	public int getCoordFinish() {
 		if (orderNumber==1) {

@@ -189,7 +189,7 @@ public class AStarPathFinder implements IPathFinder{
 		//fin de la simulation, on vide le mur au cas ou il aurait fallu ne pas le poser
 		setWallTo(coordWall, false);
 		return path;
-		 
+		
 	}
 	
 	/**
@@ -272,10 +272,10 @@ public class AStarPathFinder implements IPathFinder{
 		private int depth;
 		
 		/**
-		 * Crée un nouveau noeud
+		 * Crï¿½e un nouveau noeud
 		 * 
-		 * @param x la coordonnées en x du noeud
-		 * @param y la coordonnées en y du noeud
+		 * @param x la coordonnï¿½es en x du noeud
+		 * @param y la coordonnï¿½es en y du noeud
 		 */
 		public Node(int x, int y) {
 			this.x = x;
@@ -291,7 +291,7 @@ public class AStarPathFinder implements IPathFinder{
 		}
 		
 		/**
-		 * Défini le "parent" de ce noeud
+		 * Dï¿½fini le "parent" de ce noeud
 		 * 
 		 * @param parent le noeud parent, celui qui nous amene a ce noeud
 		 * @return La profondeur qu'on a atteint (The depth we have ?no reached? in searching)
