@@ -8,9 +8,9 @@ public class Game {
 	private int numberPlayer;
 	private static int tour = 0;
 	private Grid board;
-	private Mode mode;
+	private IMode mode;
 	
-	public Game(Mode mode) {
+	public Game(IMode mode) {
 		this.mode = mode;
 		this.numberPlayer = mode.getNumberOfPlayer();
 		
@@ -76,7 +76,7 @@ public class Game {
 		off.setVisible(false);
 	}
 	
-	public Mode getMode() {
+	public IMode getMode() {
 		return mode;
 	}
 

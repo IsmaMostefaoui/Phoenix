@@ -6,11 +6,11 @@ import com.umons.view.BoardGUI;
 
 public class RandomIA extends Player {
 	
-	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, Mode mode) {
+	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, IMode mode) {
 		super(grid, loc, NbreOfWall, OrderNumber, mode);	
 	}
 	
-	public RandomIA(Grid grid, Location loc, int OrderNumber, Mode mode) {
+	public RandomIA(Grid grid, Location loc, int OrderNumber, IMode mode) {
 		super(grid, loc, OrderNumber, mode);	
 	}
 	

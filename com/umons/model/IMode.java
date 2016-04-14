@@ -1,6 +1,6 @@
 package com.umons.model;
 
-public interface Mode{
+public interface IMode{
 	
 	/**
 	 * Initalise une game
@@ -29,3 +29,4 @@ public interface Mode{
 	 */
 	boolean testFinder(Player player, Location coordWall, IPathFinder finder);
 }
+

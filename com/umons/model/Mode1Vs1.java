@@ -5,7 +5,7 @@ import com.umons.view.BoardGUI;
 import com.umons.controller.MyMouseListener;
 import com.umons.view.QuoridorGUI;
 
-public class Mode1Vs1 implements Mode{
+public class Mode1Vs1 implements IMode{
 
 	private Player[] players;
 	private Grid board;
@@ -41,7 +41,7 @@ public class Mode1Vs1 implements Mode{
 		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER	
 		ARules.setBoard(board);
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
-		JPanel panel = new BoardGUI(game, players[0], players[1]);
+		JPanel panel = new BoardGUI(game);
 		panel.setFocusable(true);
 		MyMouseListener l = new MyMouseListener(players[0], players[1], panel, game, finder);
 		panel.addMouseListener(l);
