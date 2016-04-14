@@ -1,9 +1,8 @@
 package com.umons.model;
 
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import com.umons.view.BoardGUI;
-import com.umons.view.MyMouseListener;
+import com.umons.controller.MyMouseListener;
 import com.umons.view.QuoridorGUI;
 
 public class Mode1Vs1 implements Mode{
@@ -54,8 +53,10 @@ public class Mode1Vs1 implements Mode{
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				if (players[j].getOrder()==1 || players[j].getOrder()==2) {
+					long timeStart = System.currentTimeMillis();
 					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
-						System.out.println("joueur: " + j);
+						long timeEnd = System.currentTimeMillis();
+						System.out.println("temps: " + ((timeEnd - timeStart)));
 						check[j] = false;
 					}else {
 						System.out.println("joueur: " + j);

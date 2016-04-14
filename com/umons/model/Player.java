@@ -2,6 +2,8 @@ package com.umons.model;
 
 import java.util.List;
 
+import com.umons.view.BoardGUI;
+
 public class Player {
 
 	private Mode mode;
@@ -83,23 +85,25 @@ public class Player {
 		return false; 
 	}
 	
-	/**
-	 * A changer de place(quelque part ou on a acces a tous les player)
-	 * Test si il y a un chemin
-	 * @param finder
-	 * @param loc la position du mur qui risque de bloquer un joueur
-	 * @return vrai si il y a un chemin, faux sinon
-	 */
-	public boolean testFinder(Location coordWall, IPathFinder finder){
-		for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
-			if ((orderNumber == 1 || orderNumber == 2) && finder.findPath(coordWall, 8, 0, 6, 16) == null){
-				System.out.println("------------------------------------\n------------------------------\n---------------------------\n-------------------\n");
-				return false;
-			}else if((orderNumber == 3 || orderNumber == 4) && finder.findPath(coordWall, this.loc.getLocX(), this.loc.getLocY(), getCoordFinish(), i) == null){
-				return false;
-			}break;
-		}return true;
+	public void play(Game game, Location temp, IPathFinder finder) {
+	
+		if (temp.isSquare() && this.move(temp)) {
+			BoardGUI.locPawn1 = temp;
+			game.nextPlayer();
+		}else if (temp.isWallHorizontal() && this.putWall(temp, finder)){
+			System.out.println("locwall rempli");
+			BoardGUI.locWallHorizontal.add(temp);
+			game.nextPlayer();
+			//aud.run();
+		}else if (temp.isWallVertical() && this.putWall(temp, finder)){
+			System.out.println("locwall rempli");
+			BoardGUI.locWallVertical.add(temp);
+			game.nextPlayer();
+			//aud.run();
+		}
 	}
+	
+	
 	
 	/**
 	 * Retourne la position de la ligne d arriv� du joueur selon son numero
