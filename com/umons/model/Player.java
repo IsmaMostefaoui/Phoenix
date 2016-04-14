@@ -21,6 +21,8 @@ public class Player {
 	/**
 	 * Initialise un joueur avec une position
 	 * @param loc un objet de type Location, la position du joueur sur la grille
+	 * @param orderNumbrer Le numero d'ordre du joueur
+	 * 
 	 */
 	public Player(Grid board, Location loc, int orderNumber, Mode mode) {
 		this.loc = loc;
@@ -29,7 +31,14 @@ public class Player {
 		this.orderNumber = orderNumber;
 		this.mode = mode;
 	}
-	
+
+
+	/**
+	 * Initialise un joueur avec une position
+	 * @param loc un objet de type Location, la position du joueur sur la grille
+	 * @param nbreOfWall le nombre de Mur d'un joueur en debut de partie 
+	 * @param orderNumbrer Le numero d'ordre du joueur
+	 */
 	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, Mode mode) {
 		this.loc = loc;
 		this.board = board;
@@ -132,6 +141,14 @@ public class Player {
 	/**
 	 * getter
 	 * @return le nombre de mur actuel du joueur
+	 */
+	public void setLoc(Location loc) {
+		this.loc = loc;
+	}
+	
+	/**
+	 * getter 
+	 * @retrun le nombre de mur restant du joueur
 	 */
 	public int getNbreOfWall() {
 		return numberOfWall;

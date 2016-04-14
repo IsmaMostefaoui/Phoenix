@@ -69,12 +69,18 @@ public class Grid {
 				board[i][j] = new Wall(new Location(j, i));
 			}
 		}
-	}*/
+
+
+
+
+	}
+	*/
 	
 	//********************************************************************
 	//Plus besoin de cette methode, comme on avait besoin des joueurs pour les afficher sur la grille avec cette methode
 	//on a plus beosin de joueurs non plus
 	/*
+>>>>>>> 02ae340dfa249c10080704a8fbcdaa4117287871
 	public void afficheGrid(Player player1, Player player2){
 		for (int i = 0; i < board.length; i++) {
 			//ne fonctionne pas, doit changer les == par equals (elle veut pas se surcharger c'est bizarre)

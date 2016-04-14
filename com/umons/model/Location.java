@@ -11,7 +11,7 @@ public class Location {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public Location pixelToCoord() {
 		int xtemp = -1;
 		int ytemp = -1;
@@ -34,6 +34,10 @@ public class Location {
 		}return new Location(xtemp, ytemp);
 	}
 
+	/**
+	 * Transforme un objet Location en des coordonées pixel
+	 * @return un Objet Location
+	 */
 	public Location coordToPixel() {
 		int xtemp;
 		int ytemp;
@@ -218,4 +222,25 @@ public class Location {
 	public String toString() {
 		return "(" + this.x + ", " + this.y + ")";
 	}
+	
+	public Location wallUp() {
+		return (new Location(x , y -1));
+	}
+	
+	public Location wallLeft() {
+		return (new Location(x - 1, y));
+	}
+	
+	public Location wallRight() {
+		return (new Location(x + 1, y));
+	}
+	
+	public Location wallDown() {
+		return (new Location(x , y +1));
+	}
+	
+	
+	
+	
+	
 }

@@ -4,9 +4,6 @@ import javax.swing.JFrame;
 
 public class QuoridorGUI extends JFrame{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	final int HEIGHT = 860;
 	final int WIDTH = 830;

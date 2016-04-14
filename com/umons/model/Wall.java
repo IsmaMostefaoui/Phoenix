@@ -30,5 +30,6 @@ public class Wall extends Square{
 		}else {
 			return null;
 		}
-	}	
+	}
+	
 }

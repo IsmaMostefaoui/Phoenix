@@ -103,11 +103,19 @@ public class BoardGUI extends JPanel{
 	}
 	
 	/**
+<<<<<<< HEAD
+	 * Dessine un Cercle dans la grille representant le Pion d'un joueur
+	 * @param g2d Objet graphics
+	 * @param locPawn Objet Location du joueur 
+	 * @param c Couleur du Pion
+	 * @param numberOfWall Nombre de mur restant au joueur
+=======
 	 * Dessine un pion sur la case donne en parametre avec un nombre de mur et une couleur predefinie.
 	 * @param g2d l outil pour dessiner le pion
 	 * @param locPawn l objet Location representant la case sur la quelle doit etre dessiner le pion (coordonnee tableau/PAS pixel)
 	 * @param c un objet Color representant la couleur du pion
 	 * @param numberOfWall le nombre de mur restant (selon les joueurs)
+>>>>>>> 02ae340dfa249c10080704a8fbcdaa4117287871
 	 */
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		g2d.setColor(c);
@@ -133,6 +141,8 @@ public class BoardGUI extends JPanel{
 			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
 		}
 	}
+
+
 	
 	/**
 	 * Dessine un mur vertical avec une couleur c
