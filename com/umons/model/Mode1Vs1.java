@@ -8,26 +8,66 @@ import com.umons.view.QuoridorGUI;
 
 public class Mode1Vs1 implements Mode{
 
+	Player[] players;
+	Grid board;
+	AStarHeuristic heuristic;
+	IPathFinder finder;
+	
+	public Mode1Vs1() {
+		board = new Grid();
+		players = new Player[2];
+		players[0] = new Player(board, Player.POS1, 1, this);
+		players[1] = new Player(board, Player.POS2, 2, this);
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
+	}
+	
 	@Override
 	public void init(Game game) {
 		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
-		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER
-		Grid board = new Grid();		
-		Player[] players = {new Player(board, Player.POS1, 1), new Player(board, Player.POS2, 2)};
+		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER	
 		ARules.setBoard(board);
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
 		JPanel panel = new BoardGUI(game, players[0], players[1]);
 		panel.setFocusable(true);
-		MyMouseListener l = new MyMouseListener(players[0], players[1], panel, game);
+		MyMouseListener l = new MyMouseListener(players[0], players[1], panel, game, finder);
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
 		
 	}
+	
 
 	@Override
 	public int getNumberOfPlayer() {
 		return 2;
 	}
 
+	@Override
+	public Player[] getPlayer() {
+		return players;
+	}
+
+	@Override
+	public boolean testFinder(Player player, Location coordWall, IPathFinder finder){
+		for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
+			for (int j = 0; j < players.length; j++) {
+				if (players[j].getOrder()==1 || players[j].getOrder()==2) {
+					return !(finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null);
+				}else if (players[j].getOrder()==3 || players[j].getOrder()==4){
+					return !(finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), players[j].getCoordFinish(), 2*i) == null);
+				}
+			}
+		}return false;
+		/*
+		
+		for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
+			if ((orderNumber == 1 || orderNumber == 2) && finder.findPath(coordWall, 8, 0, 6, 16) == null){
+				System.out.println("------------------------------------\n------------------------------\n---------------------------\n-------------------\n");
+				return false;
+			}else if((orderNumber == 3 || orderNumber == 4) && finder.findPath(coordWall, this.loc.getLocX(), this.loc.getLocY(), getCoordFinish(), i) == null){
+				return false;
+			}break;
+		}return true;*/
+	}
 }

@@ -7,6 +7,7 @@ import javax.swing.event.MouseInputListener;
 
 import com.umons.model.Game;
 import com.umons.model.Grid;
+import com.umons.model.IPathFinder;
 import com.umons.model.Location;
 import com.umons.model.Player;
 import com.umons.model.Audio;
@@ -20,15 +21,17 @@ public class MyMouseListener implements MouseInputListener{
 	private final JPanel panel;
 	private Player joueur1;
 	private Player joueur2;
+	private IPathFinder finder;
 	//ajout d'un objet audio pour plus tard
 	Audio aud;
 	
 	
 	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
-	public MyMouseListener(Player joueur1, Player joueur2, JPanel panel, Game game) {
+	public MyMouseListener(Player joueur1, Player joueur2, JPanel panel, Game game, IPathFinder finder) {
 		this.panel = panel;
 		this.game = game;
 		this.joueur1 = joueur1; this.joueur2 = joueur2;
+		this.finder = finder;
 		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
 		
 	}
@@ -50,12 +53,14 @@ public class MyMouseListener implements MouseInputListener{
 					game.stop(panel);
 				}
 				panel.repaint();
-			}else if (temp.isWallHorizontal() && joueur1.putWall(temp)){
+			}else if (temp.isWallHorizontal() && joueur1.putWall(temp, finder)){
+				System.out.println("locwall rempli");
 				BoardGUI.locWallHorizontal.add(temp);
 				game.nextPlayer();
 				panel.repaint();
 				//aud.run();
-			}else if (temp.isWallVertical() && joueur1.putWall(temp)){
+			}else if (temp.isWallVertical() && joueur1.putWall(temp, finder)){
+				System.out.println("locwall rempli");
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();
@@ -70,12 +75,14 @@ public class MyMouseListener implements MouseInputListener{
 					game.stop(panel);
 				}
 				panel.repaint();
-			}else if (temp.isWallHorizontal() && joueur2.putWall(temp)){
+			}else if (temp.isWallHorizontal() && joueur2.putWall(temp, finder)){
+				System.out.println("locwall rempli j2");
 				BoardGUI.locWallHorizontal.add(temp);
 				game.nextPlayer();
 				panel.repaint();
 				//aud.run();
-			}else if (temp.isWallVertical() && joueur2.putWall(temp)){
+			}else if (temp.isWallVertical() && joueur2.putWall(temp, finder)){
+				System.out.println("locwall rempli j2");
 				BoardGUI.locWallVertical.add(temp);
 				game.nextPlayer();
 				panel.repaint();

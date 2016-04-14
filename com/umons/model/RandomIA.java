@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class RandomIA extends Player {
 	
-	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber) {
-		super(grid, loc, NbreOfWall, OrderNumber);	
+	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, Mode mode) {
+		super(grid, loc, NbreOfWall, OrderNumber, mode);	
 	}
 	
-	public RandomIA(Grid grid, Location loc, int OrderNumber) {
-		super(grid, loc, OrderNumber);	
+	public RandomIA(Grid grid, Location loc, int OrderNumber, Mode mode) {
+		super(grid, loc, OrderNumber, mode);	
 	}
 	
 	/**
@@ -17,14 +17,14 @@ public class RandomIA extends Player {
 	 * @param grid palteau de jeu
 	 * @param opponent Instance Player du joueur adverse
 	 */
-	public void move(Grid grid, Player opponent) {
+	public void move(Grid grid, IPathFinder finder, Player opponent) {
 		Random rand = new Random();
 		boolean choice = rand.nextBoolean();
 		if (choice == true) {
 			this.go(grid);
 		}
 		if (choice == false) {
-			if (!this.putwall(grid, opponent)) { // si ne peut poser aucun mur, faire un deplacement
+			if (!this.putwall(grid, opponent, finder)) { // si ne peut poser aucun mur, faire un deplacement
 				this.go(grid);
 			}
 		}
@@ -57,11 +57,11 @@ public class RandomIA extends Player {
 	 * @param opponent Instance Player du joueur adverse
 	 * @return true si il peut poser un mur, sinon false
 	 */
-	public boolean putwall(Grid grid, Player opponent) {
+	public boolean putwall(Grid grid, Player opponent, IPathFinder finder) {
 		Location[] tabWall = {opponent.getLoc().wallUp(), opponent.getLoc().wallLeft(), opponent.getLoc().wallRight(), opponent.getLoc().wallDown() };
 		int numb = 0;
 		while (numb < 4) {
-			if (super.putWall(tabWall[numb])) {
+			if (super.putWall(tabWall[numb], finder)) {
 				return true;
 			}
 			numb++;

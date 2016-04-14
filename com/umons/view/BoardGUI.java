@@ -16,6 +16,11 @@ import java.util.List;
 import javax.swing.JPanel;
 import com.umons.model.*;
 
+/**
+ * Surcharge de JPanel. Classe représentant le plateau du Quoridor (dessin)
+ * @author isma
+ *
+ */
 public class BoardGUI extends JPanel{
 
 	/**

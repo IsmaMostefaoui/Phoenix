@@ -205,9 +205,9 @@ public abstract class ARules {
 	 * @param loc l'instance de la position cible
 	 * @return une liste d'objet Location des cases accecibles par le joueur
 	 */
-	public static List<Location> rSquareAvailable(Location player) {
+	public static ArrayList<Location> rSquareAvailable(Location player) {
 		//utiliser dans square pour la methode blocked (//path finidng)
-		List<Location> squareAvailable = new ArrayList<Location>();
+		ArrayList<Location> squareAvailable = new ArrayList<Location>();
 		Location locPlayer = player;
 		//Location de toutes les cases autour du joueur
 		Location locUP = locPlayer.squareUp();

@@ -151,7 +151,7 @@ public class Location {
 	 * @return true si il est horizontal,sinon false
 	 */
 	public boolean isWallHorizontal() {
-		return getLocX() % 2 == 0;
+		return getLocX() % 2 == 0 && getLocY()%2 != 0;
 	}
 	
 	
@@ -160,7 +160,7 @@ public class Location {
 	 * @return true si il est vertical,sinon false
 	 */
 	public boolean isWallVertical() {
-		return getLocY() % 2 == 0;
+		return getLocY() % 2 == 0 && getLocX()%2 != 0;
 	}
 	
 	
@@ -220,7 +220,7 @@ public class Location {
 	 * Ex : " 5, 2 " 
 	 */
 	public String toString() {
-		return this.x + ", " + this.y;
+		return "(" + this.x + ", " + this.y + ")";
 	}
 	
 	public Location wallUp() {
