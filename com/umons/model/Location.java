@@ -223,18 +223,30 @@ public class Location {
 		return "(" + this.x + ", " + this.y + ")";
 	}
 	
+	/**
+	 * @return ls coordonnees Location du mur du dessus
+	 */
 	public Location wallUp() {
 		return (new Location(x , y -1));
 	}
 	
+	/**
+	 * @return ls coordonnees Location du mur du dessus
+	 */
 	public Location wallLeft() {
 		return (new Location(x - 1, y));
 	}
 	
+	/**
+	 * @return ls coordonnees Location du mur du dessus
+	 */
 	public Location wallRight() {
 		return (new Location(x + 1, y));
 	}
 	
+	/**
+	 * @return ls coordonnees Location du mur du dessus
+	 */
 	public Location wallDown() {
 		return (new Location(x , y +1));
 	}

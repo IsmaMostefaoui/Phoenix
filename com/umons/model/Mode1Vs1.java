@@ -7,16 +7,30 @@ import com.umons.view.QuoridorGUI;
 
 public class Mode1Vs1 implements Mode{
 
-	Player[] players;
-	Grid board;
-	AStarHeuristic heuristic;
-	IPathFinder finder;
+	private Player[] players;
+	private Grid board;
+	private AStarHeuristic heuristic;
+	private IPathFinder finder;
+	private int nbreHumans;
 	
-	public Mode1Vs1() {
+	/**
+	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
+	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
+	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
+	 */
+	public Mode1Vs1(int nbreHumans) {
 		board = new Grid();
 		players = new Player[2];
+		this.nbreHumans = nbreHumans;
 		players[0] = new Player(board, Player.POS1, 1, this);
-		players[1] = new Player(board, Player.POS2, 2, this);
+		if (nbreHumans == 2){
+			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
+			players[1] = new Player(board, Player.POS2, 2, this);
+		}else if (nbreHumans == 1){
+			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
+			players[1] = new RandomIA(board, Player.POS2, 2, this);
+			players[1].setPLayerToIA();
+		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}

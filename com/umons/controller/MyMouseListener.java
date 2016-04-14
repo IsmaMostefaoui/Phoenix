@@ -8,6 +8,7 @@ import com.umons.model.Game;
 import com.umons.model.IPathFinder;
 import com.umons.model.Location;
 import com.umons.model.Player;
+import com.umons.model.RandomIA;
 import com.umons.model.Audio;
 
 public class MyMouseListener implements MouseInputListener{
@@ -17,18 +18,29 @@ public class MyMouseListener implements MouseInputListener{
 	private static Location motionCoord;
 	private Game game;
 	private final JPanel panel;
-	private Player joueur1;
-	private Player joueur2;
+	private Player player1;
+	private Player player2;
+	private Player player3;
+	private Player player4;
 	private IPathFinder finder;
 	//ajout d'un objet audio pour plus tard
 	Audio aud;
 	
 	
 	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
-	public MyMouseListener(Player joueur1, Player joueur2, JPanel panel, Game game, IPathFinder finder) {
+	public MyMouseListener(Player player1, Player player2, JPanel panel, Game game, IPathFinder finder) {
 		this.panel = panel;
 		this.game = game;
-		this.joueur1 = joueur1; this.joueur2 = joueur2;
+		this.player1 = player1; this.player2 = player2;
+		this.finder = finder;
+		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
+		
+	}
+	
+	public MyMouseListener(Player player1, Player player2,Player player3, Player player4, JPanel panel, Game game, IPathFinder finder) {
+		this.panel = panel;
+		this.game = game;
+		this.player1 = player1; this.player2 = player2; this.player3 = player3; this.player4 = player4;
 		this.finder = finder;
 		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
 		
@@ -40,53 +52,25 @@ public class MyMouseListener implements MouseInputListener{
 		clickCoord = new Location(x1, y1);
 		Location temp = clickCoord.pixelToCoord();
 		if (game.getTour() == 0) {
-			//le deplacement du joueur se fait ici, avec la condition
-			//si move retourne vrai, alors le pion se deplace
-			//sinon, alors move retourne faux et ne fait rien
-			if (temp.isSquare() && joueur1.move(temp)) {
-				BoardGUI.locPawn1 = temp;
-				game.nextPlayer();
-				if (game.win(joueur1)) {
-					System.out.println("JOUEUR1 A GAGNE");
-					game.stop(panel);
-				}
-				panel.repaint();
-			}else if (temp.isWallHorizontal() && joueur1.putWall(temp, finder)){
-				System.out.println("locwall rempli");
-				BoardGUI.locWallHorizontal.add(temp);
-				game.nextPlayer();
-				panel.repaint();
-				//aud.run();
-			}else if (temp.isWallVertical() && joueur1.putWall(temp, finder)){
-				System.out.println("locwall rempli");
-				BoardGUI.locWallVertical.add(temp);
-				game.nextPlayer();
-				panel.repaint();
-				//aud.run();
-			}
+			//la je suppose que l ia sera toujours le deuxieme troisieme ou quatrieme joueur ce qui est totalement faux
+			//#simulation entre deux ou quatre IA (stat mode)
+			player1.play(game, temp, finder);
 		}else if (game.getTour() == 1){
-			if (temp.isSquare() && joueur2.move(temp)) {
-				BoardGUI.locPawn2 = temp;
+			if (player2.isHumanPLayer()) {
+				player2.play(game, temp, finder);
+			}else {
+				//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
+				RandomIA IA = (RandomIA) player2;
+				IA.move(game, finder, player1);
 				game.nextPlayer();
-				if (game.win(joueur2)) {
-					System.out.println("JOUEUR2 A GAGNE");
-					game.stop(panel);
-				}
-				panel.repaint();
-			}else if (temp.isWallHorizontal() && joueur2.putWall(temp, finder)){
-				System.out.println("locwall rempli j2");
-				BoardGUI.locWallHorizontal.add(temp);
-				game.nextPlayer();
-				panel.repaint();
-				//aud.run();
-			}else if (temp.isWallVertical() && joueur2.putWall(temp, finder)){
-				System.out.println("locwall rempli j2");
-				BoardGUI.locWallVertical.add(temp);
-				game.nextPlayer();
-				panel.repaint();
-				//aud.run();
 			}
-		}
+		}else if (game.getTour() == 2) {
+			System.out.println("je suis dans tour 2 mais enfait il vaut: " + game.getTour());
+			player3.play(game, temp, finder);
+		}else if (game.getTour() == 3){
+			System.out.println("je suis dans tour 3 mais enfait il vaut: " + game.getTour());
+			player4.play(game, temp, finder);
+		}panel.repaint();
 		
 	}
 

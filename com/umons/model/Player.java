@@ -6,12 +6,13 @@ import com.umons.view.BoardGUI;
 
 public class Player {
 
-	private Mode mode;
-	private Location loc;
-	private int numberOfWall;
-	private final int NB_WALL = 10;
-	private Grid board;
-	private final int orderNumber;
+	protected Mode mode;
+	protected Location loc;
+	protected int numberOfWall;
+	protected final int NB_WALL = 10;
+	protected Grid board;
+	protected final int orderNumber;
+	protected boolean human = true;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
 	public final static Location POS1 = new Location(8, 16);
 	public final static Location POS2 = new Location(8, 0);
@@ -97,7 +98,13 @@ public class Player {
 	public void play(Game game, Location temp, IPathFinder finder) {
 	
 		if (temp.isSquare() && this.move(temp)) {
-			BoardGUI.locPawn1 = temp;
+			switch (this.orderNumber) {
+			case 1:
+				BoardGUI.locPawn1 = temp;
+				break;
+			case 2:
+				BoardGUI.locPawn2 = temp;
+			}
 			game.nextPlayer();
 		}else if (temp.isWallHorizontal() && this.putWall(temp, finder)){
 			System.out.println("locwall rempli");
@@ -165,5 +172,16 @@ public class Player {
 	public boolean equals(Object other) {
 		Player p = (Player)other;
 		return this.getLoc().equals(p.getLoc());
+	}
+	
+	public boolean isHumanPLayer() {
+		return human;
+	}
+	
+	/**
+	 * Defini l'instance de PLayer comme étant une intelligence artificielle
+	 */
+	public void setPLayerToIA(){
+		human = false;
 	}
 }
