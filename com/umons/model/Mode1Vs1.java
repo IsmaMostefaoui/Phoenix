@@ -50,24 +50,27 @@ public class Mode1Vs1 implements Mode{
 
 	@Override
 	public boolean testFinder(Player player, Location coordWall, IPathFinder finder){
-		for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
-			for (int j = 0; j < players.length; j++) {
+		boolean[] check = {true, true};
+		for (int j = 0; j < players.length; j++) {
+			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				if (players[j].getOrder()==1 || players[j].getOrder()==2) {
-					return !(finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null);
+					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
+						System.out.println("joueur: " + j);
+						check[j] = false;
+					}else {
+						System.out.println("joueur: " + j);
+						check[j] = true;
+						break;
+					}
 				}else if (players[j].getOrder()==3 || players[j].getOrder()==4){
-					return !(finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), players[j].getCoordFinish(), 2*i) == null);
+					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), players[j].getCoordFinish(), 2*i) == null)) {
+						check[j] = false;
+					}else {
+						check[j] = true;
+						break;
+					}
 				}
 			}
-		}return false;
-		/*
-		
-		for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
-			if ((orderNumber == 1 || orderNumber == 2) && finder.findPath(coordWall, 8, 0, 6, 16) == null){
-				System.out.println("------------------------------------\n------------------------------\n---------------------------\n-------------------\n");
-				return false;
-			}else if((orderNumber == 3 || orderNumber == 4) && finder.findPath(coordWall, this.loc.getLocX(), this.loc.getLocY(), getCoordFinish(), i) == null){
-				return false;
-			}break;
-		}return true;*/
+		}return check[0] && check [1];
 	}
 }

@@ -31,7 +31,7 @@ public class AStarPathFinder implements IPathFinder{
 			}else{
 				System.out.print("" + i + " ");
 			}
-			for (int j = 0; j < board.getLen(); j++) {
+			for (int j = 0; j < Grid.getLen(); j++) {
 				System.out.print(board.getItem(new Location(i, j)));
 			}
 			System.out.println();
