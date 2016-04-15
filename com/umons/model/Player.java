@@ -186,7 +186,7 @@ public class Player {
 	}
 	
 	/**
-	 * Defini l'instance de PLayer comme étant une intelligence artificielle
+	 * Defini l'instance de PLayer (utilise pour RandomIA et autre IA (puisque herite de Player) comme étant une intelligence artificielle
 	 */
 	public void setPLayerToIA(){
 		human = false;
