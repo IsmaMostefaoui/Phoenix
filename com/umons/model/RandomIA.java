@@ -42,7 +42,8 @@ public class RandomIA extends Player {
 	 */
 	public void play() {
 		List<Location> list = ARules.rSquareAvailable(this);
-		Location nextLocation = this.getLoc();
+		
+		Location nextLocation = Player.POS2;
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getLocY() >= nextLocation.getLocY()) {
 				nextLocation = list.get(i);	
@@ -52,9 +53,13 @@ public class RandomIA extends Player {
 		board.setItemInGrid(nextLocation, true);
 		if (orderNumber == 1){
 			BoardGUI.locPawn1 = nextLocation;
-		}else {
+		}else if (orderNumber == 2){
 			//ajouter les locpawn3 et 4 dans boardgui pour les 3 et 4 joueurs
 			BoardGUI.locPawn2 = nextLocation;
+		}else if (orderNumber == 3) {
+			BoardGUI.locPawn3 = nextLocation;
+		}else if (orderNumber == 4) {
+			BoardGUI.locPawn4 = nextLocation;
 		}
 		this.setLoc(nextLocation);
 

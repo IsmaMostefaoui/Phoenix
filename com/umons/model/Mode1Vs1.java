@@ -64,13 +64,11 @@ public class Mode1Vs1 implements IMode{
 	@Override
 	public boolean testFinder(Player player, Location coordWall, IPathFinder finder){
 		boolean[] check = {true, true};
+		long timeStart = System.currentTimeMillis();
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				if (players[j].getOrder()==1 || players[j].getOrder()==2) {
-					long timeStart = System.currentTimeMillis();
 					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
-						long timeEnd = System.currentTimeMillis();
-						System.out.println("temps: " + ((timeEnd - timeStart)));
 						check[j] = false;
 					}else {
 						System.out.println("joueur: " + j);
@@ -86,6 +84,9 @@ public class Mode1Vs1 implements IMode{
 					}
 				}
 			}
-		}return check[0] && check [1];
+		}
+		long timeEnd = System.currentTimeMillis();
+		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
+		return check[0] && check [1];
 	}
 }
