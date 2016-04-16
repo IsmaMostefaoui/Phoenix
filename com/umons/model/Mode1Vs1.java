@@ -2,6 +2,7 @@ package com.umons.model;
 
 import javax.swing.JPanel;
 import com.umons.view.BoardGUI;
+import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
 import com.umons.view.QuoridorGUI;
 
@@ -43,7 +44,8 @@ public class Mode1Vs1 implements IMode{
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
 		JPanel panel = new BoardGUI(game);
 		panel.setFocusable(true);
-		MyMouseListener l = new MyMouseListener(players[0], players[1], panel, game, finder);
+		Controller controller = new Controller(this, panel, game, finder);
+		MyMouseListener l = new MyMouseListener(players[0], players[1], controller);
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);

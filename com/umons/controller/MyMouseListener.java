@@ -16,32 +16,24 @@ public class MyMouseListener implements MouseInputListener{
 	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
 	private static Location clickCoord;
 	private static Location motionCoord;
-	private Game game;
-	private final JPanel panel;
 	private Player player1;
 	private Player player2;
 	private Player player3;
 	private Player player4;
-	private IPathFinder finder;
-	//ajout d'un objet audio pour plus tard
-	Audio aud;
+	private Controller controller;
 	
 	
 	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
-	public MyMouseListener(Player player1, Player player2, JPanel panel, Game game, IPathFinder finder) {
-		this.panel = panel;
-		this.game = game;
+	public MyMouseListener(Player player1, Player player2, Controller controller) {
 		this.player1 = player1; this.player2 = player2;
-		this.finder = finder;
+		this.controller = controller;
 		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
 		
 	}
 	
-	public MyMouseListener(Player player1, Player player2,Player player3, Player player4, JPanel panel, Game game, IPathFinder finder) {
-		this.panel = panel;
-		this.game = game;
+	public MyMouseListener(Player player1, Player player2,Player player3, Player player4, Controller controller) {
 		this.player1 = player1; this.player2 = player2; this.player3 = player3; this.player4 = player4;
-		this.finder = finder;
+		this.controller = controller;
 		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
 		
 	}
@@ -50,31 +42,13 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseClicked(MouseEvent e) {
 		x1 = e.getX(); y1 = e.getY();
 		clickCoord = new Location(x1, y1);
-		Location temp = clickCoord.pixelToCoord();
-		if (game.getTour() == 0) {
-			//la je suppose que l ia sera toujours le deuxieme troisieme ou quatrieme joueur ce qui est totalement faux
-			//#simulation entre deux ou quatre IA (stat mode)
-			player1.play(game, temp, finder);
-		}else if (game.getTour() == 1){
-			if (player2.isHumanPLayer()) {
-				player2.play(game, temp, finder);
-			}else {
-				//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
-				RandomIA IA = (RandomIA) player2;
-				IA.move(game, finder, player1);
-				game.nextPlayer();
-			}
-		}else if (game.getTour() == 2) {
-			player3.play(game, temp, finder);
-		}else if (game.getTour() == 3){
-			player4.play(game, temp, finder);
-		}panel.repaint();
+		controller.makePlayerPlay(player1, player2, player3, player4);
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		xpressed = e.getX(); ypressed = e.getY();
+		//xpressed = e.getX(); ypressed = e.getY();
 		
 	}
 
@@ -82,13 +56,13 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseReleased(MouseEvent e) {
 		//Quand on click et puis qu'on lache, si la case presse est la meme que la case
 		//"depress�" (celle ou on lache le click), alors on fait quand m�me avancer le pion.
-		
+		/*
 		xreleased = e.getX(); yreleased = e.getY();
 		Location pressed = new Location(xpressed, ypressed);
 		Location released = new Location(xreleased, yreleased);
 		if (pressed.pixelToCoord().equals(released.pixelToCoord())) {
 			mouseClicked(e);
-		}
+		}*/
 		
 	}
 
@@ -114,11 +88,15 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		motionCoord = new Location(e.getX(), e.getY()).pixelToCoord();
-		panel.repaint();
+		controller.updatePanel();
 	}
 	
 	public static Location getMotionCoord() {
 		return motionCoord;
+	}
+	
+	public static Location getClickCoord() {
+		return clickCoord;
 	}
 	
 	public void play(Player player, Location loc, int tour) {
