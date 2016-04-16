@@ -17,7 +17,7 @@ public class RandomIA extends Player {
 	 * @param grid palteau de jeu
 	 * @param opponent Instance Player du joueur adverse
 	 */
-	public void play(Grid grid, IPathFinder finder, Player opponent) {
+	public void play(Game game, IPathFinder finder, Player opponent) {
 		Random rand = new Random();
 		boolean choice = rand.nextBoolean();
 		if (choice == true) {
