@@ -65,10 +65,8 @@ public class MyMouseListener implements MouseInputListener{
 				game.nextPlayer();
 			}
 		}else if (game.getTour() == 2) {
-			System.out.println("je suis dans tour 2 mais enfait il vaut: " + game.getTour());
 			player3.play(game, temp, finder);
 		}else if (game.getTour() == 3){
-			System.out.println("je suis dans tour 3 mais enfait il vaut: " + game.getTour());
 			player4.play(game, temp, finder);
 		}panel.repaint();
 		
