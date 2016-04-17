@@ -12,7 +12,7 @@ public class Player {
 	protected final int NB_WALL = 10;
 	protected Grid board;
 	protected final int orderNumber;
-	protected boolean human = true;
+	protected boolean human;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
 	public final static Location POS1 = new Location(8, 16);
 	public final static Location POS2 = new Location(8, 0);
@@ -31,6 +31,7 @@ public class Player {
 		numberOfWall = NB_WALL;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
+		this.human = true;
 	}
 
 
@@ -46,6 +47,7 @@ public class Player {
 		this.numberOfWall = nbreOfWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
+		this.human = true;
 	}
 	
 	/**
@@ -183,12 +185,5 @@ public class Player {
 	
 	public boolean isHumanPLayer() {
 		return human;
-	}
-	
-	/**
-	 * Defini l'instance de PLayer comme étant une intelligence artificielle
-	 */
-	public void setPLayerToIA(){
-		human = false;
 	}
 }

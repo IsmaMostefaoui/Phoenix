@@ -7,11 +7,13 @@ import com.umons.view.BoardGUI;
 public class RandomIA extends Player {
 	
 	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, IMode mode) {
-		super(grid, loc, NbreOfWall, OrderNumber, mode);	
+		super(grid, loc, NbreOfWall, OrderNumber, mode);
+		this.human = false;
 	}
 	
 	public RandomIA(Grid grid, Location loc, int OrderNumber, IMode mode) {
-		super(grid, loc, OrderNumber, mode);	
+		super(grid, loc, OrderNumber, mode);
+		this.human = false;
 	}
 	
 	/**

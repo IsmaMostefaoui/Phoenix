@@ -36,9 +36,6 @@ public class Mode2Vs2 implements IMode{
 			players[1] = new RandomIA(board, Player.POS2, 2, this);
 			players[2] = new RandomIA(board, Player.POS3, 3, this);
 			players[3] = new RandomIA(board, Player.POS4, 4, this);
-			for (Player player : players) {
-				player.setPLayerToIA();
-			}
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);

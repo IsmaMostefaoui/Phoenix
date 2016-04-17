@@ -30,7 +30,6 @@ public class Mode1Vs1 implements IMode{
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
 			players[1] = new RandomIA(board, Player.POS2, 2, this);
-			players[1].setPLayerToIA();
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
