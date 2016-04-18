@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+
+import com.umons.controller.MyMouseListener;
 import com.umons.model.*;
 
 /**
@@ -33,6 +35,8 @@ public class BoardGUI extends JPanel{
 	Game game;
 	Player player1;
 	Player player2;
+	Player player3;
+	Player player4;
 	//constante representant la taille des carre, des murs et des pions
 	public static final int lSquare = 60;
 	public static final int lWall = 30;
@@ -43,6 +47,8 @@ public class BoardGUI extends JPanel{
 	//position des joueurs et des murs horizontaux et verticaux
 	public static Location locPawn1 = Player.POS1;
 	public static Location locPawn2 = Player.POS2;
+	public static Location locPawn3 = Player.POS3;
+	public static Location locPawn4 = Player.POS4;
 	public static ArrayList<Location>locWallHorizontal = new ArrayList<Location>();
 	public static ArrayList<Location>locWallVertical = new ArrayList<Location>();
 	
@@ -52,9 +58,13 @@ public class BoardGUI extends JPanel{
 	 * @param player1 une instance du joueur 1
 	 * @param player2 une instance du joueur 2
 	 */
-	public BoardGUI(Game game, Player player1, Player player2) {
+	public BoardGUI(Game game) {
 		
-		this.player1 = player1; this.player2 = player2;
+		this.player1 = game.getMode().getPlayer()[0]; this.player2 = game.getMode().getPlayer()[1];
+		if (game.getMode().getNumberOfPlayer() == 4) {
+			this.player3 = game.getMode().getPlayer()[2];
+			this.player4 = game.getMode().getPlayer()[3];
+		}
 		this.game = game;
 		customFont = new Font("comic sans ms", 10, 11);
 		/*try {
@@ -87,11 +97,20 @@ public class BoardGUI extends JPanel{
 		
 		drawPawn(g2d, locPawn1, new Color(200, 250, 50), player1.getNbreOfWall());
 		drawPawn(g2d, locPawn2, new Color(100, 50, 250), player2.getNbreOfWall());
+		if (game.getMode().getNumberOfPlayer() == 4) {
+			drawPawn(g2d, locPawn3, new Color(220, 50, 250), player3.getNbreOfWall());
+			drawPawn(g2d, locPawn4, new Color(225, 220, 50), player4.getNbreOfWall());
+		}
+		
 		if (game.getTour() == 0) {
 			drawPreview(g2d, new Color(122, 200, 200, 120), player1);
 		//rajouter des elif quand on sera sûr d'avoir un mode 4 joueur
-		}else {
+		}else if (game.getTour() == 1){
 			drawPreview(g2d, new Color(122, 200, 200, 120), player2);	
+		}else if (game.getTour() == 2) {
+			drawPreview(g2d, new Color(122, 200, 200, 120), player3);
+		}else if (game.getTour() == 3) {
+			drawPreview(g2d, new Color(122, 200, 200, 120), player4);
 		}
 		
 		drawTour(g2d);
@@ -101,19 +120,11 @@ public class BoardGUI extends JPanel{
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Dessine un Cercle dans la grille representant le Pion d'un joueur
-	 * @param g2d Objet graphics
-	 * @param locPawn Objet Location du joueur 
-	 * @param c Couleur du Pion
-	 * @param numberOfWall Nombre de mur restant au joueur
-=======
 	 * Dessine un pion sur la case donne en parametre avec un nombre de mur et une couleur predefinie.
 	 * @param g2d l outil pour dessiner le pion
 	 * @param locPawn l objet Location representant la case sur la quelle doit etre dessiner le pion (coordonnee tableau/PAS pixel)
 	 * @param c un objet Color representant la couleur du pion
 	 * @param numberOfWall le nombre de mur restant (selon les joueurs)
->>>>>>> 02ae340dfa249c10080704a8fbcdaa4117287871
 	 */
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		g2d.setColor(c);

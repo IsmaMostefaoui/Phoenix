@@ -23,20 +23,6 @@ public class AStarPathFinder implements IPathFinder{
 				nodes[j][i] = new Node(j, i);
 			}
 		}
-		for (int i = 0; i < board.getLen(); i++) {
-			//ne fonctionne pas, doit changer les == par equals (elle veut pas se surcharger c'est bizarre)
-			//Affiche les numéros de lignes pour faciliter les tests
-			if (i<10){
-				System.out.print("" + i + "  ");
-			}else{
-				System.out.print("" + i + " ");
-			}
-			for (int j = 0; j < Grid.getLen(); j++) {
-				System.out.print(board.getItem(new Location(i, j)));
-			}
-			System.out.println();
-		}
-		System.out.println("    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16");
 		this.heuristic = heuristic;
 		this.board = board;
 		this.maxSearchDistance = maxSearchDistance;
@@ -48,8 +34,6 @@ public class AStarPathFinder implements IPathFinder{
 		//ensuite l enlever a la fin et decider pour de vrai si oui ou non on le pose
 		
 		setWallTo(coordWall, true);
-		
-		System.out.println("dans le pathfinding");
 		//on verifie que la case d arrive n est pas bloque, auquel cas, c est mort pour cette case
 		Square targetSquare = new Square(tx, ty);
 		if (targetSquare.isBlocked()) {
@@ -68,11 +52,9 @@ public class AStarPathFinder implements IPathFinder{
 
 		maxDepth = 0;
 		int x = -1;
-		System.out.println("\n\n\n\n\n\n\n\n\n");
 		while (maxDepth < maxSearchDistance && openList.size() > 0) {
 			boolean checkNode = false;
 			x++;
-			System.out.println("-------------------------------------------------------------------------------------------ENTRE DANS LA BOUCLE : " + x);
 			
 			Node current = (Node) openList.getFirst();
 			//on regarde si le premier noeud de la liste est bien un noeud on le pion peut se deplacer
@@ -99,9 +81,7 @@ public class AStarPathFinder implements IPathFinder{
 				setWallTo(coordWall, true);
 				return null;
 			}*/
-			
-			System.out.println("Node current: "+ current);
-			
+						
 			if (current == nodes[tx][ty]) {
 				break;
 			}
@@ -109,19 +89,8 @@ public class AStarPathFinder implements IPathFinder{
 			openList.remove(current);
 			closeList.add(current);
 			
-			System.out.print("CLOSE LIST: ");
-			System.out.print("[");
-			for (int j = 0; j < closeList.size(); j++){
-				System.out.print(closeList.get(j) +", ");
-			}System.out.print("]\n");
-			
 			//liste des positions valide pour evaluer leur cotes
 			listSquareAvailable = ARules.rSquareAvailable(new Location(current.getX(), current.getY()));
-			
-			System.out.print("[");
-			for (int j = 0; j < listSquareAvailable.size(); j++){
-				System.out.print(listSquareAvailable.get(j) +", ");
-			}System.out.print("]\n");
 			
 			//on enleve ceux qui sont deja dans la liste ferme
 			for (int i = 0; i < listSquareAvailable.size(); i++) {
@@ -134,7 +103,6 @@ public class AStarPathFinder implements IPathFinder{
 				//on calcule le cout de la case voisine qu on est entrain d'analyser
 				float nextStepCost = current.cost + board.getMovementCost(new Location(current.getX(), current.getY()), listSquareAvailable.get(i));
 				Node neighbour = nodes [listSquareAvailable.get(i).getLocX()][listSquareAvailable.get(i).getLocY()];
-				System.out.println("neigbour: " + neighbour + "/////Numero: " + i);
 				if (nextStepCost < neighbour.cost) {
 					if (openList.contains(neighbour)){
 						openList.remove(neighbour);
@@ -150,21 +118,14 @@ public class AStarPathFinder implements IPathFinder{
 					//A ESSAYER DE COMPRENDRE
 					maxDepth = Math.max(maxDepth,  neighbour.setParent(current));
 					openList.add(neighbour);
-					System.out.print("LISTE APRES AJOUT: ");
-					System.out.print("[");
-					for (int j = 0; j < openList.size(); j++){
-						System.out.print(openList.get(j) +", ");
-					}System.out.print("]\n");
 				}
 			}
 		}
 		
-		System.out.println("je suis avant le test null");
 		if (nodes[tx][ty].parent == null) {
 			setWallTo(coordWall, false);
 			return null;
 		}
-		System.out.println("je suis apres le test null");
 		
 		//on cree les chemin vide qu'on va retourner
 		Path path = new Path();
@@ -181,11 +142,6 @@ public class AStarPathFinder implements IPathFinder{
 		//on termine la boucle, donc c est que target valait la source
 		//donc on ajoute la case de depart pour avoir le chemin complet
 		path.prependStep(sx, sy);
-		System.out.println("je suis avant de retourner un chemin, tehcniquement non nul PATH: ");
-		System.out.print("[");
-		for (int j = 0; j < path.getLength(); j++){
-			System.out.print(path.getStep(j) +", ");
-		}System.out.print("]\n");
 		//fin de la simulation, on vide le mur au cas ou il aurait fallu ne pas le poser
 		setWallTo(coordWall, false);
 		return path;

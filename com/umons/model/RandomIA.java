@@ -1,14 +1,20 @@
 package com.umons.model;
-import java.util.List;
+import java.util.*;
 import java.util.Random;
+
+import com.umons.view.BoardGUI;
 
 public class RandomIA extends Player {
 	
-	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, Mode mode) {
-		super(grid, loc, NbreOfWall, OrderNumber, mode);	
+
+	private Location previousLoc;
+	
+	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, IMode mode) {
+		super(grid, loc, NbreOfWall, OrderNumber, mode);
+		
 	}
 	
-	public RandomIA(Grid grid, Location loc, int OrderNumber, Mode mode) {
+	public RandomIA(Grid grid, Location loc, int OrderNumber, IMode mode) {
 		super(grid, loc, OrderNumber, mode);	
 	}
 	
@@ -17,15 +23,18 @@ public class RandomIA extends Player {
 	 * @param grid palteau de jeu
 	 * @param opponent Instance Player du joueur adverse
 	 */
-	public void play(Game game, IPathFinder finder, Player opponent) {
+	public void move(Game game, IPathFinder finder, Player opponent) {
+		//Il faut ajouter les coordonne de sa position (une fois qu il a bouger) ou les coord du mur qu il a place
+		//dans la variable static locpawn ou locwall car sinon l affichage ne se fait pas
 		Random rand = new Random();
 		boolean choice = rand.nextBoolean();
 		if (choice == true) {
-			this.move(grid);
+			this.play();
 		}
 		if (choice == false) {
-			if (!this.putwall(grid, opponent, finder)) { // si ne peut poser aucun mur, faire un deplacement
-				this.move(grid);
+			if (!this.putwall(board, opponent, finder)) { // si ne peut poser aucun mur, faire un deplacement
+				this.play();
+
 			}
 		}
 	}
@@ -36,18 +45,32 @@ public class RandomIA extends Player {
 	 * L'IA choissit la position la plus proche de la ligne d'arrivée
 	 * @param grid Grille de jeu
 	 */
-	public void move(Grid grid) {
+
+	public void play() {
 		List<Location> list = ARules.rSquareAvailable(this);
+		
 		Location nextLocation = this.getLoc();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getLocY() >= nextLocation.getLocY()) {
-				nextLocation = list.get(i);	
+				nextLocation = list.get(i);
 			}
 		}
-		grid.setItemInGrid(this.getLoc(), false);
-		grid.setItemInGrid(nextLocation, true);
+		
+	
+	    if (orderNumber == 1){
+			BoardGUI.locPawn1 = nextLocation;
+		}else if (orderNumber == 2){
+			//ajouter les locpawn3 et 4 dans boardgui pour les 3 et 4 joueurs
+			BoardGUI.locPawn2 = nextLocation;
+		}else if (orderNumber == 3) {
+			BoardGUI.locPawn3 = nextLocation;
+		}else if (orderNumber == 4) {
+			BoardGUI.locPawn4 = nextLocation;
+		}
+	    previousLoc = this.getLoc();
+		board.setItemInGrid(this.getLoc(), false);
+		board.setItemInGrid(nextLocation, true);
 		this.setLoc(nextLocation);
-
 	}
 	
 	
@@ -62,6 +85,11 @@ public class RandomIA extends Player {
 		int numb = 0;
 		while (numb < 4) {
 			if (super.putWall(tabWall[numb], finder)) {
+				if (tabWall[numb].isWallHorizontal()){
+					BoardGUI.locWallHorizontal.add(tabWall[numb]);
+				}else {
+					BoardGUI.locWallVertical.add(tabWall[numb]);
+				}
 				return true;
 			}
 			numb++;

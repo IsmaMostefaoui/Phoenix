@@ -1,12 +1,14 @@
 package com.umons.model;
 
 import javax.swing.JPanel;
-import com.umons.view.BoardGUI;
+
 import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
+import com.umons.view.BoardGUI;
 import com.umons.view.QuoridorGUI;
 
-public class Mode1Vs1 implements IMode{
+//Peut etre le faire extends de MOde1Vs1, je sais pas trop...
+public class Mode2Vs2 implements IMode{
 
 	private Player[] players;
 	private Grid board;
@@ -19,18 +21,24 @@ public class Mode1Vs1 implements IMode{
 	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
 	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
 	 */
-	public Mode1Vs1(int nbreHumans) {
+	public Mode2Vs2(int nbreHumans) {
 		board = new Grid();
-		players = new Player[2];
+		players = new Player[4];
 		this.nbreHumans = nbreHumans;
 		players[0] = new Player(board, Player.POS1, 1, this);
-		if (nbreHumans == 2){
+		if (nbreHumans == 4){
 			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
 			players[1] = new Player(board, Player.POS2, 2, this);
+			players[2] = new Player(board, Player.POS3, 3, this);
+			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
 			players[1] = new RandomIA(board, Player.POS2, 2, this);
-			players[1].setPLayerToIA();
+			players[2] = new RandomIA(board, Player.POS3, 3, this);
+			players[3] = new RandomIA(board, Player.POS4, 4, this);
+			for (Player player : players) {
+				player.setPLayerToIA();
+			}
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -45,7 +53,7 @@ public class Mode1Vs1 implements IMode{
 		JPanel panel = new BoardGUI(game);
 		panel.setFocusable(true);
 		Controller controller = new Controller(this, panel, game, finder);
-		MyMouseListener l = new MyMouseListener(players[0], players[1], controller);
+		MyMouseListener l = new MyMouseListener(players[0], players[1], players[2], players[3],controller);
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
@@ -55,7 +63,7 @@ public class Mode1Vs1 implements IMode{
 
 	@Override
 	public int getNumberOfPlayer() {
-		return 2;
+		return 4;
 	}
 
 	@Override
@@ -65,7 +73,7 @@ public class Mode1Vs1 implements IMode{
 
 	@Override
 	public boolean testFinder(Player player, Location coordWall, IPathFinder finder){
-		boolean[] check = {true, true};
+		boolean[] check = {true, true, true, true};
 		long timeStart = System.currentTimeMillis();
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
@@ -86,9 +94,9 @@ public class Mode1Vs1 implements IMode{
 					}
 				}
 			}
-		}
-		long timeEnd = System.currentTimeMillis();
+		}long timeEnd = System.currentTimeMillis();
 		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1];
 	}
+
 }

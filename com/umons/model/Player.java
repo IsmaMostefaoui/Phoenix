@@ -2,14 +2,17 @@ package com.umons.model;
 
 import java.util.List;
 
+import com.umons.view.BoardGUI;
+
 public class Player {
 
-	private Mode mode;
-	private Location loc;
-	private int numberOfWall;
-	private final int NB_WALL = 10;
-	private Grid board;
-	private final int orderNumber;
+	protected IMode mode;
+	protected Location loc;
+	protected int numberOfWall;
+	protected final int NB_WALL = 10;
+	protected Grid board;
+	protected final int orderNumber;
+	protected boolean human = true;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
 	public final static Location POS1 = new Location(8, 16);
 	public final static Location POS2 = new Location(8, 0);
@@ -22,7 +25,7 @@ public class Player {
 	 * @param orderNumbrer Le numero d'ordre du joueur
 	 * 
 	 */
-	public Player(Grid board, Location loc, int orderNumber, Mode mode) {
+	public Player(Grid board, Location loc, int orderNumber, IMode mode) {
 		this.loc = loc;
 		this.board = board;
 		numberOfWall = NB_WALL;
@@ -37,7 +40,7 @@ public class Player {
 	 * @param nbreOfWall le nombre de Mur d'un joueur en debut de partie 
 	 * @param orderNumbrer Le numero d'ordre du joueur
 	 */
-	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, Mode mode) {
+	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, IMode mode) {
 		this.loc = loc;
 		this.board = board;
 		this.numberOfWall = nbreOfWall;
@@ -92,23 +95,38 @@ public class Player {
 		return false; 
 	}
 	
-	/**
-	 * A changer de place(quelque part ou on a acces a tous les player)
-	 * Test si il y a un chemin
-	 * @param finder
-	 * @param loc la position du mur qui risque de bloquer un joueur
-	 * @return vrai si il y a un chemin, faux sinon
-	 */
-	public boolean testFinder(Location coordWall, IPathFinder finder){
-		for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
-			if ((orderNumber == 1 || orderNumber == 2) && finder.findPath(coordWall, 8, 0, 6, 16) == null){
-				System.out.println("------------------------------------\n------------------------------\n---------------------------\n-------------------\n");
-				return false;
-			}else if((orderNumber == 3 || orderNumber == 4) && finder.findPath(coordWall, this.loc.getLocX(), this.loc.getLocY(), getCoordFinish(), i) == null){
-				return false;
-			}break;
-		}return true;
+	public void play(Game game, Location temp, IPathFinder finder) {
+	
+		if (temp.isSquare() && this.move(temp)) {
+			switch (this.orderNumber) {
+			case 1:
+				BoardGUI.locPawn1 = temp;
+				break;
+			case 2:
+				BoardGUI.locPawn2 = temp;
+				break;
+			case 3:
+				BoardGUI.locPawn3 = temp;
+				break;
+			case 4:
+				BoardGUI.locPawn4 = temp;
+				break;
+			}
+			game.nextPlayer();
+		}else if (temp.isWallHorizontal() && this.putWall(temp, finder)){
+			System.out.println("locwall rempli");
+			BoardGUI.locWallHorizontal.add(temp);
+			game.nextPlayer();
+			//aud.run();
+		}else if (temp.isWallVertical() && this.putWall(temp, finder)){
+			System.out.println("locwall rempli");
+			BoardGUI.locWallVertical.add(temp);
+			game.nextPlayer();
+			//aud.run();
+		}
 	}
+	
+	
 	
 	/**
 	 * Retourne la position de la ligne d arriv� du joueur selon son numero
@@ -161,5 +179,16 @@ public class Player {
 	public boolean equals(Object other) {
 		Player p = (Player)other;
 		return this.getLoc().equals(p.getLoc());
+	}
+	
+	public boolean isHumanPLayer() {
+		return human;
+	}
+	
+	/**
+	 * Defini l'instance de PLayer comme étant une intelligence artificielle
+	 */
+	public void setPLayerToIA(){
+		human = false;
 	}
 }
