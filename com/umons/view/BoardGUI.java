@@ -30,21 +30,21 @@ public class BoardGUI extends JPanel{
 	 */
 	private static final long serialVersionUID = 1;
 	
-	Font customFont;
-	public static int SQUARE_NUMBER = 9;
-	Game game;
-	Player player1;
-	Player player2;
-	Player player3;
-	Player player4;
+	private Font customFont;
+	private Game game;
+	private Player player1;
+	private Player player2;
+	private Player player3;
+	private Player player4;
 	//constante representant la taille des carre, des murs et des pions
+	public static int SQUARE_NUMBER = 9;
 	public static final int lSquare = 60;
 	public static final int lWall = 30;
 	public static final int lPawn = 55;
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 25;
 	public static final int START_Y = 25;
-	//position des joueurs et des murs horizontaux et verticaux
+	//position des joueurs et des murs horizontaux et verticaux en temps reel
 	public static Location locPawn1 = Player.POS1;
 	public static Location locPawn2 = Player.POS2;
 	public static Location locPawn3 = Player.POS3;
@@ -91,7 +91,7 @@ public class BoardGUI extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
 		g2d.setColor(new Color(170, 57, 43));
-		g2d.fillRect(0, 0, 835, 835);
+		g2d.fillRect(0, 0, 865, 835);
 		
 		drawSquares(g2d, new Color(236, 240, 241));
 		
@@ -104,7 +104,6 @@ public class BoardGUI extends JPanel{
 		
 		if (game.getTour() == 0) {
 			drawPreview(g2d, new Color(122, 200, 200, 120), player1);
-		//rajouter des elif quand on sera sûr d'avoir un mode 4 joueur
 		}else if (game.getTour() == 1){
 			drawPreview(g2d, new Color(122, 200, 200, 120), player2);	
 		}else if (game.getTour() == 2) {

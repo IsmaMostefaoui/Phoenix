@@ -16,23 +16,11 @@ public class MyMouseListener implements MouseInputListener{
 	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
 	private static Location clickCoord;
 	private static Location motionCoord;
-	private Player player1;
-	private Player player2;
-	private Player player3;
-	private Player player4;
 	private Controller controller;
 	
 	
 	//a changer, pas tres bon de mettre ça ici, je crois (je parledes joueur et meme du game et meme du board)
-	public MyMouseListener(Player player1, Player player2, Controller controller) {
-		this.player1 = player1; this.player2 = player2;
-		this.controller = controller;
-		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
-		
-	}
-	
-	public MyMouseListener(Player player1, Player player2,Player player3, Player player4, Controller controller) {
-		this.player1 = player1; this.player2 = player2; this.player3 = player3; this.player4 = player4;
+	public MyMouseListener(Controller controller) {
 		this.controller = controller;
 		//aud = new Audio("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\8461.wav");
 		
@@ -42,7 +30,7 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseClicked(MouseEvent e) {
 		x1 = e.getX(); y1 = e.getY();
 		clickCoord = new Location(x1, y1);
-		controller.makePlayerPlay(player1, player2, player3, player4);
+		controller.makePlayerPlay();
 		
 	}
 

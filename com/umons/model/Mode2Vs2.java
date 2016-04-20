@@ -50,7 +50,7 @@ public class Mode2Vs2 implements IMode{
 		JPanel panel = new BoardGUI(game);
 		panel.setFocusable(true);
 		Controller controller = new Controller(this, panel, game, finder);
-		MyMouseListener l = new MyMouseListener(players[0], players[1], players[2], players[3],controller);
+		MyMouseListener l = new MyMouseListener(controller);
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
