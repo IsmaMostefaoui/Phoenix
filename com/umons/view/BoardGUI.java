@@ -101,15 +101,19 @@ public class BoardGUI extends JPanel{
 			drawPawn(g2d, locPawn3, new Color(220, 50, 250), player3.getNbreOfWall());
 			drawPawn(g2d, locPawn4, new Color(225, 220, 50), player4.getNbreOfWall());
 		}
-		
-		if (game.getTour() == 0) {
+		switch (game.getTour()) {
+		case 0:
 			drawPreview(g2d, new Color(122, 200, 200, 120), player1);
-		}else if (game.getTour() == 1){
-			drawPreview(g2d, new Color(122, 200, 200, 120), player2);	
-		}else if (game.getTour() == 2) {
+			break;
+		case 1:
+			drawPreview(g2d, new Color(122, 200, 200, 120), player2);
+			break;
+		case 3:
 			drawPreview(g2d, new Color(122, 200, 200, 120), player3);
-		}else if (game.getTour() == 3) {
+			break;
+		case 4:
 			drawPreview(g2d, new Color(122, 200, 200, 120), player4);
+			break;
 		}
 		
 		drawTour(g2d);
@@ -203,13 +207,35 @@ public class BoardGUI extends JPanel{
 				g2d.setColor(new Color(204, 0, 0, 120));
 				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
 			}
-		}else if (motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)) {
+		}else if (canPreviewHor(motionCoord, player)) {
 			g2d.setColor(c);
 			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
-		}else if (motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)) {
+		}else if (canPreviewVer(motionCoord, player)) {
 			g2d.setColor(c);
 			g2d.fillRect(motionCoord.coordToPixel().getLocX()+5, motionCoord.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
 		}
+	}
+	
+	/**
+	 * Vérifie si on est autorise a afficher la preview d un mur horizontal
+	 * @param motionCoord les coordonnes de l endroit de la previsualtion
+	 * @param player le joueur courant
+	 * @return True si la preview peut se faire normalement
+	 */
+	public boolean canPreviewHor(Location motionCoord, Player player) {
+		return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+				&& player.getNbreOfWall() > 0;
+	}
+	
+	/**
+	 * Vérifie si on est autorise a afficher la preview d un mur vertical
+	 * @param motionCoord les coordonnes de l endroit de la previsualtion
+	 * @param player le joueur courant
+	 * @return True si la preview peut se faire normalement
+	 */
+	public boolean canPreviewVer(Location motionCoord, Player player) {
+		return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+				&& player.getNbreOfWall() > 0;
 	}
 	
 	/**
