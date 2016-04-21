@@ -41,7 +41,7 @@ public class Controller {
 		if (game.getTour() == 0 && !player1.isHumanPLayer()) {
 			System.out.println("je suis rentré dans player1 est un robot ???");
 			RandomIA IA = (RandomIA) player1;
-			IA.move(game, finder, player2);
+			IA.play(game, finder, player2);
 			game.nextPlayer();
 		}
 		if (game.getTour() == 1 && !player2.isHumanPLayer()) {
@@ -49,17 +49,17 @@ public class Controller {
 			//parce que le move de RandomIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
 			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
 			RandomIA IA = (RandomIA) player2;
-			IA.move(game, finder, player1);
+			IA.play(game, finder, player1);
 			game.nextPlayer();
 		}
 		if (game.getTour() == 2 && !player3.isHumanPLayer()) {
 			RandomIA IA = (RandomIA) player3;
-			IA.move(game, finder, player4);
+			IA.play(game, finder, player4);
 			game.nextPlayer();
 		}
 		if (game.getTour() == 3 && !player4.isHumanPLayer()) {
 			RandomIA IA = (RandomIA) player4;
-			IA.move(game, finder, player3);
+			IA.play(game, finder, player3);
 			game.nextPlayer();
 		}
 	}
