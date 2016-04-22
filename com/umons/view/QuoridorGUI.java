@@ -8,11 +8,11 @@ public class QuoridorGUI extends JFrame{
 	final int HEIGHT = 860;
 	final int WIDTH = 830;
 	
-	public QuoridorGUI(String title, boolean resizable) {
+	public QuoridorGUI(String title) {
 		super();
 		setTitle(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(resizable);
+		setResizable(false);
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
 		

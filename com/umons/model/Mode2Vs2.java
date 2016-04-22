@@ -46,7 +46,7 @@ public class Mode2Vs2 implements IMode{
 		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
 		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER	
 		ARules.setBoard(board);
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
+		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
 		JPanel panel = new BoardGUI(game);
 		panel.setFocusable(true);
 		Controller controller = new Controller(this, panel, game, finder);
