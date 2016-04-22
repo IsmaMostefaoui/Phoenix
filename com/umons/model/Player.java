@@ -58,7 +58,7 @@ public class Player {
 	 * @return true si le deplacement est autorisé, sinon false
 	 */
 	public boolean move(Location loc) {
-		List<Location> list = ARules.rSquareAvailable(this);
+		List<Location> list = ARules.rSquareAvailable(this);	
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).equals(loc)) {
 				board.setItemInGrid(this.getLoc(), false);

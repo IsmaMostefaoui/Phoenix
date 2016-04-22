@@ -33,7 +33,7 @@ public class MyMouseListener implements MouseInputListener{
 		controller.makePlayerPlay();
 		
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		//xpressed = e.getX(); ypressed = e.getY();
@@ -87,8 +87,6 @@ public class MyMouseListener implements MouseInputListener{
 		return clickCoord;
 	}
 	
-	public void play(Player player, Location loc, int tour) {
-		
-	}
+
 
 }

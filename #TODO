@@ -16,3 +16,4 @@ Une fois qu'une tâche a été effectué, faire un commit avec le numéro de la 
 [FACULTATIF] Ajouter la possibilité de revenir en arrière (Ctrl + Z)
 [OBLIGATOIRE] Ajouter un menu (Nouvelle Partie[->2 Joueurs[->1 vs IA//1 vs Joueur]//4 Joueurs(Joueur seulement)]//Charger Partie(si implémenté)//Quitter)
 [FACULTATIF] Modifier la methode rSquareAvailable() dans ARules ( Instancier uniquement dans les cas concernés i.e. virer le gros tas au debut de la methode)
+[OBLIGATOIRE] Methode play dans randomIA, même argument que play dans Player 
