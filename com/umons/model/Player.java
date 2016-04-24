@@ -143,7 +143,7 @@ public class Player {
 		}else if (orderNumber==4) {
 			return POS3.getLocX();
 		}else {
-			return (Integer) null;
+			return 0;
 		}
 	}
 	
