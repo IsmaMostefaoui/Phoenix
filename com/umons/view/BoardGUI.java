@@ -90,7 +90,7 @@ public class BoardGUI extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
-		g2d.setColor(new Color(170, 57, 43));
+		g2d.setColor(new Color(174, 50, 20));
 		g2d.fillRect(0, 0, 865, 835);
 		
 		drawSquares(g2d, new Color(236, 240, 241));

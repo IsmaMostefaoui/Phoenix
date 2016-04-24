@@ -9,5 +9,6 @@ public class mainMenu {
 		JPanel menu = new MenuGUI();
 		menu.setBackground(Color.black);
 		frame.setContentPane(menu);
+		frame.setVisible(true);
 	}
 }

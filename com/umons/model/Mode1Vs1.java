@@ -48,6 +48,7 @@ public class Mode1Vs1 implements IMode{
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
+		frame.setVisible(true);
 
 	}
 
