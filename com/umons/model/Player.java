@@ -13,7 +13,6 @@ public class Player {
 	protected Grid board;
 	protected final int orderNumber;
 	protected boolean human;
-	protected boolean authorizedWall;
 	//L'ensemble des postions pour chacun des joueurs selon les modes de jeu
 	public final static Location POS1 = new Location(8, 16);
 	public final static Location POS2 = new Location(8, 0);
@@ -33,7 +32,6 @@ public class Player {
 		this.orderNumber = orderNumber;
 		this.mode = mode;
 		this.human = true;
-		authorizedWall = true;
 	}
 
 
@@ -50,7 +48,6 @@ public class Player {
 		this.orderNumber = orderNumber;
 		this.mode = mode;
 		this.human = true;
-		authorizedWall = true;
 	}
 	
 	/**
@@ -75,13 +72,14 @@ public class Player {
 
 
 	/**
-	 * Pose un mur sur la grille en remplissant en respectant les regles
+	 * Pose un mur sur la grille en remplissant les wall
 	 * @param board grille du jeu
 	 * @param loc la position du début du mur (le premier bloc à gauche [horizontal], le premier bloc en haut[vertical]
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Location loc, IPathFinder finder){
-		if (authorizedWall && mode.testFinder(this, loc, finder)) {
+		System.out.println("test dans player pour putwall: ");
+		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				System.out.println("Apres l activation du bloc n° " + j + " du mur");
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
@@ -89,7 +87,7 @@ public class Player {
 			numberOfWall--;
 			return true;
 			
-		}else if (authorizedWall && mode.testFinder(this, loc, finder)) {
+		}else if (numberOfWall > 0 && loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
 				System.out.println("Apres l activation du bloc n° " + i + " du mur");
@@ -100,13 +98,6 @@ public class Player {
 		return false; 
 	}
 	
-	/**
-	 * Fait jouer le joueur courant, lui fait faire une action (move ou putwall) et récupère les coordonnées
-	 *  de sa position pour mettre a jour BoardGUI. De plus, fait automatiquement passer le tour.
-	 * @param game
-	 * @param temp
-	 * @param finder
-	 */
 	public void play(Game game, Location temp, IPathFinder finder) {
 	
 		if (temp.isSquare() && this.move(temp)) {
@@ -142,7 +133,6 @@ public class Player {
 	
 	/**
 	 * Retourne la position de la ligne d arriv� du joueur selon son numero
-	 * @return une coordonnées en y si joueur1 ou joueur2 et une coordonnées en y si joueur3 ou joueur4
 	 */
 	public int getCoordFinish() {
 		if (orderNumber==1) {
@@ -154,7 +144,7 @@ public class Player {
 		}else if (orderNumber==4) {
 			return POS3.getLocX();
 		}else {
-			return (Integer) null;
+			return 0;
 		}
 	}
 	
@@ -164,6 +154,14 @@ public class Player {
 	 * @return un objet Location représentant la position du joueur(pion) sur la grille
 	 */
 	public Location getLoc() { return new Location(loc.getLocX(), loc.getLocY()); }
+	
+	/**
+	 * getter
+	 * @return le nombre de mur actuel du joueur
+	 */
+	public void setLoc(Location loc) {
+		this.loc = loc;
+	}
 	
 	/**
 	 * getter 
@@ -188,9 +186,5 @@ public class Player {
 	
 	public boolean isHumanPLayer() {
 		return human;
-	}
-	
-	public void setAuthorizedWall(boolean b) {
-		authorizedWall = b;
 	}
 }

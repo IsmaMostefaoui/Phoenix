@@ -43,14 +43,18 @@ public class BoardGUI extends JPanel{
 	public static final Color[] colorPawn = {new Color(200, 250, 50), new Color(100, 50, 250), new Color(220, 50, 250),new Color(225, 220, 50)};
 	public static final Color colorWall= new Color(122, 200, 200, 120);
 	
+	public static final int lSpaceEdge = 5;
+	
 	public static final int lWall = QuoridorGUI.width/60;
-	public static final int lPawn = 5*lSquare/6;
+	public static final int lPawn = lSquare - lSpaceEdge;
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 5*lWall/6;
 	public static final int START_Y = 2*lWall/3;
 	
-	public final int lBack = 9*lSquare + 8*lWall + START_X + START_Y;
-	public final int lInfo = QuoridorGUI.WIDTH - lBack;
+	public static final int lBack = 9*lSquare + 8*lWall + START_X + START_Y;
+	public static final int lInfo = QuoridorGUI.WIDTH - lBack;
+	
+	public final int lSpaceWall = 2*lWall/5;
 	
 	//position des joueurs et des murs horizontaux et verticaux en temps reel
 	public static Location locPawn1 = Player.POS1;
@@ -98,10 +102,12 @@ public class BoardGUI extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
+		
 		g2d.setColor(new Color(170, 57, 43));
 		g2d.fillRect(0, 0, lBack, QuoridorGUI.HEIGHT);
 		g2d.setColor(new Color(170, 57, 70));
 		g2d.fillRect(lBack, 0, lInfo, QuoridorGUI.HEIGHT);
+
 		
 		drawSquares(g2d, new Color(236, 240, 241));
 		
@@ -118,10 +124,10 @@ public class BoardGUI extends JPanel{
 		case 1:
 			drawPreview(g2d, colorWall, player2);
 			break;
-		case 3:
+		case 2:
 			drawPreview(g2d, colorWall, player3);
 			break;
-		case 4:
+		case 3:
 			drawPreview(g2d, colorWall, player4);
 			break;
 		}
@@ -147,7 +153,7 @@ public class BoardGUI extends JPanel{
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 23, locPawn.coordToPixel().getLocY() + 33);
+			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 2*lPawn/5, locPawn.coordToPixel().getLocY() + 3*lPawn/5);
 		}
 	}
 	
@@ -160,7 +166,7 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallHorizontal.size(); i++) {
 			Location loc = locWallHorizontal.get(i);
-			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY() + (4*lWall/5)/2, 2*lSquare+lWall, (4*lWall/5));
+			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY() + lSpaceWall/2, 2*lSquare+lWall, lWall - lSpaceWall);
 		}
 	}
 
@@ -175,7 +181,7 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallVertical.size(); i++) {
 			Location loc = locWallVertical.get(i);
-			g2d.fillRect(loc.coordToPixel().getLocX()+(4*lWall/5)/2, loc.coordToPixel().getLocY(), (4*lWall/5), 2*lSquare+lWall);
+			g2d.fillRect(loc.coordToPixel().getLocX()+lSpaceWall/2, loc.coordToPixel().getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
 	}
 	
@@ -192,7 +198,7 @@ public class BoardGUI extends JPanel{
 				g2d.setColor(new Color(100, 100, 100));
 				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
 				g2d.setColor(Color.WHITE);
-				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare-5, lSquare-5);
+				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare-lSpaceEdge, lSquare-lSpaceEdge);
 				SPACE += lSquare + lWall;
 			}
 			SPACE =0;
@@ -208,7 +214,7 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
-		player.setAuthorizedWall(true);
+		System.out.println("motioncoord dans player: " + motionCoord);
 		if (motionCoord != null && motionCoord.isSquare()){ 
 			List<Location> list = ARules.rSquareAvailable(player);
 			if (list.contains(motionCoord)) {
@@ -219,15 +225,11 @@ public class BoardGUI extends JPanel{
 				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
 			}
 		}else if (canPreviewHor(motionCoord, player)) {
-			player.setAuthorizedWall(true);
 			g2d.setColor(c);
-			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
+			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+(lSpaceWall)/2, 2*lSquare+lWall, lWall - (lSpaceWall));
 		}else if (canPreviewVer(motionCoord, player)) {
-			player.setAuthorizedWall(true);
 			g2d.setColor(c);
-			g2d.fillRect(motionCoord.coordToPixel().getLocX()+5, motionCoord.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
-		}else {
-			player.setAuthorizedWall(false);
+			g2d.fillRect(motionCoord.coordToPixel().getLocX()+(lSpaceWall)/2, motionCoord.coordToPixel().getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
 	}
 	
@@ -238,7 +240,7 @@ public class BoardGUI extends JPanel{
 	 * @return True si la preview peut se faire normalement
 	 */
 	public boolean canPreviewHor(Location motionCoord, Player player) {
-		return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(player.getLoc(), motionCoord)
+		return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 				&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
 	}
 	
@@ -249,7 +251,7 @@ public class BoardGUI extends JPanel{
 	 * @return True si la preview peut se faire normalement
 	 */
 	public boolean canPreviewVer(Location motionCoord, Player player) {
-		return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(player.getLoc(), motionCoord)
+		return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 				&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
 	}
 	

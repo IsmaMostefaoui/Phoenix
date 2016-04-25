@@ -1,15 +1,8 @@
 package com.umons.controller;
 
-import com.umons.view.*;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
-import com.umons.model.Game;
-import com.umons.model.IPathFinder;
 import com.umons.model.Location;
-import com.umons.model.Player;
-import com.umons.model.RandomIA;
-import com.umons.model.Audio;
 
 public class MyMouseListener implements MouseInputListener{
 
@@ -28,15 +21,12 @@ public class MyMouseListener implements MouseInputListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		x1 = e.getX(); y1 = e.getY();
-		clickCoord = new Location(x1, y1);
-		controller.makePlayerPlay();
-		
+		//tout se passe dans le press/release
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		//xpressed = e.getX(); ypressed = e.getY();
+		xpressed = e.getX(); ypressed = e.getY();
 		
 	}
 
@@ -44,13 +34,13 @@ public class MyMouseListener implements MouseInputListener{
 	public void mouseReleased(MouseEvent e) {
 		//Quand on click et puis qu'on lache, si la case presse est la meme que la case
 		//"depress�" (celle ou on lache le click), alors on fait quand m�me avancer le pion.
-		/*
 		xreleased = e.getX(); yreleased = e.getY();
 		Location pressed = new Location(xpressed, ypressed);
 		Location released = new Location(xreleased, yreleased);
 		if (pressed.pixelToCoord().equals(released.pixelToCoord())) {
-			mouseClicked(e);
-		}*/
+			clickCoord = released;
+			controller.makePlayerPlay();
+		}
 		
 	}
 

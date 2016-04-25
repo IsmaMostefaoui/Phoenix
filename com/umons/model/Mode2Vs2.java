@@ -76,16 +76,13 @@ public class Mode2Vs2 implements IMode{
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				if (players[j].getOrder()==1 || players[j].getOrder()==2) {
-					System.out.println("Analyse du joueur: " + j + " pour le pathfinding");
 					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
 						check[j] = false;
 					}else {
-						System.out.println("joueur: " + j);
 						check[j] = true;
 						break;
 					}
 				}else if (players[j].getOrder()==3 || players[j].getOrder()==4){
-					System.out.println("Analyse du joueur: " + j + " pour le pathfinding");;
 					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), players[j].getCoordFinish(), 2*i) == null)) {
 						check[j] = false;
 					}else {

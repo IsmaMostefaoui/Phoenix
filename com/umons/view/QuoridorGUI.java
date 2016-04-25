@@ -12,7 +12,7 @@ public class QuoridorGUI extends JFrame{
 	static final int height = (int) screenDimension.getHeight();
 	static final int width = (int) screenDimension.getWidth();
 	
-	static final int HEIGHT = (5*height)/6;
+	public static final int HEIGHT = (5*height)/6;
 	static final int WIDTH = 2*width/3;
 	
 	public QuoridorGUI(String title) {
