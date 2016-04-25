@@ -48,6 +48,7 @@ public class Mode1Vs1 implements IMode{
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
+		frame.setVisible(true);
 		
 	}
 	
@@ -89,5 +90,10 @@ public class Mode1Vs1 implements IMode{
 		long timeEnd = System.currentTimeMillis();
 		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1];
+	}
+
+	@Override
+	public IPathFinder getFinder() {
+		return finder;
 	}
 }

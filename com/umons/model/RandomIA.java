@@ -7,7 +7,8 @@ public class RandomIA extends Player {
 	//Rapport de Bug : Le pathfinding ne fonctionne pas sur les joueurs 3 et 4 en mode 2vs2, du coups GROSSE ERREUR EN ROUGE DANS LA CONSOLE 
 	//disant que "n must be positive" (un truc comme ça), c'est dans la methode randomLoc()
 	// car je demande un rand.nextInt() sur la liste des squareAvailables. Or celle-ci est vide 
-	//à un moment car pathfinding de fct pas sur les joueurs3 et 4 :p
+	//à un moment car pathfinding de fct pas sur les joueurs3 et 4 :p Je vais même rajouter quelque chose, il y a un bug quand l'IA pose un 
+	//mur, parfois elle essaye de le poser en dehors de la grille ce qui fait une belle erreur (je ne comprends même pa comment c'est pos
 	
 
 	private List<Location> previousLoc;
@@ -29,9 +30,6 @@ public class RandomIA extends Player {
 		
 		
 	}
-	
-	
-	
 	
 	/**
 	 * Choisis aleatoirement entre se deplacer et poser un mur, si impossible de placer un mur -> se deplace
@@ -73,7 +71,7 @@ public class RandomIA extends Player {
 			}
 			board.setItemInGrid(this.getLoc(), false);
 			previousLoc.add(this.getLoc());
-			this.setLoc(nextLocation);
+			loc = nextLocation;
 			board.setItemInGrid(nextLocation, true);
 			BoardGUI.locPawn1 = nextLocation;
 			break;
@@ -86,7 +84,7 @@ public class RandomIA extends Player {
 			}		
 			board.setItemInGrid(this.getLoc(), false);
 			previousLoc.add(this.getLoc());
-			this.setLoc(nextLocation);
+			loc = nextLocation;
 			board.setItemInGrid(nextLocation, true);
 			BoardGUI.locPawn2 = nextLocation;	
 			break;
@@ -99,7 +97,7 @@ public class RandomIA extends Player {
 			}
 			board.setItemInGrid(this.getLoc(), false);
 			previousLoc.add(this.getLoc());
-			this.setLoc(nextLocation);
+			loc = nextLocation;
 			board.setItemInGrid(nextLocation, true);
 			BoardGUI.locPawn3 = nextLocation;
 			break;
@@ -112,7 +110,7 @@ public class RandomIA extends Player {
 			}
 			board.setItemInGrid(this.getLoc(), false);
 			previousLoc.add(this.getLoc());
-			this.setLoc(nextLocation);
+			loc = nextLocation;
 			board.setItemInGrid(nextLocation, true);
 			BoardGUI.locPawn4 = nextLocation;
 			break;
@@ -230,7 +228,12 @@ public class RandomIA extends Player {
 		return this.getLoc();	
 	}
 	
-	
+	/**
+	 * Retourne une position aléatoire dans la mesure du possible
+	 * @param list La liste des case potentielle
+	 * @param previousLoc la position de la case précedente
+	 * @return la position aléatoirement choisie
+	 */
 	public Location randomLoc(List<Location> list, Location previousLoc) {
 		if (list.contains(previousLoc) && list.size() != 1) {
 			list.remove(previousLoc);

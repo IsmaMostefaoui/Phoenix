@@ -28,5 +28,7 @@ public interface IMode{
 	 * @return vrai si il y a un chemin, faux sinon
 	 */
 	boolean testFinder(Player player, Location coordWall, IPathFinder finder);
+	
+	IPathFinder getFinder();
 }
 

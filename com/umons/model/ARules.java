@@ -42,7 +42,7 @@ public abstract class ARules {
 	 * @param loc Un objet Location representant la fente cible
 	 * @return un boolean, true si le mur peut potentiellement être posé à cette position, sinon false
 	 */
-	public static boolean rPutWall(Location loc) {
+	public static boolean rIsWall(Location loc) {
 		return !loc.isSquare();
 	}
 	
@@ -102,6 +102,16 @@ public abstract class ARules {
 		xtemp = locPion.getLocX() + xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
 		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
+	}
+	
+	/**
+	 * Vérifie tous les parametre de pose de mur (sauve le pathfinding)
+	 * @param locPawn la Location du pion
+	 * @param loc la Location du mur
+	 * @return vrai si me mur peut-être posé
+	 */
+	public static boolean rPutWall(Location locPawn, Location loc) {
+		return rCheckWall(locPawn, loc) && rIsWall(loc) && rSlotFull(loc);
 	}
 
 	/**

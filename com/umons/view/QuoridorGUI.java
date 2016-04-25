@@ -1,12 +1,19 @@
 package com.umons.view;
 
+import java.awt.Dimension;
 import javax.swing.JFrame;	
 
 public class QuoridorGUI extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	final int HEIGHT = 860;
-	final int WIDTH = 830;
+	
+	static final Dimension screenDimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+	
+	static final int height = (int) screenDimension.getHeight();
+	static final int width = (int) screenDimension.getWidth();
+	
+	static final int HEIGHT = (5*height)/6;
+	static final int WIDTH = 2*width/3;
 	
 	public QuoridorGUI(String title) {
 		super();
