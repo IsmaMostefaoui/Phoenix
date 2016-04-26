@@ -1,6 +1,5 @@
 package com.umons.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,10 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
@@ -21,10 +23,11 @@ public class MenuGUI extends JPanel{
 	
 	Image image;
 	MyButton startButton;
+	MyButton reloadButton;
 	MyButton quitButton;
 	
 	public MenuGUI() {
-		System.out.println("dans le constructeur");
+		/*
 		try {
 			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
 		}catch (IOException ie) {
@@ -32,20 +35,57 @@ public class MenuGUI extends JPanel{
 			ie.printStackTrace();
 		}catch (Exception e){
 			e.printStackTrace();
-		}
-		setLayout(new GridBagLayout());
+		}*/
 		
+		super();
+		
+		GridBagLayout gb = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		
-		gbc.gridx = 1;
+		setLayout(gb);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		
+		startButton = new MyButton("START", new Color(211, 84, 0));
+		startButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				QuoridorGUI.nextPanel("BoardGUI");
+			}
+		});
+		gb.setConstraints(startButton, gbc);
+		this.add(startButton);
+		
 		gbc.gridy = 1;
 		
-		gbc.gridheight = 0;
-		gbc.gridwidth = 0;
+		reloadButton = new MyButton("RELOAD", new Color(211, 84, 0));
+		reloadButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("charge la partie précedemment sauvé");
+			}
+		});
+		gb.setConstraints(reloadButton, gbc);
+		this.add(reloadButton);
 		
-		startButton = new MyButton("START");
-		this.add(startButton, gbc);
-		quitButton = new MyButton("QUIT");
+		gbc.gridy = 2;
+		
+		quitButton = new MyButton("QUIT", new Color(211, 84, 0));
+		quitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("quitte le jeux");
+				System.exit(0);
+			}
+		});
+		gb.setConstraints(quitButton, gbc);
+		this.add(quitButton);
 	}
 	
 	public void paintComponent(Graphics g) {

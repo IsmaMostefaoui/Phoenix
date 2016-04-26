@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.umons.controller.MyMouseListener;
@@ -40,8 +42,9 @@ public class BoardGUI extends JPanel{
 	public static int SQUARE_NUMBER = 9;
 	
 	public static final int lSquare = QuoridorGUI.width/28;
-	public static final Color[] colorPawn = {new Color(200, 250, 50), new Color(100, 50, 250), new Color(220, 50, 250),new Color(225, 220, 50)};
-	public static final Color colorWall= new Color(122, 200, 200, 120);
+	public static final Color[] colorPawn = {new Color(243, 156, 18), new Color(100, 50, 250), new Color(220, 50, 250),new Color(46, 204, 113)};
+	public static final Color colorPreviewWall= new Color(52, 73, 94, 120);
+	public static final Color colorWAll = new Color(52, 73, 94);
 	
 	public static final int lSpaceEdge = 5;
 	
@@ -119,23 +122,23 @@ public class BoardGUI extends JPanel{
 		}
 		switch (game.getTour()) {
 		case 0:
-			drawPreview(g2d, colorWall, player1);
+			drawPreview(g2d, colorPreviewWall, player1);
 			break;
 		case 1:
-			drawPreview(g2d, colorWall, player2);
+			drawPreview(g2d, colorPreviewWall, player2);
 			break;
 		case 2:
-			drawPreview(g2d, colorWall, player3);
+			drawPreview(g2d, colorPreviewWall, player3);
 			break;
 		case 3:
-			drawPreview(g2d, colorWall, player4);
+			drawPreview(g2d, colorPreviewWall, player4);
 			break;
 		}
 		
 		drawTour(g2d);
 		
-		drawWallHorizontal(g2d, new Color(122, 200, 200));
-		drawWallVertical(g2d, new Color(122, 200, 200));
+		drawWallHorizontal(g2d, colorWAll);
+		drawWallVertical(g2d, colorWAll);
 	}
 	
 	/**

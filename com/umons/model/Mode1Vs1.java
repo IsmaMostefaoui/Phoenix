@@ -39,6 +39,7 @@ public class Mode1Vs1 implements IMode{
 	public void init(Game game) {
 		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
 		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER
+		/*
 		ARules.setBoard(board);
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
 		JPanel panel = new BoardGUI(game);
@@ -47,8 +48,7 @@ public class Mode1Vs1 implements IMode{
 		MyMouseListener l = new MyMouseListener(controller);
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
-		frame.setContentPane(panel);
-		frame.setVisible(true);
+		frame.setVisible(true);*/
 	}
 
 
