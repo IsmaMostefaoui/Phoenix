@@ -1,15 +1,16 @@
 package com.umons.view;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.*;
 
 public class mainMenu {
 	public static void main(String[] args) {
+		
 		JPanel panel = new JPanel();
-		MenuGUI menu = new MenuGUI();
-		QuoridorGUI frame = new QuoridorGUI("QUORIDOR", panel, menu);
-		frame.getContentPane().add(menu);
+		panel.setBackground(Color.BLACK);
+		QuoridorGUI frame = new QuoridorGUI("QUORIDOR", panel);
+		JPanel menu = new MenuGUI(frame);
+		frame.setContentPane(menu);
 		frame.setVisible(true);
 	}
 }

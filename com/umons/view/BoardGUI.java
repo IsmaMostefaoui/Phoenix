@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class BoardGUI extends JPanel{
 	
 	private Font customFont;
 	private Game game;
+	MyButton backButton;
 	private Player player1;
 	private Player player2;
 	private Player player3;
@@ -42,9 +45,8 @@ public class BoardGUI extends JPanel{
 	public static int SQUARE_NUMBER = 9;
 	
 	public static final int lSquare = QuoridorGUI.width/28;
-	public static final Color[] colorPawn = {new Color(243, 156, 18), new Color(100, 50, 250), new Color(220, 50, 250),new Color(46, 204, 113)};
-	public static final Color colorPreviewWall= new Color(52, 73, 94, 120);
-	public static final Color colorWAll = new Color(52, 73, 94);
+	public static final Color[] colorPawn = {new Color(200, 250, 50), new Color(100, 50, 250), new Color(220, 50, 250),new Color(225, 220, 50)};
+	public static final Color colorWall= new Color(122, 200, 200, 120);
 	
 	public static final int lSpaceEdge = 5;
 	
@@ -73,7 +75,7 @@ public class BoardGUI extends JPanel{
 	 * @param player1 une instance du joueur 1
 	 * @param player2 une instance du joueur 2
 	 */
-	public BoardGUI(Game game) {
+	public BoardGUI(Game game, final JFrame parentFrame) {
 		
 		this.player1 = game.getMode().getPlayer()[0]; this.player2 = game.getMode().getPlayer()[1];
 		if (game.getMode().getNumberOfPlayer() == 4) {
@@ -82,6 +84,18 @@ public class BoardGUI extends JPanel{
 		}
 		this.game = game;
 		customFont = new Font("comic sans ms", 10, 11);
+		
+		backButton = new MyButton("BACK", Color.BLACK);
+		
+		backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				((QuoridorGUI)parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
+			}
+		});
+		this.add(backButton);
+		
 		/*try {
             //create the font to use. Specify the size!
 			InputStream myStream = new BufferedInputStream(new FileInputStream("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\FunSized.ttf"));
@@ -122,23 +136,23 @@ public class BoardGUI extends JPanel{
 		}
 		switch (game.getTour()) {
 		case 0:
-			drawPreview(g2d, colorPreviewWall, player1);
+			drawPreview(g2d, colorWall, player1);
 			break;
 		case 1:
-			drawPreview(g2d, colorPreviewWall, player2);
+			drawPreview(g2d, colorWall, player2);
 			break;
 		case 2:
-			drawPreview(g2d, colorPreviewWall, player3);
+			drawPreview(g2d, colorWall, player3);
 			break;
 		case 3:
-			drawPreview(g2d, colorPreviewWall, player4);
+			drawPreview(g2d, colorWall, player4);
 			break;
 		}
 		
 		drawTour(g2d);
 		
-		drawWallHorizontal(g2d, colorWAll);
-		drawWallVertical(g2d, colorWAll);
+		drawWallHorizontal(g2d, new Color(122, 200, 200));
+		drawWallVertical(g2d, new Color(122, 200, 200));
 	}
 	
 	/**
