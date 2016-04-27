@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
 import com.umons.view.BoardGUI;
+import com.umons.view.MenuGUI;
 import com.umons.view.QuoridorGUI;
 
 //Peut etre le faire extends de MOde1Vs1, je sais pas trop...
@@ -47,13 +48,16 @@ public class Mode2Vs2 implements IMode{
 		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER	
 		ARules.setBoard(board);
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
-		JPanel panel = new BoardGUI(game);
-		panel.setFocusable(true);
-		Controller controller = new Controller(this, panel, game, finder);
+		MenuGUI menu = new MenuGUI(frame);
+		JPanel board = new BoardGUI(game, frame);
+		board.setFocusable(true);
+		Controller controller = new Controller(this, board, game, finder);
 		MyMouseListener l = new MyMouseListener(controller);
-		panel.addMouseListener(l);
-		panel.addMouseMotionListener(l);
-		frame.setContentPane(panel);
+		board.addMouseListener(l);
+		board.addMouseMotionListener(l);
+		frame.setPane(board);
+		frame.setPane(menu);
+		frame.setContentPane(menu);
 		frame.setVisible(true);
 		
 	}
