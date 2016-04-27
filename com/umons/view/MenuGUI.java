@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -44,6 +46,13 @@ public class MenuGUI extends JPanel{
 		gbc.gridwidth = 0;
 		
 		startButton = new MyButton("START");
+		startButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("je suis dans l'action listener");
+			}
+		});
 		this.add(startButton, gbc);
 		quitButton = new MyButton("QUIT");
 	}
