@@ -20,7 +20,7 @@ public interface IMode{
 	Player[] getPlayer();
 	
 	/**
-	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonées coordWall se lon l'algorithme de recherche "finder"
+	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonÃ©es coordWall se lon l'algorithme de recherche "finder"
 	 * @param player l instance du joueur qui pose le mur
 	 * @param finder
 	 * @param loc la position du mur qui risque de bloquer un joueur
