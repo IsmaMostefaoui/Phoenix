@@ -8,7 +8,7 @@ import com.umons.model.Game;
 import com.umons.model.IPathFinder;
 import com.umons.model.Location;
 import com.umons.model.Player;
-import com.umons.model.RandomIA;
+import com.umons.model.MediumIA;
 import com.umons.model.Audio;
 
 public class MyMouseListener implements MouseInputListener{

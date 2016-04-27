@@ -40,25 +40,25 @@ public class Controller {
 		// pour faire joueur ceux qui ne sont pas reels.
 		if (game.getTour() == 0 && !player1.isHumanPLayer()) {
 			System.out.println("je suis rentré dans player1 est un robot ???");
-			RandomIA IA = (RandomIA) player1;
+			MediumIA IA = (MediumIA) player1;
 			IA.play(game, finder, player2);
 			game.nextPlayer();
 		}
 		if (game.getTour() == 1 && !player2.isHumanPLayer()) {
 			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
-			//parce que le move de RandomIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
+			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
 			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
-			RandomIA IA = (RandomIA) player2;
+			MediumIA IA = (MediumIA) player2;
 			IA.play(game, finder, player1);
 			game.nextPlayer();
 		}
 		if (game.getTour() == 2 && !player3.isHumanPLayer()) {
-			RandomIA IA = (RandomIA) player3;
+			MediumIA IA = (MediumIA) player3;
 			IA.play(game, finder, player4);
 			game.nextPlayer();
 		}
 		if (game.getTour() == 3 && !player4.isHumanPLayer()) {
-			RandomIA IA = (RandomIA) player4;
+			MediumIA IA = (MediumIA) player4;
 			IA.play(game, finder, player3);
 			game.nextPlayer();
 		}
