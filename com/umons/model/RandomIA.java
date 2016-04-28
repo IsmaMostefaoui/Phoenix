@@ -13,7 +13,7 @@ public class RandomIA extends Player {
 
 	private List<Location> previousLoc;
 	
-	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, IMode mode) {
+	public RandomIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, AMode mode) {
 		super(grid, loc, NbreOfWall, OrderNumber, mode);
 		this.human = false;
 		previousLoc = new ArrayList<Location>();
@@ -22,7 +22,7 @@ public class RandomIA extends Player {
 		
 	}
 	
-	public RandomIA(Grid grid, Location loc, int OrderNumber, IMode mode) {
+	public RandomIA(Grid grid, Location loc, int OrderNumber, AMode mode) {
 		super(grid, loc, OrderNumber, mode);
 		this.human = false;
 		previousLoc = new ArrayList<Location>();

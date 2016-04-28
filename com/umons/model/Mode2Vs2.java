@@ -1,5 +1,6 @@
 package com.umons.model;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.umons.controller.Controller;
@@ -9,10 +10,11 @@ import com.umons.view.MenuGUI;
 import com.umons.view.QuoridorGUI;
 
 //Peut etre le faire extends de MOde1Vs1, je sais pas trop...
-public class Mode2Vs2 implements IMode{
+public class Mode2Vs2 extends AMode{
 
 	private Player[] players;
 	private Grid board;
+	private JPanel boardPanel;
 	private AStarHeuristic heuristic;
 	private IPathFinder finder;
 	private int nbreHumans;
@@ -42,27 +44,6 @@ public class Mode2Vs2 implements IMode{
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
 	
-	@Override
-	public void init(Game game) {
-		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
-		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER	
-		ARules.setBoard(board);
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
-		MenuGUI menu = new MenuGUI(frame);
-		JPanel board = new BoardGUI(game, frame);
-		board.setFocusable(true);
-		Controller controller = new Controller(this, board, game, finder);
-		MyMouseListener l = new MyMouseListener(controller);
-		board.addMouseListener(l);
-		board.addMouseMotionListener(l);
-		frame.setPane(board);
-		frame.setPane(menu);
-		frame.setContentPane(menu);
-		frame.setVisible(true);
-		
-	}
-	
-
 	@Override
 	public int getNumberOfPlayer() {
 		return 4;
@@ -99,10 +80,4 @@ public class Mode2Vs2 implements IMode{
 		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1] && check[2] && check[3];
 	}
-
-	@Override
-	public IPathFinder getFinder() {
-		return finder;
-	}
-
 }

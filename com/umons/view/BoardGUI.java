@@ -283,11 +283,47 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	public void reset(){
+		locPawn1 = Player.POS1;
+		locPawn2 = Player.POS2;
+		locPawn3 = Player.POS3;
+		locPawn4 = Player.POS4;
+		
+		locWallHorizontal.clear();
+		locWallVertical.clear();
+		
+		game.resetTour();
+		
+	}
+	
 	/**
 	 * Pas encore fonctionnel
 	 * @param g2d
 	 */
 	public void drawVictory(Graphics g2d) {
+		//TODO
 		JPanel victoryPanel = new VictoryPanel();
+	}
+	
+	private class InfoGUI extends JPanel{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
+		
+		public InfoGUI(final JFrame parentFrame) {
+			this.setLayout(new BorderLayout());
+			backButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					((QuoridorGUI)parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
+				}
+			});
+			this.add(backButton, BorderLayout.SOUTH);
+			this.setBackground(new Color(127, 140, 141));
+		}
 	}
 }

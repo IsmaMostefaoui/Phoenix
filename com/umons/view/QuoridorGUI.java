@@ -3,6 +3,8 @@ package com.umons.view;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -11,6 +13,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import com.umons.model.AMode;
+import com.umons.model.Game;
+import com.umons.model.Mode1Vs1;
+import com.umons.model.Mode2Vs2;
 
 
 public class QuoridorGUI extends JFrame{
@@ -24,7 +31,7 @@ public class QuoridorGUI extends JFrame{
 	static final int height = (int) screenDimension.getHeight();
 	static final int width = (int) screenDimension.getWidth();
 	
-	public static final int HEIGHT = (5*height)/6;
+	public static final int HEIGHT = (6*height)/7;
 	static final int WIDTH = 2*width/3;
 	
 	public static JPanel content = new JPanel();
@@ -35,7 +42,7 @@ public class QuoridorGUI extends JFrame{
 	public static int RULESGUI = 2;
 	public static int VICTORYGUI = 3;
 	
-	private ArrayList<JPanel> nextPanes = new ArrayList<JPanel>();
+	private JPanel[] nextPanes = new JPanel[5];
 	
 	public QuoridorGUI(String title) {
 		super();
@@ -50,23 +57,21 @@ public class QuoridorGUI extends JFrame{
 	
 	public void switchToPanel(int panelName) {
 		getContentPane().removeAll();
-		System.out.println(nextPanes.get(panelName));
-		setContentPane(nextPanes.get(panelName));
-		nextPanes.get(panelName).repaint();
-		if (panelName == BOARDGUI) {
+		if (panelName == BOARDGUI) { 
 			printMenuBar = true;
-			menuBar();
-		}else {
+		}else{
 			printMenuBar = false;
 		}
+		menuBar();
+		setContentPane(nextPanes[panelName]);
 		SwingUtilities.updateComponentTreeUI(this);
-		nextPanes.get(panelName).repaint();
+		getContentPane().repaint();
 		
 	}
 	
-	public void setPane(JPanel panelToAdd) {
-		nextPanes.add(panelToAdd);
-		System.out.println(nextPanes.size());
+	public void setPane(JPanel panelToAdd, int index) {
+		nextPanes[index] = panelToAdd;
+		System.out.println(nextPanes.length);
 	}
 	
 	public void menuBar() {
@@ -77,32 +82,85 @@ public class QuoridorGUI extends JFrame{
 			JMenu menuPartie = new JMenu("Partie");
 			menuBar.add(menuPartie);
 
-			JMenuItem partie = new JMenuItem("Choix Mode");
-			JMenuItem start = new JMenuItem("Exit");
-			JMenuItem stop = new JMenuItem("Undo (Ctrl+Z");
+			JMenu nouvellePartie = new JMenu("Nouvelle Partie");
+			menuPartie.add(nouvellePartie);
+			
+			
+			JMenu mode1 = new JMenu("Mode 2 Joueurs");
+			nouvellePartie.add(mode1);
+			JMenuItem mode1vs1 = new JMenuItem("Joueur contre Joueur");
+			mode1.add(mode1vs1);
+			mode1vs1.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AMode mode = new Mode1Vs1(2);
+					initGame("[J VS J]", mode);
+				}
+			});
+			
+			JMenuItem mode1vsIa = new JMenuItem("Joueur contre Ordinateur");
+			mode1.add(mode1vsIa);
+			mode1vsIa.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AMode mode = new Mode1Vs1(1);
+					initGame("[J VS IA]", mode);
+				}
+			});
+			
+			
+			JMenu mode2 = new JMenu("Mode 4 Joueurs");
+			nouvellePartie.add(mode2);
+			JMenuItem mode2vs2 = new JMenuItem("Joueurs contre Joueurs [2 vs 2]");
+			mode2.add(mode2vs2);
+			mode2vs2.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AMode mode = new Mode2Vs2(4);
+					initGame("[2J VS 2J]", mode);
+				}
+			});
+			JMenuItem mode2vsIa = new JMenuItem("Joueur contre Ordinateurs [1 vs 3]");
+			mode2.add(mode2vsIa);
+			mode2vsIa.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AMode mode = new Mode2Vs2(1);
+					initGame("[J VS 3IA]", mode);
+				}
+			});
+			
+			JMenuItem quit = new JMenuItem("Quitter");
+			menuPartie.add(quit); 
+			quit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
 
-			menuPartie.add(partie); 
-			menuPartie.add(start); 
-			menuPartie.add(stop);
+			JMenu option = new JMenu("Options");
+			menuBar.add(option);
+			
+			JMenuItem undo = new JMenuItem("Undo (Ctrl+Z)");
+			option.add(undo);
 
-			JMenu menuCouleur = new JMenu("Couleur");
-			menuBar.add(menuCouleur);
-
-			JMenu snake = new JMenu("Snake");
-			JMenu wall = new JMenu("Wall");
-
-			menuCouleur.add(snake); menuCouleur.add(wall);
-
-			JMenuItem noirS = new JMenuItem("Noir (banane au miel, KFC, et toutes les epices)");
-			JMenuItem arabeS = new JMenuItem("Couleur Arabe(thé, couscous, tajiin,  etc...)");
-
-			JMenuItem noirW = new JMenuItem("Noir (banane au miel, KFC, et toutes les epices)");
-			JMenuItem arabeW = new JMenuItem("Couleur Arabe(thé, couscous, tajiin,  etc...)");
-
-			snake.add(noirS); snake.add(arabeS);
-			wall.add(noirW); wall.add(arabeW);
 		}else {
 			getContentPane().remove(menuBar);
 		}
+	}
+	
+	public void initGame(String text, AMode mode){
+		Game game = new Game(mode);
+		mode.init(QuoridorGUI.this, game);
+		((BoardGUI) mode.getPane()).reset();
+		QuoridorGUI.this.setTitle("THE QUORIDOR " + text);
+		QuoridorGUI.this.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
+		QuoridorGUI.this.switchToPanel(QuoridorGUI.BOARDGUI);
 	}
 }

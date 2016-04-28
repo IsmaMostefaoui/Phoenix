@@ -17,6 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.umons.model.Game;
+import com.umons.model.Mode1Vs1;
+
 
 public class MenuGUI extends JPanel{
 
@@ -27,7 +30,7 @@ public class MenuGUI extends JPanel{
 	MyButton quitButton;
 	MyButton reloadButton;
 	
-	public MenuGUI(final JFrame parentFrame) {
+	public MenuGUI(final QuoridorGUI parentFrame) {
 		System.out.println("dans le constructeur");
 		try {
 			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
@@ -54,7 +57,11 @@ public class MenuGUI extends JPanel{
 		startButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				((QuoridorGUI)parentFrame).switchToPanel(QuoridorGUI.BOARDGUI);
+				Mode1Vs1 mode = new Mode1Vs1(1);
+				Game game = new Game(mode);
+				mode.init(parentFrame, game);
+				parentFrame.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
+				parentFrame.switchToPanel(QuoridorGUI.BOARDGUI);
 			}
 		});
 		gb.setConstraints(startButton, gbc);

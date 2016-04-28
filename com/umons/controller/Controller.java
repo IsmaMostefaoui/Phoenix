@@ -6,13 +6,13 @@ import com.umons.model.*;
 
 public class Controller {
 	
-	private IMode mode;
+	private AMode mode;
 	private IPathFinder finder;
 	private Game game;
 	private JPanel panel;
 	private Player[] players;
 	
-	public Controller(IMode mode, JPanel panel, Game game, IPathFinder finder){
+	public Controller(AMode mode, JPanel panel, Game game, IPathFinder finder){
 		this.panel = panel;
 		this.game = game;
 		this.finder = finder;

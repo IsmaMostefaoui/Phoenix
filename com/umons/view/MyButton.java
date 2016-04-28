@@ -2,6 +2,7 @@ package com.umons.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -14,6 +15,7 @@ public class MyButton extends JButton{
 	
 	String text;
 	Color color;
+	Font customFont;
 	
 	public MyButton(String text, Color color) {
 		super(text);
@@ -30,7 +32,7 @@ public class MyButton extends JButton{
 	    g2d.fillRect(0, 0, 500, 60);
 	    g2d.setColor(Color.white);
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	    g2d.drawString(this.text, (int)(this.getSize().getWidth()-width)/2, ascent);
+	    g2d.drawString(this.text, (int)(this.getSize().getWidth()-width)/2, ((int)(this.getSize().getHeight()-ascent)/2)+10);
 	}
 	
 	

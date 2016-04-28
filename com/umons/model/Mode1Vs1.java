@@ -1,5 +1,6 @@
 package com.umons.model;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import com.umons.view.BoardGUI;
 import com.umons.view.MenuGUI;
@@ -7,13 +8,7 @@ import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
 import com.umons.view.QuoridorGUI;
 
-public class Mode1Vs1 implements IMode{
-
-	private Player[] players;
-	private Grid board;
-	private AStarHeuristic heuristic;
-	private IPathFinder finder;
-	private int nbreHumans;
+public class Mode1Vs1 extends AMode{
 
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
@@ -35,26 +30,6 @@ public class Mode1Vs1 implements IMode{
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
-
-	@Override
-	public void init(Game game) {
-		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
-		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER
-		ARules.setBoard(board);
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
-		MenuGUI menu = new MenuGUI(frame);
-		JPanel board = new BoardGUI(game, frame);
-		board.setFocusable(true);
-		Controller controller = new Controller(this, board, game, finder);
-		MyMouseListener l = new MyMouseListener(controller);
-		board.addMouseListener(l);
-		board.addMouseMotionListener(l);
-		frame.setPane(board);
-		frame.setPane(menu);
-		frame.setContentPane(menu);
-		frame.setVisible(true);
-	}
-
 
 	@Override
 	public int getNumberOfPlayer() {
@@ -85,8 +60,4 @@ public class Mode1Vs1 implements IMode{
 		return check[0] && check [1];
 	}
 
-	@Override
-	public IPathFinder getFinder() {
-		return finder;
-	}
 }

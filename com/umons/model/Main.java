@@ -1,11 +1,16 @@
 package com.umons.model;
 
+import com.umons.view.MenuGUI;
+import com.umons.view.QuoridorGUI;
+
 public class Main {
 	
 	public static void main(String[] args){
-		IMode mode = new Mode1Vs1(1);
-		Game game = new Game(mode);
-		game.init();
+		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
+		MenuGUI menu = new MenuGUI(frame);
+		frame.setContentPane(menu);
+		frame.setPane(menu, QuoridorGUI.MENUGUI);
+		frame.setVisible(true);
 		
 	}
 }

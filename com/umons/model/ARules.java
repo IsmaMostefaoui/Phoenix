@@ -84,6 +84,7 @@ public abstract class ARules {
 		ytemp = yPion + ytemp/2;
 		xtemp = xPion + xtemp/2;
 		Location loctemp = new Location(xtemp, ytemp);
+		System.out.println(loctemp + " " + board + " ");
 		return loctemp.inGrid(board) && board.getItem(loctemp).getFull();
 	}
 	

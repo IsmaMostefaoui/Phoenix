@@ -6,7 +6,7 @@ import com.umons.view.BoardGUI;
 
 public class Player {
 
-	protected IMode mode;
+	protected AMode mode;
 	protected Location loc;
 	protected int numberOfWall;
 	protected final int NB_WALL = 10;
@@ -25,7 +25,7 @@ public class Player {
 	 * @param orderNumbrer Le numero d'ordre du joueur
 	 * 
 	 */
-	public Player(Grid board, Location loc, int orderNumber, IMode mode) {
+	public Player(Grid board, Location loc, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
 		numberOfWall = NB_WALL;
@@ -41,7 +41,7 @@ public class Player {
 	 * @param nbreOfWall le nombre de Mur d'un joueur en debut de partie 
 	 * @param orderNumbrer Le numero d'ordre du joueur
 	 */
-	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, IMode mode) {
+	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
 		this.numberOfWall = nbreOfWall;
