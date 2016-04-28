@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
 import com.umons.view.BoardGUI;
-import com.umons.view.MenuGUI;
 import com.umons.view.QuoridorGUI;
 
 public abstract class AMode{
@@ -36,9 +35,7 @@ public abstract class AMode{
 		MyMouseListener l = new MyMouseListener(controller);
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
-		System.out.println(frame + " " + board);
 		frame.setPane(board, 0);
-		frame.setContentPane(board);
 	}
 	
 	/**
@@ -61,16 +58,20 @@ public abstract class AMode{
 	 */
 	public abstract boolean testFinder(Player player, Location coordWall, IPathFinder finder);
 	
+	/**
+	 * Retourne l'instance du PathFInding utilisé dans le mode.
+	 * @return une instance implémentant IPathFinder
+	 */
 	public IPathFinder getFinder() {
 		return finder;
 	}
 	
+	/**
+	 * Retourne le panel BoardGUI qui est défini dans mode.init();
+	 * @return un JPanel correspondant au GUI du plateau
+	 */
 	public JPanel getPane() {
 		return boardPanel;
-	}
-	
-	public JFrame getFrame() {
-		return frame;
 	}
 }
 

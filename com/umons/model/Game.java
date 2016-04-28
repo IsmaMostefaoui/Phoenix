@@ -15,6 +15,7 @@ public class Game {
 	
 	public Game(AMode mode) {
 		this.mode = mode;
+		this.board = mode.board;
 		this.numberPlayer = mode.getNumberOfPlayer();
 		
 	}

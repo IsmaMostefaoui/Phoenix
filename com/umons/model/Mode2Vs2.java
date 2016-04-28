@@ -1,23 +1,6 @@
 package com.umons.model;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import com.umons.controller.Controller;
-import com.umons.controller.MyMouseListener;
-import com.umons.view.BoardGUI;
-import com.umons.view.MenuGUI;
-import com.umons.view.QuoridorGUI;
-
-//Peut etre le faire extends de MOde1Vs1, je sais pas trop...
 public class Mode2Vs2 extends AMode{
-
-	private Player[] players;
-	private Grid board;
-	private JPanel boardPanel;
-	private AStarHeuristic heuristic;
-	private IPathFinder finder;
-	private int nbreHumans;
 	
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).

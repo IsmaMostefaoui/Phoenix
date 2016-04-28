@@ -1,8 +1,6 @@
 package com.umons.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -13,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.umons.model.Game;
@@ -53,7 +49,7 @@ public class MenuGUI extends JPanel{
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
 		
-		startButton = new MyButton("START", new Color(211, 84, 0));
+		startButton = new MyButton("START", new Color(248, 140, 6));
 		startButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -69,7 +65,7 @@ public class MenuGUI extends JPanel{
 		
 		gbc.gridy = 1;
 		
-		reloadButton = new MyButton("RELOAD", new Color(211, 84, 0));
+		reloadButton = new MyButton("RELOAD", new Color(248, 100, 5));
 		reloadButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -81,7 +77,7 @@ public class MenuGUI extends JPanel{
 		this.add(reloadButton);
 		
 		gbc.gridy = 2;
-		quitButton = new MyButton("QUIT", new Color(211, 84, 0));
+		quitButton = new MyButton("QUIT", new Color(248, 60, 4));
 		quitButton.addActionListener(new ActionListener() {
 			
 			@Override

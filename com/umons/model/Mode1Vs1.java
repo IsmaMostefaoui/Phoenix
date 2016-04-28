@@ -1,13 +1,5 @@
 package com.umons.model;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import com.umons.view.BoardGUI;
-import com.umons.view.MenuGUI;
-import com.umons.controller.Controller;
-import com.umons.controller.MyMouseListener;
-import com.umons.view.QuoridorGUI;
-
 public class Mode1Vs1 extends AMode{
 
 	/**
@@ -19,12 +11,16 @@ public class Mode1Vs1 extends AMode{
 		board = new Grid();
 		players = new Player[2];
 		this.nbreHumans = nbreHumans;
-		players[0] = new Player(board, Player.POS1, 1, this);
-		if (nbreHumans == 2){
+		if (nbreHumans == 0){
+			players[0] = new RandomIA(board, Player.POS1, 1, this);
+			players[1] = new RandomIA(board, Player.POS2, 2, this);
+		}else if (nbreHumans == 2){
 			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
+			players[0] = new Player(board, Player.POS1, 1, this);
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
+			players[0] = new Player(board, Player.POS1, 1, this);
 			players[1] = new RandomIA(board, Player.POS2, 2, this);
 		}
 		heuristic = new AStarHeuristic();

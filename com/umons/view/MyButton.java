@@ -3,9 +3,15 @@ package com.umons.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
+import java.io.InputStream;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.swing.JButton;
 
@@ -21,6 +27,18 @@ public class MyButton extends JButton{
 		super(text);
 		this.text = text;
 		this.color = color;
+		try {
+            //create the font to use. Specify the size!
+			InputStream myStream = new BufferedInputStream(new FileInputStream("./FunSized.ttf"));
+            customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch(FontFormatException e) {
+            e.printStackTrace();
+        }
 		this.setPreferredSize(new Dimension(250, 60));
 	}
 	

@@ -6,10 +6,10 @@ import com.umons.view.QuoridorGUI;
 public class Main {
 	
 	public static void main(String[] args){
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
+		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR [J VS J]");
 		MenuGUI menu = new MenuGUI(frame);
-		frame.setContentPane(menu);
 		frame.setPane(menu, QuoridorGUI.MENUGUI);
+		frame.switchToPanel(QuoridorGUI.MENUGUI);
 		frame.setVisible(true);
 		
 	}

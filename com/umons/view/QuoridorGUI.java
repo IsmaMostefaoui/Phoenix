@@ -1,11 +1,9 @@
 package com.umons.view;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -63,9 +61,8 @@ public class QuoridorGUI extends JFrame{
 			printMenuBar = false;
 		}
 		menuBar();
-		setContentPane(nextPanes[panelName]);
+		this.setContentPane(nextPanes[panelName]);
 		SwingUtilities.updateComponentTreeUI(this);
-		getContentPane().repaint();
 		
 	}
 	
@@ -107,6 +104,18 @@ public class QuoridorGUI extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					AMode mode = new Mode1Vs1(1);
 					initGame("[J VS IA]", mode);
+				}
+			});
+			
+			
+			JMenuItem modeIavsIa = new JMenuItem("Ordinateur contre Ordinateur");
+			mode1.add(modeIavsIa);
+			modeIavsIa.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AMode mode = new Mode1Vs1(0);
+					initGame("[IA VS IA]", mode);
 				}
 			});
 			
@@ -157,7 +166,7 @@ public class QuoridorGUI extends JFrame{
 	
 	public void initGame(String text, AMode mode){
 		Game game = new Game(mode);
-		mode.init(QuoridorGUI.this, game);
+		mode.init(this, game);
 		((BoardGUI) mode.getPane()).reset();
 		QuoridorGUI.this.setTitle("THE QUORIDOR " + text);
 		QuoridorGUI.this.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);

@@ -4,17 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -261,8 +255,18 @@ public class BoardGUI extends JPanel{
 	 * @return True si la preview peut se faire normalement
 	 */
 	public boolean canPreviewHor(Location motionCoord, Player player) {
-		return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
-				&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
+		if (MyMouseListener.prevCoord != null && motionCoord.equals(MyMouseListener.prevCoord)) {
+			System.out.println("dans le meme mur");
+			return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+					&& player.getNbreOfWall() > 0;
+		}else {
+			//TODO mettre getter et setter
+			System.out.println("mur different ou debut prev null");
+			System.out.println("prev: " + MyMouseListener.prevCoord);
+			MyMouseListener.prevCoord = motionCoord;
+			return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+					&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
+		}
 	}
 	
 	/**
@@ -272,8 +276,19 @@ public class BoardGUI extends JPanel{
 	 * @return True si la preview peut se faire normalement
 	 */
 	public boolean canPreviewVer(Location motionCoord, Player player) {
-		return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
-				&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
+		//TODO opti comme pour horizontal sinon previexw meme si bloque joueur
+		if (MyMouseListener.prevCoord != null && motionCoord.equals(MyMouseListener.prevCoord)) {
+			System.out.println("dans le meme mur");
+			return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+					&& player.getNbreOfWall() > 0;
+		}else {
+			//TODO mettre getter et setter
+			System.out.println("mur different ou debut prev null");
+			System.out.println("prev: " + MyMouseListener.prevCoord);
+			MyMouseListener.prevCoord = motionCoord;
+			return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+					&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
+		}
 	}
 	
 	/**
@@ -291,6 +306,9 @@ public class BoardGUI extends JPanel{
 		}
 	}
 	
+	/**
+	 * Réinitialise le BoardGUI (joueurs au postion initiale, supression des murs restants, tour réinitialisé )
+	 */
 	public void reset(){
 		locPawn1 = Player.POS1;
 		locPawn2 = Player.POS2;
@@ -310,19 +328,25 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawVictory(Graphics g2d) {
 		//TODO
-		JPanel victoryPanel = new VictoryPanel();
+		//JPanel victoryPanel = new VictoryPanel();
 	}
 	
 	private class InfoGUI extends JPanel{
 
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
-		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
 		
+		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
+		MyButton saveButton = new MyButton("SAVE", new Color(127, 140, 141));
+		//MyButton passButton =new MyButton("PASS", new Color(127, 140, 141));
+		
+		/**
+		 * Initalise le panel d'Info. Place deux boutons save et back.
+		 * @param parentFrame la frame sur laquelle est posé le panel
+		 */
 		public InfoGUI(final JFrame parentFrame) {
+			
 			this.setLayout(new BorderLayout());
+			
 			backButton.addActionListener(new ActionListener() {
 				
 				@Override
@@ -331,6 +355,29 @@ public class BoardGUI extends JPanel{
 				}
 			});
 			this.add(backButton, BorderLayout.SOUTH);
+			
+			saveButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					//TODO
+					System.out.println("sauvegarde la partie actuelle");
+				}
+			});
+			this.add(saveButton, BorderLayout.NORTH);
+			
+			//TODO
+			/*
+			passButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					//TODO
+					System.out.println("Passe le tour");
+				}
+			});
+			this.add(passButton, BorderLayout.NORTH);*/
+			
 			this.setBackground(new Color(127, 140, 141));
 		}
 	}

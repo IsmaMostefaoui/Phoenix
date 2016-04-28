@@ -9,6 +9,7 @@ public class MyMouseListener implements MouseInputListener{
 	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
 	private static Location clickCoord;
 	private static Location motionCoord;
+	public static Location prevCoord;
 	private Controller controller;
 	
 	
