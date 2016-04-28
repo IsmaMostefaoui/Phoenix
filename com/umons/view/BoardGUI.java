@@ -21,6 +21,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
 import com.umons.model.*;
 
@@ -116,6 +117,7 @@ public class BoardGUI extends JPanel{
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		infoPanel.paintComponents(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
 		
@@ -160,13 +162,14 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		g2d.setColor(c);
+		Location locPix = Controller.coordToPixel(locPawn);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.fillOval(locPawn.coordToPixel().getLocX(), locPawn.coordToPixel().getLocY(), lPawn, lPawn);
+		g2d.fillOval(locPix.getLocX(), locPix.getLocY(), lPawn, lPawn);
 		if (numberOfWall != 10) {
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 2*lPawn/5, locPawn.coordToPixel().getLocY() + 3*lPawn/5);
+			g2d.drawString(Integer.toString(numberOfWall), locPix.getLocX() + 2*lPawn/5, locPix.getLocY() + 3*lPawn/5);
 		}
 	}
 	
@@ -179,7 +182,8 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallHorizontal.size(); i++) {
 			Location loc = locWallHorizontal.get(i);
-			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY() + lSpaceWall/2, 2*lSquare+lWall, lWall - lSpaceWall);
+			Location locPix = Controller.coordToPixel(loc);
+			g2d.fillRect(locPix.getLocX(), locPix.getLocY() + lSpaceWall/2, 2*lSquare+lWall, lWall - lSpaceWall);
 		}
 	}
 
@@ -194,7 +198,8 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallVertical.size(); i++) {
 			Location loc = locWallVertical.get(i);
-			g2d.fillRect(loc.coordToPixel().getLocX()+lSpaceWall/2, loc.coordToPixel().getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
+			Location locPix = Controller.coordToPixel(loc);
+			g2d.fillRect(locPix.getLocX()+lSpaceWall/2, locPix.getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
 	}
 	
@@ -227,22 +232,25 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
-		System.out.println("motioncoord dans player: " + motionCoord);
-		if (motionCoord != null && motionCoord.isSquare()){ 
-			List<Location> list = ARules.rSquareAvailable(player);
-			if (list.contains(motionCoord)) {
-				g2d.setColor(new Color(46, 204, 113, 170));
-				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
-			}else {
-				g2d.setColor(new Color(204, 0, 0, 120));
-				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
+		if (motionCoord != null) {
+			Location motionCoordPix = Controller.coordToPixel(motionCoord);
+			System.out.println("motioncoord dans player: " + motionCoord);
+			if (motionCoord != null && motionCoord.isSquare()){ 
+				List<Location> list = ARules.rSquareAvailable(player);
+				if (list.contains(motionCoord)) {
+					g2d.setColor(new Color(46, 204, 113, 170));
+					g2d.fillRect(motionCoordPix.getLocX(), motionCoordPix.getLocY(), lSquare-5, lSquare-5);
+				}else {
+					g2d.setColor(new Color(204, 0, 0, 120));
+					g2d.fillRect(motionCoordPix.getLocX(), motionCoordPix.getLocY(), lSquare-5, lSquare-5);
+				}
+			}else if (canPreviewHor(motionCoord, player)) {
+				g2d.setColor(c);
+				g2d.fillRect(motionCoordPix.getLocX(), motionCoordPix.getLocY()+(lSpaceWall)/2, 2*lSquare+lWall, lWall - (lSpaceWall));
+			}else if (canPreviewVer(motionCoord, player)) {
+				g2d.setColor(c);
+				g2d.fillRect(motionCoordPix.getLocX()+(lSpaceWall)/2, motionCoordPix.getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 			}
-		}else if (canPreviewHor(motionCoord, player)) {
-			g2d.setColor(c);
-			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+(lSpaceWall)/2, 2*lSquare+lWall, lWall - (lSpaceWall));
-		}else if (canPreviewVer(motionCoord, player)) {
-			g2d.setColor(c);
-			g2d.fillRect(motionCoord.coordToPixel().getLocX()+(lSpaceWall)/2, motionCoord.coordToPixel().getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
 	}
 	
