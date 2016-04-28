@@ -19,9 +19,9 @@ public class Mode2Vs2 extends AMode{
 			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
-			players[1] = new RandomIA(board, Player.POS2, 2, this);
-			players[2] = new RandomIA(board, Player.POS3, 3, this);
-			players[3] = new RandomIA(board, Player.POS4, 4, this);
+			players[1] = new MediumIA(board, Player.POS2, 2, this);
+			players[2] = new MediumIA(board, Player.POS3, 3, this);
+			players[3] = new MediumIA(board, Player.POS4, 4, this);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);

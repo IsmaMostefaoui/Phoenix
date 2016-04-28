@@ -3,6 +3,10 @@ package com.umons.controller;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 import com.umons.model.Location;
+import com.umons.model.Player;
+import com.umons.model.MediumIA;
+import com.umons.model.Audio;
+
 
 public class MyMouseListener implements MouseInputListener{
 
