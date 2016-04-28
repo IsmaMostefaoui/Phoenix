@@ -1,44 +1,18 @@
 package com.umons.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+/*import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-
-public class MenuGUI extends JPanel{
-
-	private static final long serialVersionUID = 1L;
+public class ModeGUI {
 	
-	Image image;
-	MyButton startButton;
-	MyButton quitButton;
+	MyButton mode1J;
+	MyButton mode2J;
 	MyButton reloadButton;
-	
-	public MenuGUI(final JFrame parentFrame) {
-		System.out.println("dans le constructeur");
-		try {
-			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
-		}catch (IOException ie) {
-			System.err.println("Erreur d'image :");
-			ie.printStackTrace();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		setLayout(new GridBagLayout());
-		
+
+	public ModeGUI() {
 		GridBagLayout gb = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		
@@ -74,6 +48,7 @@ public class MenuGUI extends JPanel{
 		this.add(reloadButton);
 		
 		gbc.gridy = 2;
+		
 		quitButton = new MyButton("QUIT", new Color(211, 84, 0));
 		quitButton.addActionListener(new ActionListener() {
 			
@@ -86,12 +61,4 @@ public class MenuGUI extends JPanel{
 		gb.setConstraints(quitButton, gbc);
 		this.add(quitButton);
 	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(Color.BLACK);
-		g2d.drawImage(image, -750, -75, this);
-	}
-
-}
+}*/
