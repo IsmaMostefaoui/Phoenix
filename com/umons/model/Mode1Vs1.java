@@ -13,7 +13,7 @@ public class Mode1Vs1 implements IMode{
 	private AStarHeuristic heuristic;
 	private IPathFinder finder;
 	private int nbreHumans;
-	
+
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
 	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
@@ -34,23 +34,23 @@ public class Mode1Vs1 implements IMode{
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
-	
+
 	@Override
 	public void init(Game game) {
 		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
-		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER	
+		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER
 		ARules.setBoard(board);
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR", true);
+		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
 		JPanel panel = new BoardGUI(game);
 		panel.setFocusable(true);
 		Controller controller = new Controller(this, panel, game, finder);
-		MyMouseListener l = new MyMouseListener(players[0], players[1], controller);
+		MyMouseListener l = new MyMouseListener(controller);
 		panel.addMouseListener(l);
 		panel.addMouseMotionListener(l);
 		frame.setContentPane(panel);
-		
+		frame.setVisible(true);
 	}
-	
+
 
 	@Override
 	public int getNumberOfPlayer() {
@@ -72,7 +72,6 @@ public class Mode1Vs1 implements IMode{
 					if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
 						check[j] = false;
 					}else {
-						System.out.println("joueur: " + j);
 						check[j] = true;
 						break;
 					}
@@ -89,5 +88,10 @@ public class Mode1Vs1 implements IMode{
 		long timeEnd = System.currentTimeMillis();
 		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1];
+	}
+
+	@Override
+	public IPathFinder getFinder() {
+		return finder;
 	}
 }

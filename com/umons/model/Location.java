@@ -1,6 +1,7 @@
 package com.umons.model;
 
 import com.umons.view.BoardGUI;
+import com.umons.view.QuoridorGUI;
 
 public class Location {
 
@@ -15,7 +16,7 @@ public class Location {
 	public Location pixelToCoord() {
 		int xtemp = -1;
 		int ytemp = -1;
-		if (x < BoardGUI.lWall || x > 810 || y < BoardGUI.lWall || y > 810) {
+		if (x < BoardGUI.START_X || x > BoardGUI.lBack || y < BoardGUI.START_Y || y > QuoridorGUI.HEIGHT) {
 			return new Location(-1, -1);
 		}
 		for (int i = 0; i < BoardGUI.SQUARE_NUMBER; i++) {

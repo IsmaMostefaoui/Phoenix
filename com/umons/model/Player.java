@@ -78,6 +78,7 @@ public class Player {
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Location loc, IPathFinder finder){
+		System.out.println("test dans player pour putwall: ");
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				System.out.println("Apres l activation du bloc n° " + j + " du mur");
@@ -143,7 +144,7 @@ public class Player {
 		}else if (orderNumber==4) {
 			return POS3.getLocX();
 		}else {
-			return (Integer) null;
+			return 0;
 		}
 	}
 	

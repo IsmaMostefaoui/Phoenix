@@ -30,21 +30,33 @@ public class BoardGUI extends JPanel{
 	 */
 	private static final long serialVersionUID = 1;
 	
-	Font customFont;
-	public static int SQUARE_NUMBER = 9;
-	Game game;
-	Player player1;
-	Player player2;
-	Player player3;
-	Player player4;
+	private Font customFont;
+	private Game game;
+	private Player player1;
+	private Player player2;
+	private Player player3;
+	private Player player4;
 	//constante representant la taille des carre, des murs et des pions
-	public static final int lSquare = 60;
-	public static final int lWall = 30;
-	public static final int lPawn = 55;
+	public static int SQUARE_NUMBER = 9;
+	
+	public static final int lSquare = QuoridorGUI.width/28;
+	public static final Color[] colorPawn = {new Color(200, 250, 50), new Color(100, 50, 250), new Color(220, 50, 250),new Color(225, 220, 50)};
+	public static final Color colorWall= new Color(122, 200, 200, 120);
+	
+	public static final int lSpaceEdge = 5;
+	
+	public static final int lWall = QuoridorGUI.width/60;
+	public static final int lPawn = lSquare - lSpaceEdge;
 	//constante representant les x et y a partir d'ou on commence a dessiner le carre
-	public static final int START_X = 25;
-	public static final int START_Y = 25;
-	//position des joueurs et des murs horizontaux et verticaux
+	public static final int START_X = 5*lWall/6;
+	public static final int START_Y = 2*lWall/3;
+	
+	public static final int lBack = 9*lSquare + 8*lWall + START_X + START_Y;
+	public static final int lInfo = QuoridorGUI.WIDTH - lBack;
+	
+	public final int lSpaceWall = 2*lWall/5;
+	
+	//position des joueurs et des murs horizontaux et verticaux en temps reel
 	public static Location locPawn1 = Player.POS1;
 	public static Location locPawn2 = Player.POS2;
 	public static Location locPawn3 = Player.POS3;
@@ -90,27 +102,34 @@ public class BoardGUI extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
+		
 		g2d.setColor(new Color(170, 57, 43));
-		g2d.fillRect(0, 0, 835, 835);
+		g2d.fillRect(0, 0, lBack, QuoridorGUI.HEIGHT);
+		g2d.setColor(new Color(170, 57, 70));
+		g2d.fillRect(lBack, 0, lInfo, QuoridorGUI.HEIGHT);
+
 		
 		drawSquares(g2d, new Color(236, 240, 241));
 		
-		drawPawn(g2d, locPawn1, new Color(200, 250, 50), player1.getNbreOfWall());
-		drawPawn(g2d, locPawn2, new Color(100, 50, 250), player2.getNbreOfWall());
+		drawPawn(g2d, locPawn1, colorPawn[0], player1.getNbreOfWall());
+		drawPawn(g2d, locPawn2, colorPawn[1], player2.getNbreOfWall());
 		if (game.getMode().getNumberOfPlayer() == 4) {
-			drawPawn(g2d, locPawn3, new Color(220, 50, 250), player3.getNbreOfWall());
-			drawPawn(g2d, locPawn4, new Color(225, 220, 50), player4.getNbreOfWall());
+			drawPawn(g2d, locPawn3, colorPawn[2], player3.getNbreOfWall());
+			drawPawn(g2d, locPawn4, colorPawn[3], player4.getNbreOfWall());
 		}
-		
-		if (game.getTour() == 0) {
-			drawPreview(g2d, new Color(122, 200, 200, 120), player1);
-		//rajouter des elif quand on sera sûr d'avoir un mode 4 joueur
-		}else if (game.getTour() == 1){
-			drawPreview(g2d, new Color(122, 200, 200, 120), player2);	
-		}else if (game.getTour() == 2) {
-			drawPreview(g2d, new Color(122, 200, 200, 120), player3);
-		}else if (game.getTour() == 3) {
-			drawPreview(g2d, new Color(122, 200, 200, 120), player4);
+		switch (game.getTour()) {
+		case 0:
+			drawPreview(g2d, colorWall, player1);
+			break;
+		case 1:
+			drawPreview(g2d, colorWall, player2);
+			break;
+		case 2:
+			drawPreview(g2d, colorWall, player3);
+			break;
+		case 3:
+			drawPreview(g2d, colorWall, player4);
+			break;
 		}
 		
 		drawTour(g2d);
@@ -134,7 +153,7 @@ public class BoardGUI extends JPanel{
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 23, locPawn.coordToPixel().getLocY() + 33);
+			g2d.drawString(Integer.toString(numberOfWall), locPawn.coordToPixel().getLocX() + 2*lPawn/5, locPawn.coordToPixel().getLocY() + 3*lPawn/5);
 		}
 	}
 	
@@ -147,7 +166,7 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallHorizontal.size(); i++) {
 			Location loc = locWallHorizontal.get(i);
-			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
+			g2d.fillRect(loc.coordToPixel().getLocX(), loc.coordToPixel().getLocY() + lSpaceWall/2, 2*lSquare+lWall, lWall - lSpaceWall);
 		}
 	}
 
@@ -162,7 +181,7 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallVertical.size(); i++) {
 			Location loc = locWallVertical.get(i);
-			g2d.fillRect(loc.coordToPixel().getLocX()+5, loc.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
+			g2d.fillRect(loc.coordToPixel().getLocX()+lSpaceWall/2, loc.coordToPixel().getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
 	}
 	
@@ -179,7 +198,7 @@ public class BoardGUI extends JPanel{
 				g2d.setColor(new Color(100, 100, 100));
 				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
 				g2d.setColor(Color.WHITE);
-				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare-5, lSquare-5);
+				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare-lSpaceEdge, lSquare-lSpaceEdge);
 				SPACE += lSquare + lWall;
 			}
 			SPACE =0;
@@ -195,6 +214,7 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
+		System.out.println("motioncoord dans player: " + motionCoord);
 		if (motionCoord != null && motionCoord.isSquare()){ 
 			List<Location> list = ARules.rSquareAvailable(player);
 			if (list.contains(motionCoord)) {
@@ -204,13 +224,35 @@ public class BoardGUI extends JPanel{
 				g2d.setColor(new Color(204, 0, 0, 120));
 				g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY(), lSquare-5, lSquare-5);
 			}
-		}else if (motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)) {
+		}else if (canPreviewHor(motionCoord, player)) {
 			g2d.setColor(c);
-			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+5, 2*lSquare+lWall, lWall-10);
-		}else if (motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)) {
+			g2d.fillRect(motionCoord.coordToPixel().getLocX(), motionCoord.coordToPixel().getLocY()+(lSpaceWall)/2, 2*lSquare+lWall, lWall - (lSpaceWall));
+		}else if (canPreviewVer(motionCoord, player)) {
 			g2d.setColor(c);
-			g2d.fillRect(motionCoord.coordToPixel().getLocX()+5, motionCoord.coordToPixel().getLocY(), lWall-10, 2*lSquare+lWall);
+			g2d.fillRect(motionCoord.coordToPixel().getLocX()+(lSpaceWall)/2, motionCoord.coordToPixel().getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
+	}
+	
+	/**
+	 * Vérifie si on est autorise a afficher la preview d un mur horizontal
+	 * @param motionCoord les coordonnes de l endroit de la previsualtion
+	 * @param player le joueur courant
+	 * @return True si la preview peut se faire normalement
+	 */
+	public boolean canPreviewHor(Location motionCoord, Player player) {
+		return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+				&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
+	}
+	
+	/**
+	 * Vérifie si on est autorise a afficher la preview d un mur vertical
+	 * @param motionCoord les coordonnes de l endroit de la previsualtion
+	 * @param player le joueur courant
+	 * @return True si la preview peut se faire normalement
+	 */
+	public boolean canPreviewVer(Location motionCoord, Player player) {
+		return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+				&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
 	}
 	
 	/**
