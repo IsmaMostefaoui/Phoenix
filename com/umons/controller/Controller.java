@@ -65,14 +65,14 @@ public class Controller {
 			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
 			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
 			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
-			MediumIA IA = (MediumIA) players[1];
+			RandomIA IA = (RandomIA) players[1];
 			IA.play(game, finder, players[0]);
 			game.nextPlayer();
 			panel.repaint();
 		}
 
 		if (game.getTour() == 2 && !players[2].isHumanPLayer()) {
-			MediumIA IA = (MediumIA) players[2];
+			RandomIA IA = (RandomIA) players[2];
 			IA.play(game, finder, players[3]);
 			game.nextPlayer();
 			panel.repaint();

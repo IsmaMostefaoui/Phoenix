@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Path {
 
-	//copi� de cokeandcode.com
+	//copie de cokeandcode.com
 	//Changement : La classe Step est remplacé par la classe Location
 	
 	/** The list of steps building up this path */

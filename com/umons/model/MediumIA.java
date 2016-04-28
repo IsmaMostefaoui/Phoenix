@@ -3,7 +3,7 @@ import java.util.*;
 
 import com.umons.view.BoardGUI;
 
-public class MediumIA extends Player {
+public class MediumIA extends Player implements IRobot {
 	//Rapport de Bug : Le pathfinding ne fonctionne pas sur les joueurs 3 et 4 en mode 2vs2, du coups GROSSE ERREUR EN ROUGE DANS LA CONSOLE 
 	//disant que "n must be positive" (un truc comme ça), c'est dans la methode randomLoc()
 	// car je demande un rand.nextInt() sur la liste des squareAvailables. Or celle-ci est vide 

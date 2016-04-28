@@ -145,8 +145,70 @@ public class AStarPathFinder implements IPathFinder{
 		//fin de la simulation, on vide le mur au cas ou il aurait fallu ne pas le poser
 		setWallTo(coordWall, false);
 		return path;
-		
 	}
+		
+	
+	
+	
+		
+		
+		
+		//Override pour la MediumIA
+		@Override
+		public Path findPath(int sx, int sy, int tx, int ty) {
+			Square targetSquare = new Square(tx, ty);
+			openList.clear();
+			closeList.clear();
+			nodes[sx][sy].cost = 0;
+			nodes[sx][sy].depth = 0;
+			openList.add(nodes[sx][sy]);
+			nodes[tx][ty].parent = null;
+			maxDepth = 0;
+			int x = -1;
+			while (maxDepth < maxSearchDistance && openList.size() > 0) {
+				boolean checkNode = false;
+				x++;
+				Node current = (Node) openList.getFirst();			
+				if (current == nodes[tx][ty]) {
+					break;
+				}
+				openList.remove(current);
+				closeList.add(current);
+				listSquareAvailable = ARules.rSquareAvailable(new Location(current.getX(), current.getY()));
+				for (int i = 0; i < listSquareAvailable.size(); i++) {
+					if (closeList.contains(new Node(listSquareAvailable.get(i)))) {
+						listSquareAvailable.remove(i);
+					}
+				}
+				for (int i = 0; i < listSquareAvailable.size(); i++) {
+					float nextStepCost = current.cost + board.getMovementCost(new Location(current.getX(), current.getY()), listSquareAvailable.get(i));
+					Node neighbour = nodes [listSquareAvailable.get(i).getLocX()][listSquareAvailable.get(i).getLocY()];
+					if (nextStepCost < neighbour.cost) {
+						if (openList.contains(neighbour)){
+							openList.remove(neighbour);
+						}
+						if (closeList.contains(neighbour)) {
+							closeList.remove(neighbour);
+						}
+					}
+					if (!openList.contains(neighbour) && !closeList.contains(neighbour)) {
+						neighbour.cost = nextStepCost;
+						neighbour.heuristic = heuristic.getCost(new Location(neighbour.getX(), neighbour.getY()), new Location(tx, ty));
+						maxDepth = Math.max(maxDepth,  neighbour.setParent(current));
+						openList.add(neighbour);
+					}
+				}
+			}
+			Path path = new Path();
+			Node target = nodes[tx][ty];
+			while (target != nodes[sx][sy]) {
+				path.prependStep(target.getX(), target.getY());
+				target = target.parent;
+			}
+			path.prependStep(sx, sy);
+			return path;
+			
+		}	
 	
 	/**
 	 * Rempli un objet plusieurs objets wall dans la board

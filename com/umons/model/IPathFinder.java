@@ -26,4 +26,5 @@ public interface IPathFinder {
 	 * @return The path found from start to end, or null if no path can be found.
 	 */
 	public Path findPath(Location coordWall, int sx, int sy, int tx, int ty);
+	public Path findPath(int sx, int sy, int tx, int ty);
 }
