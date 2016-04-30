@@ -3,15 +3,19 @@ package com.umons.model;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.umons.view.MenuGUI;
+import com.umons.view.QuoridorGUI;
+
 public class Game {
 
 	private int numberPlayer;
 	private static int tour = 0;
 	private Grid board;
-	private IMode mode;
+	private AMode mode;
 	
-	public Game(IMode mode) {
+	public Game(AMode mode) {
 		this.mode = mode;
+		this.board = mode.board;
 		this.numberPlayer = mode.getNumberOfPlayer();
 		
 	}
@@ -31,6 +35,13 @@ public class Game {
 		return tour;
 	}
 	
+	/**
+	 * Réinitialise le tour en le mettant à 0 (i.e. pour le premier joueurs)
+	 */
+	public void resetTour() {
+		tour = 0;
+	}
+	
 	/*
 	public boolean play(Player player, Location loc) {
 		if (loc.isSquare()) {
@@ -48,7 +59,6 @@ public class Game {
 	 * @return True si le joueur à gagner,sinon false
 	 */
 	public boolean win(Player player) {
-		System.out.println("entre dans win");
 		if (player.getOrder() == 1 || player.getOrder() == 2){
 			return player.getCoordFinish() == player.getLoc().getLocY();
 		}else {
@@ -68,7 +78,7 @@ public class Game {
 	}
 	
 	public void init() {
-		mode.init(this);
+		//TODO
 	}
 	
 	public void stop(JPanel off) {
@@ -76,8 +86,13 @@ public class Game {
 		off.setVisible(false);
 	}
 	
-	public IMode getMode() {
+	public AMode getMode() {
 		return mode;
+	}
+	
+	public QuoridorGUI getFrame() {
+		//TODO
+		return null;
 	}
 
 }

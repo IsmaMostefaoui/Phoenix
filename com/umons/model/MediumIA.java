@@ -12,7 +12,7 @@ public class MediumIA extends Player implements IRobot {
 
 	private List<Location> previousLoc;
 	
-	public MediumIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, IMode mode) {
+	public MediumIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, AMode mode) {
 		super(grid, loc, NbreOfWall, OrderNumber, mode);
 		this.human = false;
 		previousLoc = new ArrayList<Location>();
@@ -21,7 +21,7 @@ public class MediumIA extends Player implements IRobot {
 		
 	}
 	
-	public MediumIA(Grid grid, Location loc, int OrderNumber, IMode mode) {
+	public MediumIA(Grid grid, Location loc, int OrderNumber, AMode mode) {
 		super(grid, loc, OrderNumber, mode);
 		this.human = false;
 		previousLoc = new ArrayList<Location>();

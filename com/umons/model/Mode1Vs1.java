@@ -1,19 +1,8 @@
 package com.umons.model;
 
-import javax.swing.JPanel;
-import com.umons.view.BoardGUI;
-import com.umons.view.MenuGUI;
 import com.umons.controller.Controller;
-import com.umons.controller.MyMouseListener;
-import com.umons.view.QuoridorGUI;
 
-public class Mode1Vs1 implements IMode{
-
-	private Player[] players;
-	private Grid board;
-	private AStarHeuristic heuristic;
-	private IPathFinder finder;
-	private int nbreHumans;
+public class Mode1Vs1 extends AMode{
 
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
@@ -24,37 +13,22 @@ public class Mode1Vs1 implements IMode{
 		board = new Grid();
 		players = new Player[2];
 		this.nbreHumans = nbreHumans;
-		players[0] = new Player(board, Player.POS1, 1, this);
-		if (nbreHumans == 2){
+		if (nbreHumans == 0){
+			players[0] = new RandomIA(board, Player.POS1, 1, this);
+			players[1] = new RandomIA(board, Player.POS2, 2, this);
+		}else if (nbreHumans == 2){
 			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
+			players[0] = new Player(board, Player.POS1, 1, this);
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
-			players[1] = new RegularIA(board, Player.POS2, 2, this);
+			players[0] = new Player(board, Player.POS1, 1, this);
+			players[1] = new RandomIA(board, Player.POS2, 2, this);
+
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
-
-	@Override
-	public void init(Game game) {
-		//AJOUTER A BOARDGUI UN PARAMTERE MODE POURT DESSINER LES PREVIEW (SELON QU'ON SOIT EN 1VSAI, NE PAS DESSINER LES PREVIEW DE L'IA)
-		//AJOUTER AUSSI A MML (CONTROLLER) POUR QUAND ON AUGEMENTE LE TOUR, L'IA NE SOIT PAS OBLIGER DE PHYSIQUEMENT CLICKER
-		ARules.setBoard(board);
-		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR");
-		MenuGUI menu = new MenuGUI(frame);
-		JPanel board = new BoardGUI(game, frame);
-		board.setFocusable(true);
-		Controller controller = new Controller(this, board, game, finder);
-		MyMouseListener l = new MyMouseListener(controller);
-		board.addMouseListener(l);
-		board.addMouseMotionListener(l);
-		frame.setPane(board);
-		frame.setPane(menu);
-		frame.setContentPane(menu);
-		frame.setVisible(true);
-	}
-
 
 	@Override
 	public int getNumberOfPlayer() {
@@ -86,7 +60,8 @@ public class Mode1Vs1 implements IMode{
 	}
 
 	@Override
-	public IPathFinder getFinder() {
-		return finder;
+	public boolean getAllPlayerRobot() {
+		return (!players[0].isHumanPLayer() && !players[1].isHumanPLayer());
 	}
+
 }

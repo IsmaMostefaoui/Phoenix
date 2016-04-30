@@ -5,12 +5,13 @@ import com.umons.view.BoardGUI;
 
 public class RandomIA extends Player implements IRobot{
 	
-	public RandomIA(Grid board, Location loc, int orderNumber, IMode mode) {
+
+	public RandomIA(Grid board, Location loc, int orderNumber, AMode mode) {
 		super(board, loc, orderNumber, mode);
 		this.human = false;
 	}
 	
-	public RandomIA(Grid board, Location loc, int nbreOfWall, int orderNumber, IMode mode) {
+	public RandomIA(Grid board, Location loc, int nbreOfWall, int orderNumber, AMode mode) {
 		super(board, loc, nbreOfWall, orderNumber, mode);
 		this.human = false;
 	}

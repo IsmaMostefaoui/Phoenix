@@ -13,6 +13,7 @@ public class MyMouseListener implements MouseInputListener{
 	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
 	private static Location clickCoord;
 	private static Location motionCoord;
+	public static Location prevCoord;
 	private Controller controller;
 	
 	
@@ -37,11 +38,11 @@ public class MyMouseListener implements MouseInputListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		//Quand on click et puis qu'on lache, si la case presse est la meme que la case
-		//"depress�" (celle ou on lache le click), alors on fait quand m�me avancer le pion.
+		//"depressé" (celle ou on lache le click), alors on fait quand même avancer le pion.
 		xreleased = e.getX(); yreleased = e.getY();
 		Location pressed = new Location(xpressed, ypressed);
 		Location released = new Location(xreleased, yreleased);
-		if (pressed.pixelToCoord().equals(released.pixelToCoord())) {
+		if (Controller.pixelToCoord(pressed).equals(Controller.pixelToCoord(released))) {
 			clickCoord = released;
 			controller.makePlayerPlay();
 		}
@@ -69,12 +70,16 @@ public class MyMouseListener implements MouseInputListener{
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		motionCoord = new Location(e.getX(), e.getY()).pixelToCoord();
+		motionCoord = Controller.pixelToCoord(new Location(e.getX(), e.getY()));
 		controller.updatePanel();
 	}
 	
 	public static Location getMotionCoord() {
 		return motionCoord;
+	}
+	
+	public static void setClickCoordNotToNull() {
+		clickCoord = new Location(-1, -1);
 	}
 	
 	public static Location getClickCoord() {

@@ -6,12 +6,12 @@ import com.umons.view.BoardGUI;
 
 public class RegularIA extends Player implements IRobot{
 	
-	public RegularIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, IMode mode) {
+	public RegularIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, AMode mode) {
 		super(grid, loc, NbreOfWall, OrderNumber, mode);
 		this.human = false;
 	}
 	
-	public RegularIA(Grid grid, Location loc, int OrderNumber, IMode mode) {
+	public RegularIA(Grid grid, Location loc, int OrderNumber, AMode mode) {
 		super(grid, loc, OrderNumber, mode);
 		this.human = false;	
 	}
