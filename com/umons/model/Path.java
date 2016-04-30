@@ -80,6 +80,7 @@ public class Path {
 	 * @param y The y coordinate of the new step
 	 */
 	public void prependStep(int x, int y) {
+		
 		steps.add(0, new Location(x, y));
 	}
 	

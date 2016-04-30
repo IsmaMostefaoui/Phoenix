@@ -227,7 +227,7 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
-		System.out.println("motioncoord dans player: " + motionCoord);
+		//System.out.println("motioncoord dans player: " + motionCoord);
 		if (motionCoord != null && motionCoord.isSquare()){ 
 			List<Location> list = ARules.rSquareAvailable(player);
 			if (list.contains(motionCoord)) {

@@ -202,8 +202,13 @@ public class AStarPathFinder implements IPathFinder{
 			Path path = new Path();
 			Node target = nodes[tx][ty];
 			while (target != nodes[sx][sy]) {
-				path.prependStep(target.getX(), target.getY());
-				target = target.parent;
+				System.out.println("target.getX(), target.getY() = " + target.getX() +  target.getY());
+				if (target != null) {
+					path.prependStep(target.getX(), target.getY());
+					System.out.println("target = " + target);
+					target = target.parent;
+					System.out.println("target parent = " + target);
+				}
 			}
 			path.prependStep(sx, sy);
 			return path;
