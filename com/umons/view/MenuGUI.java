@@ -94,7 +94,7 @@ public class MenuGUI extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(Color.BLACK);
-		g2d.drawImage(image, -750, -75, this);
+		g2d.drawImage(image, -450, -75, this);
 	}
 
 }

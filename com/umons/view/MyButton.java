@@ -29,7 +29,7 @@ public class MyButton extends JButton{
 		this.color = color;
 		try {
             //create the font to use. Specify the size!
-			InputStream myStream = new BufferedInputStream(new FileInputStream("./FunSized.ttf"));
+			InputStream myStream = new BufferedInputStream(new FileInputStream("./misc/cowboy.ttf"));
             customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
@@ -39,6 +39,7 @@ public class MyButton extends JButton{
         catch(FontFormatException e) {
             e.printStackTrace();
         }
+		customFont = new Font(customFont.getName(), Font.PLAIN, 27);
 		this.setPreferredSize(new Dimension(250, 60));
 	}
 	
@@ -47,8 +48,9 @@ public class MyButton extends JButton{
 	    int ascent = g2d.getFontMetrics().getAscent();
 	    int width = g2d.getFontMetrics().stringWidth(this.text);
 	    g2d.setColor(color);
-	    g2d.fillRect(0, 0, 500, 60);
-	    g2d.setColor(Color.white);
+	    g2d.fillRect(0, 0, 500, 100);
+	    g2d.setColor(Color.BLACK);
+	    g2d.setFont(customFont);
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	    g2d.drawString(this.text, (int)(this.getSize().getWidth()-width)/2, ((int)(this.getSize().getHeight()-ascent)/2)+10);
 	}

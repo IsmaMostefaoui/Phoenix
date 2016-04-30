@@ -73,7 +73,9 @@ public class RandomIA extends Player {
 			previousLoc.add(this.getLoc());
 			loc = nextLocation;
 			board.setItemInGrid(nextLocation, true);
+			System.out.println("je suis dans RandomIA je vais afficher BoardGUI.locPawn1 AVANT: " + BoardGUI.locPawn1);
 			BoardGUI.locPawn1 = nextLocation;
+			System.out.println("je suis dans RandomIA je vais afficher BoardGUI.locPawn1 APRES: " + BoardGUI.locPawn1);
 			break;
 		case 2 :
 			Location biggestLoc = biggest(list, "y");

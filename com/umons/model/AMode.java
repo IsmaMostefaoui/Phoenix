@@ -18,6 +18,7 @@ public abstract class AMode{
 	protected AStarHeuristic heuristic;
 	protected IPathFinder finder;
 	protected int nbreHumans;
+	protected Controller controller;
 	
 	/**
 	 * Initalise une game
@@ -31,11 +32,20 @@ public abstract class AMode{
 		this.frame = frame;
 		
 		board.setFocusable(true);
-		Controller controller = new Controller(this, board, game, finder);
+		controller = new Controller(this, board, game, finder);
 		MyMouseListener l = new MyMouseListener(controller);
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
 		frame.setPane(board, 0);
+		if (this.getAllPlayerRobot()) {
+			try {
+				System.err.println("controller.makerobotplay(");;
+				controller.makeRobotPlay();
+			}catch (InterruptedException ie) {
+				System.err.println("Erreur de thread dans Mode: ");
+				ie.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -73,5 +83,7 @@ public abstract class AMode{
 	public JPanel getPane() {
 		return boardPanel;
 	}
+	
+	public abstract boolean getAllPlayerRobot();
 }
 

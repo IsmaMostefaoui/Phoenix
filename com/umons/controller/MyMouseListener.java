@@ -74,6 +74,10 @@ public class MyMouseListener implements MouseInputListener{
 		return motionCoord;
 	}
 	
+	public static void setClickCoordNotToNull() {
+		clickCoord = new Location(-1, -1);
+	}
+	
 	public static Location getClickCoord() {
 		return clickCoord;
 	}

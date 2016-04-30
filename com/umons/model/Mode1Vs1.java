@@ -1,5 +1,7 @@
 package com.umons.model;
 
+import com.umons.controller.Controller;
+
 public class Mode1Vs1 extends AMode{
 
 	/**
@@ -54,6 +56,11 @@ public class Mode1Vs1 extends AMode{
 		long timeEnd = System.currentTimeMillis();
 		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1];
+	}
+
+	@Override
+	public boolean getAllPlayerRobot() {
+		return (!players[0].isHumanPLayer() && !players[1].isHumanPLayer());
 	}
 
 }
