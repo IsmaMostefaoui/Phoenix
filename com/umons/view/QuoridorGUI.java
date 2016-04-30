@@ -30,7 +30,7 @@ public class QuoridorGUI extends JFrame{
 	static final int height = (int) screenDimension.getHeight();
 	static final int width = (int) screenDimension.getWidth();
 	
-	public static final int HEIGHT = (6*height)/7;
+	public static final int HEIGHT = (8*height)/9;
 	static final int WIDTH = 2*width/3;
 	
 	public static JPanel content = new JPanel();
@@ -62,8 +62,14 @@ public class QuoridorGUI extends JFrame{
 			printMenuBar = false;
 		}
 		menuBar();
-		this.setContentPane(nextPanes[panelName]);
-		SwingUtilities.updateComponentTreeUI(this);
+		if (panelName == MENUGUI){
+			this.setContentPane(new MenuGUI(this));
+			if (nextPanes[BOARDGUI] != null){
+				((BoardGUI)nextPanes[BOARDGUI]).reset();
+			}
+		}else {
+			this.setContentPane(nextPanes[panelName]);
+		}SwingUtilities.updateComponentTreeUI(this);
 		
 	}
 	
@@ -103,7 +109,7 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame difficultFrame = new JFrame();
-					difficultFrame.setSize(400,  70);
+					difficultFrame.setSize(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9);
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(1, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);
@@ -132,7 +138,7 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame difficultFrame = new JFrame();
-					difficultFrame.setSize(400,  70);
+					difficultFrame.setSize(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9);
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(2, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);
