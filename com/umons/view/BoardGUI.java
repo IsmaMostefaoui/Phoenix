@@ -9,6 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +29,7 @@ import com.umons.model.*;
  * @author isma
  *
  */
-public class BoardGUI extends JPanel{
+public class BoardGUI extends JPanel implements Serializable{
 
 	/**
 	 * 
@@ -364,7 +368,14 @@ public class BoardGUI extends JPanel{
 			saveButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					//TODO
+					try{
+						FileOutputStream fos = new FileOutputStream("./save/BoardGUI.db");
+						BufferedOutputStream bos = new BufferedOutputStream(fos);
+						
+						//bos.write(b)
+					}catch(Exception e){
+						e.printStackTrace();
+					}
 					System.out.println("sauvegarde la partie actuelle");
 				}
 			});

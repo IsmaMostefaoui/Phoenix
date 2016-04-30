@@ -2,7 +2,7 @@ package com.umons.model;
 
 import com.umons.controller.Controller;
 
-public class Mode1Vs1 extends AMode{
+public class Mode1Vs1 extends AMode {
 	
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
