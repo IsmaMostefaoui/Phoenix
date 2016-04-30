@@ -10,6 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
 import com.umons.model.AMode;
@@ -90,7 +91,7 @@ public class QuoridorGUI extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					AMode mode = new Mode1Vs1(2);
+					AMode mode = new Mode1Vs1(AMode.EASY, 2);
 					initGame("[J VS J]", mode);
 				}
 			});
@@ -101,24 +102,16 @@ public class QuoridorGUI extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					AMode mode = new Mode1Vs1(1);
-					initGame("[J VS IA]", mode);
+					JFrame difficultFrame = new JFrame();
+					difficultFrame.setSize(400,  70);
+					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(1, difficultFrame, QuoridorGUI.this);
+					difficultFrame.add(choice);
+					difficultFrame.setLocationRelativeTo(null);
+					difficultFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+					difficultFrame.setResizable(false);
+					difficultFrame.setVisible(true);
 				}
 			});
-			
-			
-			JMenuItem modeIavsIa = new JMenuItem("Ordinateur contre Ordinateur");
-			mode1.add(modeIavsIa);
-			modeIavsIa.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.err.println("ERRRUEEER !!!!!!!!!!!!!");
-					AMode mode = new Mode1Vs1(0);
-					initGame("[IA VS IA]", mode);
-				}
-			});
-			
 			
 			JMenu mode2 = new JMenu("Mode 4 Joueurs");
 			nouvellePartie.add(mode2);
@@ -128,7 +121,7 @@ public class QuoridorGUI extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					AMode mode = new Mode2Vs2(4);
+					AMode mode = new Mode2Vs2(AMode.EASY, 4);
 					initGame("[2J VS 2J]", mode);
 				}
 			});
@@ -138,8 +131,14 @@ public class QuoridorGUI extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					AMode mode = new Mode2Vs2(1);
-					initGame("[J VS 3IA]", mode);
+					JFrame difficultFrame = new JFrame();
+					difficultFrame.setSize(400,  70);
+					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(2, difficultFrame, QuoridorGUI.this);
+					difficultFrame.add(choice);
+					difficultFrame.setLocationRelativeTo(null);
+					difficultFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+					difficultFrame.setResizable(false);
+					difficultFrame.setVisible(true);
 				}
 			});
 			

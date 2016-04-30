@@ -184,7 +184,7 @@ public class Player {
 		return this.getLoc().equals(p.getLoc());
 	}
 	
-	public boolean isHumanPLayer() {
+	public boolean isHumanPlayer() {
 		return human;
 	}
 }

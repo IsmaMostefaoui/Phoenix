@@ -29,19 +29,19 @@ public class Controller {
 	public void makePlayerPlay(){
 		Location temp = Controller.pixelToCoord(MyMouseListener.getClickCoord());
 		try {
-			if (game.getTour() == 0 && players[0].isHumanPLayer()) {
+			if (game.getTour() == 0 && players[0].isHumanPlayer()) {
 				players[0].play(game, temp, finder);
 				makeRobotPlay();		
 			}
-			else if (game.getTour() == 1 && players[1].isHumanPLayer()) {
+			else if (game.getTour() == 1 && players[1].isHumanPlayer()) {
 				players[1].play(game, temp, finder);
 				makeRobotPlay();
 			}
-			else if (game.getTour() == 2 && players[2].isHumanPLayer()) {
+			else if (game.getTour() == 2 && players[2].isHumanPlayer()) {
 				players[2].play(game, temp, finder);
 				makeRobotPlay();
 			}
-			else if (game.getTour() == 3 && players[3].isHumanPLayer()) {
+			else if (game.getTour() == 3 && players[3].isHumanPlayer()) {
 				players[3].play(game, temp, finder);
 				makeRobotPlay();
 			}
@@ -87,7 +87,7 @@ public class Controller {
 		// ca je le met pour directement check si les joueur suivant est un robot. Ainsi je profite du fait que le joueur reel ait clicke
 		// pour faire joueur ceux qui ne sont pas reels.
 		MyMouseListener.setClickCoordNotToNull();
-		if (game.getTour() == 0 && !players[0].isHumanPLayer()) {
+		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
 			System.out.println("je suis rentré dans player1 est un robot ???");
 			MediumIA IA = (MediumIA) players[0];
 			IA.play(game, finder, players[1]);
@@ -96,25 +96,25 @@ public class Controller {
 			panel.validate();
 			System.out.println("\nREPAINT\n" + panel);
 		}
-		if (game.getTour() == 1 && !players[1].isHumanPLayer()) {
+		if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
 			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
 			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
 			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
-			RandomIA IA = (RandomIA) players[1];
+			IRobot IA = (IRobot) players[1];
 			IA.play(game, finder, players[0]);
 			game.nextPlayer();
 			panel.validate();
 		}
 
-		if (game.getTour() == 2 && !players[2].isHumanPLayer()) {
-			RandomIA IA = (RandomIA) players[2];
+		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
+			IRobot IA = (IRobot) players[2];
 			IA.play(game, finder, players[3]);
 			game.nextPlayer();
 			panel.repaint();
 		}
 
-		if (game.getTour() == 3 && !players[3].isHumanPLayer()) {
-			MediumIA IA = (MediumIA) players[3];
+		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
+			IRobot IA = (IRobot) players[3];
 			IA.play(game, finder, players[2]);
 			game.nextPlayer();
 			panel.repaint();

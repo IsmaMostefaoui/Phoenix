@@ -9,7 +9,7 @@ public class Mode2Vs2 extends AMode{
 	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
 	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
 	 */
-	public Mode2Vs2(int nbreHumans) {
+	public Mode2Vs2(int IA, int nbreHumans) {
 		board = new Grid();
 		players = new Player[4];
 		this.nbreHumans = nbreHumans;
@@ -21,9 +21,24 @@ public class Mode2Vs2 extends AMode{
 			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
-			players[1] = new MediumIA(board, Player.POS2, 2, this);
-			players[2] = new MediumIA(board, Player.POS3, 3, this);
-			players[3] = new MediumIA(board, Player.POS4, 4, this);
+			switch(IA){
+			case AMode.EASY:
+				System.out.println("je suis dans le mode easy dans mode 2vs 2");
+				players[1] = new RandomIA(board, Player.POS2, 2, this);
+				players[2] = new RandomIA(board, Player.POS3, 3, this);
+				players[3] = new RandomIA(board, Player.POS4, 4, this);
+				break;
+			case AMode.MEDIUM:
+				players[1] = new MediumIA(board, Player.POS2, 2, this);
+				players[2] = new MediumIA(board, Player.POS3, 3, this);
+				players[3] = new MediumIA(board, Player.POS4, 4, this);
+				break;
+			case AMode.DIFFICULT:
+				players[1] = new RegularIA(board, Player.POS2, 2, this);
+				players[2] = new RegularIA(board, Player.POS3, 3, this);
+				players[3] = new RegularIA(board, Player.POS4, 4, this);
+				break;
+			}
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -68,6 +83,6 @@ public class Mode2Vs2 extends AMode{
 
 	@Override
 	public boolean getAllPlayerRobot() {
-		return !(players[0].isHumanPLayer() && players[1].isHumanPLayer() && players[2].isHumanPLayer() && players[3].isHumanPLayer());
+		return (!players[0].isHumanPlayer() && !players[1].isHumanPlayer() && !players[2].isHumanPlayer() && !players[3].isHumanPlayer());
 	}
 }

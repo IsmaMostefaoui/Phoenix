@@ -20,6 +20,11 @@ public abstract class AMode{
 	protected int nbreHumans;
 	protected Controller controller;
 	
+	public static final int EASY = 0;
+	public static final int MEDIUM = 1;
+	public static final int DIFFICULT = 2;
+	
+	
 	/**
 	 * Initalise une game
 	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie

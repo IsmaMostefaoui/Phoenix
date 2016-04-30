@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.umons.model.AMode;
 import com.umons.model.Game;
 import com.umons.model.Mode1Vs1;
 
@@ -53,7 +54,7 @@ public class MenuGUI extends JPanel{
 		startButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				Mode1Vs1 mode = new Mode1Vs1(1);
+				Mode1Vs1 mode = new Mode1Vs1(1, AMode.MEDIUM);
 				Game game = new Game(mode);
 				mode.init(parentFrame, game);
 				parentFrame.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
