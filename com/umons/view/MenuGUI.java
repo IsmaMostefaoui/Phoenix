@@ -27,16 +27,10 @@ public class MenuGUI extends JPanel{
 	MyButton quitButton;
 	MyButton reloadButton;
 	
-	public MenuGUI(final QuoridorGUI parentFrame) {
+	public MenuGUI(final QuoridorGUI parentFrame, Image image) {
 		System.out.println("dans le constructeur");
-		try {
-			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
-		}catch (IOException ie) {
-			System.err.println("Erreur d'image :");
-			ie.printStackTrace();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		
+		this.image = image;
 		setLayout(new GridBagLayout());
 		
 		GridBagLayout gb = new GridBagLayout();
