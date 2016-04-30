@@ -68,7 +68,6 @@ public class QuoridorGUI extends JFrame{
 	
 	public void setPane(JPanel panelToAdd, int index) {
 		nextPanes[index] = panelToAdd;
-		System.out.println(nextPanes.length);
 	}
 	
 	public void menuBar() {
@@ -114,6 +113,7 @@ public class QuoridorGUI extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					System.err.println("ERRRUEEER !!!!!!!!!!!!!");
 					AMode mode = new Mode1Vs1(0);
 					initGame("[IA VS IA]", mode);
 				}

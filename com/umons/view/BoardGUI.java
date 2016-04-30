@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.umons.controller.Controller;
@@ -111,7 +112,6 @@ public class BoardGUI extends JPanel{
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		infoPanel.paintComponents(g);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
 		
@@ -119,7 +119,9 @@ public class BoardGUI extends JPanel{
 		g2d.fillRect(0, 0, lBack, QuoridorGUI.HEIGHT);
 		
 		drawSquares(g2d, new Color(236, 240, 241));
+		System.out.println("REPAINT IN BOARD");
 		
+		drawTour(g2d);
 		drawPawn(g2d, locPawn1, colorPawn[0], player1.getNbreOfWall());
 		drawPawn(g2d, locPawn2, colorPawn[1], player2.getNbreOfWall());
 		if (game.getMode().getNumberOfPlayer() == 4) {
@@ -140,9 +142,7 @@ public class BoardGUI extends JPanel{
 			drawPreview(g2d, colorPreviewWall, player4);
 			break;
 		}
-		
-		drawTour(g2d);
-		
+	
 		drawWallHorizontal(g2d, colorWall);
 		drawWallVertical(g2d, colorWall);
 	}
@@ -158,7 +158,9 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		Location locPix = Controller.coordToPixel(locPawn);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.fillOval(locPix.getLocX(), locPix.getLocY(), lPawn, lPawn);
+		g2d.fillOval(locPix.getLocX(), locPix.getLocY(), lPawn-2, lPawn-2);
+		g2d.setColor(Color.WHITE);
+		g2d.drawOval(locPix.getLocX(), locPix.getLocY(), lPawn-1, lPawn-1);
 		if (numberOfWall != 10) {
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
@@ -228,7 +230,6 @@ public class BoardGUI extends JPanel{
 		Location motionCoord = MyMouseListener.getMotionCoord();
 		if (motionCoord != null) {
 			Location motionCoordPix = Controller.coordToPixel(motionCoord);
-			System.out.println("motioncoord dans player: " + motionCoord);
 			if (motionCoord != null && motionCoord.isSquare()){ 
 				List<Location> list = ARules.rSquareAvailable(player);
 				if (list.contains(motionCoord)) {
@@ -256,13 +257,10 @@ public class BoardGUI extends JPanel{
 	 */
 	public boolean canPreviewHor(Location motionCoord, Player player) {
 		if (MyMouseListener.prevCoord != null && motionCoord.equals(MyMouseListener.prevCoord)) {
-			System.out.println("dans le meme mur");
 			return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 					&& player.getNbreOfWall() > 0;
 		}else {
 			//TODO mettre getter et setter
-			System.out.println("mur different ou debut prev null");
-			System.out.println("prev: " + MyMouseListener.prevCoord);
 			MyMouseListener.prevCoord = motionCoord;
 			return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 					&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
@@ -278,13 +276,10 @@ public class BoardGUI extends JPanel{
 	public boolean canPreviewVer(Location motionCoord, Player player) {
 		//TODO opti comme pour horizontal sinon previexw meme si bloque joueur
 		if (MyMouseListener.prevCoord != null && motionCoord.equals(MyMouseListener.prevCoord)) {
-			System.out.println("dans le meme mur");
 			return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 					&& player.getNbreOfWall() > 0;
 		}else {
 			//TODO mettre getter et setter
-			System.out.println("mur different ou debut prev null");
-			System.out.println("prev: " + MyMouseListener.prevCoord);
 			MyMouseListener.prevCoord = motionCoord;
 			return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 					&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
@@ -296,13 +291,22 @@ public class BoardGUI extends JPanel{
 	 * @param g2d l outil pour dessiner
 	 */
 	public void drawTour(Graphics2D g2d) {
-		g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 11));
 		if (game.getTour() == 0) {
-			g2d.setColor(new Color(100, 250, 50));
-			g2d.drawString("JOUEUR 1", 750, 20);
+			g2d.setColor(new Color(243, 156, 18, 175));
+			Location player = Controller.coordToPixel(player1.getLoc());
+			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
 		}else if (game.getTour() == 1){
-			g2d.setColor(new Color(100, 50, 250));
-			g2d.drawString("JOUEUR 2", 750, 20);
+			g2d.setColor(new Color(100, 50, 250, 175));
+			Location player = Controller.coordToPixel(player2.getLoc());
+			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
+		}else if (game.getTour() == 2) {
+			g2d.setColor(new Color(220, 50, 250, 175));
+			Location player = Controller.coordToPixel(player3.getLoc());
+			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
+		}else if (game.getTour() == 3) {
+			g2d.setColor(new Color(46, 204, 113, 175));
+			Location player = Controller.coordToPixel(player4.getLoc());
+			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
 		}
 	}
 	
@@ -335,6 +339,8 @@ public class BoardGUI extends JPanel{
 
 		private static final long serialVersionUID = 1L;
 		
+		JLabel labelPlayerTour;
+		
 		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
 		MyButton saveButton = new MyButton("SAVE", new Color(127, 140, 141));
 		//MyButton passButton =new MyButton("PASS", new Color(127, 140, 141));
@@ -348,7 +354,6 @@ public class BoardGUI extends JPanel{
 			this.setLayout(new BorderLayout());
 			
 			backButton.addActionListener(new ActionListener() {
-				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					((QuoridorGUI)parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
@@ -357,7 +362,6 @@ public class BoardGUI extends JPanel{
 			this.add(backButton, BorderLayout.SOUTH);
 			
 			saveButton.addActionListener(new ActionListener() {
-				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					//TODO
@@ -378,7 +382,15 @@ public class BoardGUI extends JPanel{
 			});
 			this.add(passButton, BorderLayout.NORTH);*/
 			
+			labelPlayerTour = new JLabel();
+			this.add(labelPlayerTour, BorderLayout.WEST);
 			this.setBackground(new Color(127, 140, 141));
+		}
+		
+		//TODO
+		public void drawTour(String player, Color color) {
+			labelPlayerTour.setText(player);
+			labelPlayerTour.setForeground(color);
 		}
 	}
 }

@@ -59,7 +59,6 @@ public class Game {
 	 * @return True si le joueur à gagner,sinon false
 	 */
 	public boolean win(Player player) {
-		System.out.println("entre dans win");
 		if (player.getOrder() == 1 || player.getOrder() == 2){
 			return player.getCoordFinish() == player.getLoc().getLocY();
 		}else {
