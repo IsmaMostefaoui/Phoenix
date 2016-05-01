@@ -1,7 +1,11 @@
 package com.umons.model;
 
-public class Square {
+import java.io.Serializable;
 
+public class Square implements Serializable{
+
+	private static final long serialVersionUID = -1346066133271840641L;
+	
 	protected boolean full; //placé en protected parce que besoin d'y acceder dans wall, une classe derivée de square
 	protected Location loc;
 	

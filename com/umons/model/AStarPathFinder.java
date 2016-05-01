@@ -1,11 +1,12 @@
 package com.umons.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class AStarPathFinder implements IPathFinder{
 
-	
+	private static final long serialVersionUID = 4985738610919398909L;
 	//BUUUUGGGG
 	ArrayList<Location>listSquareAvailable;
 	private Node[][] nodes;
@@ -234,7 +235,9 @@ public class AStarPathFinder implements IPathFinder{
 	 * @author Inspired by Kevin Glass's code
 	 *
 	 */
-	private class SortedList{
+	private class SortedList implements Serializable{
+		
+		private static final long serialVersionUID = 5342378002612086428L;
 		
 		private ArrayList list = new ArrayList();
 		
@@ -280,7 +283,9 @@ public class AStarPathFinder implements IPathFinder{
 	 * @author Inspired by Kevin Glass's code
 	 *
 	 */
-	public class Node implements Comparable{
+	public class Node implements Comparable, Serializable{
+
+		private static final long serialVersionUID = -8080561462065197289L;
 		
 		private int x;
 		private int y;
@@ -290,10 +295,10 @@ public class AStarPathFinder implements IPathFinder{
 		private int depth;
 		
 		/**
-		 * Cr�e un nouveau noeud
+		 * Crée un nouveau noeud
 		 * 
-		 * @param x la coordonn�es en x du noeud
-		 * @param y la coordonn�es en y du noeud
+		 * @param x la coordonnées en x du noeud
+		 * @param y la coordonnées en y du noeud
 		 */
 		public Node(int x, int y) {
 			this.x = x;

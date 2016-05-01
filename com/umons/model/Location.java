@@ -1,9 +1,10 @@
 package com.umons.model;
 
-import com.umons.view.BoardGUI;
-import com.umons.view.QuoridorGUI;
+import java.io.Serializable;
 
-public class Location {
+public class Location implements Serializable{
+
+	private static final long serialVersionUID = -414141962435812650L;
 
 	private int x;
 	private int y;

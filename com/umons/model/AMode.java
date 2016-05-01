@@ -1,5 +1,7 @@
 package com.umons.model;
 
+import java.io.Serializable;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -8,17 +10,18 @@ import com.umons.controller.MyMouseListener;
 import com.umons.view.BoardGUI;
 import com.umons.view.QuoridorGUI;
 
-public abstract class AMode{
+public abstract class AMode implements Serializable{
 	
+	private static final long serialVersionUID = 7479369038416187671L;
 	
 	protected Player[] players;
 	protected Grid board;
-	protected JPanel boardPanel;
-	protected JFrame frame;
+	protected transient JPanel boardPanel;
+	protected transient JFrame frame;
 	protected AStarHeuristic heuristic;
 	protected IPathFinder finder;
 	protected int nbreHumans;
-	protected Controller controller;
+	protected transient Controller controller;
 	
 	public static final int EASY = 0;
 	public static final int MEDIUM = 1;

@@ -9,8 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,12 +32,8 @@ import com.umons.model.*;
  * @author isma
  *
  */
-public class BoardGUI extends JPanel implements Serializable{
+public class BoardGUI extends JPanel{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1;
 	
 	private Font customFont;
 	private Game game;
@@ -331,6 +330,36 @@ public class BoardGUI extends JPanel implements Serializable{
 	}
 	
 	/**
+	 * Crée une board avec des positions de joueurs et de mur d'une ancienne partie.
+	 * @return un BoardGUI repréentant la board chargé !
+	 */
+	public BoardGUI reload(Player[] players, ArrayList<Location>locWallHorizontalParam, ArrayList<Location>locWallVerticalParam, int tour) {
+		this.player1 = players[0];
+		this.player2 = players[1];
+		if (players.length > 2) {
+			this.player3 = players[2];
+			this.player4 = players[3];
+		}
+		
+		locPawn1 = player1.getLoc();
+		locPawn2 = player2.getLoc();
+		if (players.length > 2) {
+			System.out.println("players.length: " + players.length);
+			locPawn3 = player3.getLoc();
+			locPawn4 = player4.getLoc();
+		}
+		
+		locWallHorizontal = locWallHorizontalParam;
+		locWallVertical = locWallVerticalParam;
+		
+		Game.setTour(tour);
+		
+		return this;
+	}
+	
+	
+	
+	/**
 	 * Pas encore fonctionnel
 	 * @param g2d
 	 */
@@ -339,6 +368,12 @@ public class BoardGUI extends JPanel implements Serializable{
 		//JPanel victoryPanel = new VictoryPanel();
 	}
 	
+	/**
+	 * Classe représentant le panel de droite lors de l'affichage de la board.
+	 * Sert à accueillir le bouton save, back et le label d'affichage des infos de jeu (//TODO)
+	 * @author isma
+	 *
+	 */
 	private class InfoGUI extends JPanel{
 
 		private static final long serialVersionUID = 1L;
@@ -347,7 +382,7 @@ public class BoardGUI extends JPanel implements Serializable{
 		
 		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
 		MyButton saveButton = new MyButton("SAVE", new Color(127, 140, 141));
-		//MyButton passButton =new MyButton("PASS", new Color(127, 140, 141));
+		//MyButton passButton = new MyButton("PASS", new Color(127, 140, 141));
 		
 		/**
 		 * Initalise le panel d'Info. Place deux boutons save et back.
@@ -369,14 +404,21 @@ public class BoardGUI extends JPanel implements Serializable{
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try{
-						FileOutputStream fos = new FileOutputStream("./save/BoardGUI.db");
+						FileOutputStream fos = new FileOutputStream("./save/save.sv");
 						BufferedOutputStream bos = new BufferedOutputStream(fos);
-						
-						//bos.write(b)
+						ObjectOutputStream oos = new ObjectOutputStream(bos);
+						oos.writeObject(game.getMode());
+						oos.writeObject(locWallHorizontal);
+						oos.writeObject(locWallVertical);
+						//TODO save le mode AMode pour générer un mode dans le reload qui correspond au mode précedent
+						oos.writeInt(game.getTour());
+						System.out.println("Sauvegarde réussi !");
+						oos.close();
+						bos.close();
+						fos.close();
 					}catch(Exception e){
 						e.printStackTrace();
 					}
-					System.out.println("sauvegarde la partie actuelle");
 				}
 			});
 			this.add(saveButton, BorderLayout.NORTH);
@@ -396,12 +438,6 @@ public class BoardGUI extends JPanel implements Serializable{
 			labelPlayerTour = new JLabel();
 			this.add(labelPlayerTour, BorderLayout.WEST);
 			this.setBackground(new Color(127, 140, 141));
-		}
-		
-		//TODO
-		public void drawTour(String player, Color color) {
-			labelPlayerTour.setText(player);
-			labelPlayerTour.setForeground(color);
 		}
 	}
 }

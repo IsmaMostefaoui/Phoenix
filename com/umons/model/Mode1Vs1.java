@@ -52,6 +52,7 @@ public class Mode1Vs1 extends AMode {
 		long timeStart = System.currentTimeMillis();
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
+				System.out.println("test null: " + players[j] + coordWall + " finder: " + finder);
 				if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
 					check[j] = false;
 				}else {
