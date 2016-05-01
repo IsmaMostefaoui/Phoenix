@@ -46,8 +46,8 @@ public class Wall extends Square{
 	
 	public static ArrayList<Location> allWallHorizontal(){
 		ArrayList<Location> wallHor = new ArrayList<Location>();
-		for (int x = 0; x <16; x = x+2) {
-			for (int y = 1; y < 15; y = y+2) {
+		for (int x = 0; x <13; x = x+2) {
+			for (int y = 1; y < 13; y = y+2) {
 				wallHor.add(new Location(x,y));
 			}
 		}
