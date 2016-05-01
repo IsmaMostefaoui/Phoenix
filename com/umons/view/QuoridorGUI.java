@@ -65,7 +65,7 @@ public class QuoridorGUI extends JFrame{
 		menuBar();
 		if (panelName == MENUGUI){
 			//TODO horrible mais sinon chargement trop long
-			this.setContentPane(new MenuGUI(this, Main.image));
+			this.setContentPane(new MenuGUI(this));
 			if (nextPanes[BOARDGUI] != null){
 				((BoardGUI)nextPanes[BOARDGUI]).reset();
 			}

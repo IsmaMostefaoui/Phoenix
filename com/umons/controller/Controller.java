@@ -120,6 +120,7 @@ public class Controller {
 			panel.repaint();
 		}
 		
+		//TODO
 		if (mode.getAllPlayerRobot() && i != 50) {
 			i++;
 			makeRobotPlay();

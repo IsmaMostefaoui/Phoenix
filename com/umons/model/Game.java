@@ -10,12 +10,10 @@ public class Game {
 
 	private int numberPlayer;
 	private static int tour = 0;
-	private Grid board;
 	private AMode mode;
 	
 	public Game(AMode mode) {
 		this.mode = mode;
-		this.board = mode.board;
 		this.numberPlayer = mode.getNumberOfPlayer();
 		
 	}
@@ -40,6 +38,13 @@ public class Game {
 	 */
 	public void resetTour() {
 		tour = 0;
+	}
+	
+	/**
+	 * Setter pour initialiser le nombre de tour
+	 */
+	public static void setTour(int t) {
+		tour = t;
 	}
 	
 	/*

@@ -1,11 +1,15 @@
 package com.umons.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.umons.view.BoardGUI;
 
-public class Player {
+public class Player implements Serializable{
 
+
+	private static final long serialVersionUID = 1321463430487427409L;
+	
 	protected AMode mode;
 	protected Location loc;
 	protected int numberOfWall;
@@ -61,6 +65,7 @@ public class Player {
 		List<Location> list = ARules.rSquareAvailable(this);	
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).equals(loc)) {
+				System.out.println(board);
 				board.setItemInGrid(this.getLoc(), false);
 				this.loc = loc;
 				board.setItemInGrid(loc, true);
