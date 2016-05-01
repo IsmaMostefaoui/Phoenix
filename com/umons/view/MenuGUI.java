@@ -33,16 +33,22 @@ public class MenuGUI extends JPanel{
 	MyButton startButton;
 	MyButton quitButton;
 	MyButton reloadButton;
-		
+	
+	
 	/**
-	 * Constructeur du Panel MenuGUI. Charge une image. et positonne les boutons du menu avec leurs ActionListener en classe Anonyme.
-	 * @param parentFrame la fenetre sur la quelle le panel est "add"
+	 * Constructeur du Panel MenuGUI. Charge une image.
+	 * @param parentFrame
 	 */
 	public MenuGUI(final QuoridorGUI parentFrame) {
-		
 		System.out.println("dans le constructeur");
-		
-		this.image = image;
+		try {
+			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
+		}catch (IOException ie) {
+			System.err.println("Erreur d'image :");
+			ie.printStackTrace();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		setLayout(new GridBagLayout());
 		
 		GridBagLayout gb = new GridBagLayout();
