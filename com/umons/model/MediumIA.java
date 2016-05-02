@@ -130,21 +130,36 @@ public class MediumIA extends Player implements IRobot {
 	 */
 	public boolean chooseWall(Player opponents, IPathFinder finder) {
 		int ordre = opponents.getOrder();
+		Location opp = opponents.getLoc();
 		switch (ordre) {
 		case 1 : 
-			Location[] tabWall1 = {opponents.getLoc().wallUp(), opponents.getLoc().wallLeft(), opponents.getLoc().wallRight(), opponents.getLoc().wallDown() };
+			//je prend aussi les fentes situé à droite et à gauche (resp. en haut et en bas) car si on peut pas poser de mur sur la fente juste
+			//au dessus, alors on peut peut-être en poser un en décalant...
+			Location[] tabWall1 = {opp.wallUp(), opp.wallUp().itemRight(), opp.wallUp().itemLeft(), 
+								   opp.wallLeft(), opp.wallLeft().itemUp(), opp.itemDown(),
+								   opp.wallRight(), opp.wallRight().itemDown(), opp.wallRight().itemRight(),
+								   opp.wallDown(), opp.wallDown().itemLeft(), opp.wallDown().itemRight() };
 			boolean put1 = putWall(tabWall1,finder);
 			return put1;
 		case 2 :
-			Location[] tabWall2 = {opponents.getLoc().wallDown(), opponents.getLoc().wallLeft(), opponents.getLoc().wallRight(), opponents.getLoc().wallUp() };
+			Location[] tabWall2 = {opp.wallDown(), opp.wallDown().itemLeft(), opp.wallDown().itemRight(), 
+					   			   opp.wallLeft(), opp.wallLeft().itemUp(), opp.itemDown(),
+					   			   opp.wallRight(), opp.wallRight().itemDown(), opp.wallRight().itemRight(),
+					   			   opp.wallUp(), opp.wallUp().itemRight(), opp.wallUp().itemLeft()};
 			boolean put2 = putWall(tabWall2,finder);
 			return put2;
 		case 3:
-			Location[] tabWall3 = {opponents.getLoc().wallRight(),opponents.getLoc().wallUp(), opponents.getLoc().wallDown(), opponents.getLoc().wallLeft() };
+			Location[] tabWall3 = {opp.wallRight(), opp.wallRight().itemDown(), opp.wallRight().itemRight(),
+								   opp.wallDown(), opp.wallDown().itemLeft(), opp.wallDown().itemRight(), 
+								   opp.wallUp(), opp.wallUp().itemRight(), opp.wallUp().itemLeft(),
+		   			               opp.wallLeft(), opp.wallLeft().itemUp(), opp.itemDown()};
 			boolean put3 = putWall(tabWall3,finder);
 			return put3;
 		case 4:
-			Location[] tabWall4 = {opponents.getLoc().wallLeft(),opponents.getLoc().wallUp(), opponents.getLoc().wallDown(), opponents.getLoc().wallRight() };
+			Location[] tabWall4 = {opp.wallLeft(), opp.wallLeft().itemUp(), opp.itemDown(),
+								   opp.wallDown(), opp.wallDown().itemLeft(), opp.wallDown().itemRight(), 
+								   opp.wallUp(), opp.wallUp().itemRight(), opp.wallUp().itemLeft(),
+								   opp.wallRight(), opp.wallRight().itemDown(), opp.wallRight().itemRight()};
 			boolean put4 = putWall(tabWall4,finder);
 			return put4;
 		}
@@ -159,7 +174,7 @@ public class MediumIA extends Player implements IRobot {
 	 */
 	public boolean putWall(Location[] tabWall, IPathFinder finder) {
 		int i = 0;
-		while (i < 4) {	
+		while (i < tabWall.length) {	
 			if (super.putWall(tabWall[i], finder)) {		
 				if (tabWall[i].isWallHorizontal()){
 					BoardGUI.locWallHorizontal.add(tabWall[i]);
