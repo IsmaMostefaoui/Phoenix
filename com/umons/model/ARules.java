@@ -295,6 +295,32 @@ public abstract class ARules {
 		return squareAvailable;
 	}
 	
+	
+	
+	public static ArrayList<Location> rWallAvailable() {
+		ArrayList<Location> wall = new ArrayList<Location>();
+		for (int x = 0; x <= 16; x =x+2) {
+			for (int y = 0; y<= 16; y = y+2) {
+				Location locSquare = new Location(x,y);
+				if (!wall.contains(locSquare.wallUp()) && locSquare.wallUp().inGrid(board) && !board.getItem(locSquare.wallUp()).getFull()) {
+					wall.add(locSquare.wallUp());
+				}
+				if (!wall.contains(locSquare.wallDown()) && locSquare.wallDown().inGrid(board) && !board.getItem(locSquare.wallDown()).getFull()) {
+					wall.add(locSquare.wallDown());
+				}
+				if (!wall.contains(locSquare.wallLeft()) && locSquare.wallLeft().inGrid(board) && !board.getItem(locSquare.wallLeft()).getFull()) {
+					wall.add(locSquare.wallLeft());
+				}
+				if (!wall.contains(locSquare.wallRight()) && locSquare.wallRight().inGrid(board) && !board.getItem(locSquare.wallRight()).getFull()) {
+					wall.add(locSquare.wallRight());
+				}
+			}
+		}
+	
+		return wall;
+	}
+	
+	
 		/*
 		int x = player.getLoc().getLocX();
 		int y = player.getLoc().getLocY();
@@ -462,9 +488,10 @@ public abstract class ARules {
 		
 		squareAvailable.clear();
 		return null;*/
-	
 	public static void setBoard(Grid board) {
 		ARules.board = board;
 	}
+	
+
 }
 	

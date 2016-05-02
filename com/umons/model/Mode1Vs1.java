@@ -20,6 +20,7 @@ public class Mode1Vs1 extends AMode{
 		}else if (nbreHumans == 1){
 			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
 			players[0] = new Player(board, Player.POS1, 1, this);
+
 			switch (IA){
 			case AMode.EASY:
 				players[1] = new RandomIA(board, Player.POS2, 2, this);
@@ -31,6 +32,7 @@ public class Mode1Vs1 extends AMode{
 				players[1] = new RegularIA(board, Player.POS2, 2, this);
 				break;
 			}
+
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -49,7 +51,6 @@ public class Mode1Vs1 extends AMode{
 	@Override
 	public boolean testFinder(Player player, Location coordWall, IPathFinder finder){
 		boolean[] check = {true, true};
-		long timeStart = System.currentTimeMillis();
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				if ((finder.findPath(coordWall, players[j].getLoc().getLocX(), players[j].getLoc().getLocY(), 2*i, players[j].getCoordFinish()) == null)) {
@@ -60,8 +61,6 @@ public class Mode1Vs1 extends AMode{
 				}
 			}
 		}
-		long timeEnd = System.currentTimeMillis();
-		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1];
 	}
 

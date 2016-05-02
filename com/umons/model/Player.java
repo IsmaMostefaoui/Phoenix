@@ -83,6 +83,7 @@ public class Player {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				System.out.println("Apres l activation du bloc n° " + j + " du mur");
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
+				board.setWall(new Location(j, loc.getLocY()));
 			}
 			numberOfWall--;
 			return true;
@@ -90,6 +91,7 @@ public class Player {
 		}else if (numberOfWall > 0 && loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
+				board.setWall(new Location(loc.getLocX(), i));
 				System.out.println("Apres l activation du bloc n° " + i + " du mur");
 			}
 			numberOfWall--;
@@ -186,5 +188,9 @@ public class Player {
 	
 	public boolean isHumanPlayer() {
 		return human;
+	}
+	
+	public Grid getGrid() {
+		return board;
 	}
 }

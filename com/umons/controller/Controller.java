@@ -89,7 +89,7 @@ public class Controller {
 		MyMouseListener.setClickCoordNotToNull();
 		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
 			System.out.println("je suis rentré dans player1 est un robot ???");
-			MediumIA IA = (MediumIA) players[0];
+			IRobot IA = (IRobot) players[0];
 			IA.play(game, finder, players[1]);
 			game.nextPlayer();
 			System.out.println("\nREPAINT\n" + panel);
@@ -106,12 +106,14 @@ public class Controller {
 			panel.validate();
 		}
 
+
 		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[2];
 			IA.play(game, finder, players[3]);
 			game.nextPlayer();
 			panel.repaint();
 		}
+
 
 		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[3];

@@ -10,7 +10,6 @@ public class Main {
 		MenuGUI menu = new MenuGUI(frame);
 		frame.setPane(menu, QuoridorGUI.MENUGUI);
 		frame.switchToPanel(QuoridorGUI.MENUGUI);
-		frame.setVisible(true);
-		
+		frame.setVisible(true);		
 	}
 }

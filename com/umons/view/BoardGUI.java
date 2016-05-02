@@ -119,7 +119,7 @@ public class BoardGUI extends JPanel{
 		g2d.fillRect(0, 0, lBack, QuoridorGUI.HEIGHT);
 		
 		drawSquares(g2d, new Color(236, 240, 241));
-		System.out.println("REPAINT IN BOARD");
+		
 		
 		drawTour(g2d);
 		drawPawn(g2d, locPawn1, colorPawn[0], player1.getNbreOfWall());
@@ -245,6 +245,7 @@ public class BoardGUI extends JPanel{
 			}else if (canPreviewVer(motionCoord, player)) {
 				g2d.setColor(c);
 				g2d.fillRect(motionCoordPix.getLocX()+(lSpaceWall)/2, motionCoordPix.getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
+
 			}
 		}
 	}

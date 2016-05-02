@@ -32,8 +32,11 @@ public class AStarPathFinder implements IPathFinder{
 	public Path findPath(Location coordWall, int sx, int sy, int tx, int ty) {
 		//ajouter le mur que le joueur veut poser pour simuler
 		//ensuite l enlever a la fin et decider pour de vrai si oui ou non on le pose
-		
-		setWallTo(coordWall, true);
+		boolean occupied = false;
+		if (!board.getItem(coordWall).getFull()) {
+			setWallTo(coordWall, true);
+			occupied = true;
+		}
 		//on verifie que la case d arrive n est pas bloque, auquel cas, c est mort pour cette case
 		Square targetSquare = new Square(tx, ty);
 		if (targetSquare.isBlocked()) {
@@ -143,7 +146,9 @@ public class AStarPathFinder implements IPathFinder{
 		//donc on ajoute la case de depart pour avoir le chemin complet
 		path.prependStep(sx, sy);
 		//fin de la simulation, on vide le mur au cas ou il aurait fallu ne pas le poser
-		setWallTo(coordWall, false);
+		if (occupied = true) {
+			setWallTo(coordWall, false);
+		}
 		return path;
 	}
 		
@@ -153,7 +158,7 @@ public class AStarPathFinder implements IPathFinder{
 		
 		
 		
-		//Override pour la MediumIA
+		//Override pour la 	RegularIA
 		@Override
 		public Path findPath(int sx, int sy, int tx, int ty) {
 			Square targetSquare = new Square(tx, ty);
@@ -216,13 +221,22 @@ public class AStarPathFinder implements IPathFinder{
 	 * @param b vrai si on doit remplir l objet, faux si on doit le vider
 	 */
 	public void setWallTo(Location loc, boolean b) {
-		if (loc.isWallHorizontal()) {
+		if (loc.isWallHorizontal() && loc.getLocX() <= 13) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				board.setItemInGrid(new Location(j, loc.getLocY()), b);
 			}
 				
-		}else if (loc.isWallVertical()) {
+		}else if (loc.isWallVertical() && loc.getLocY() <= 13) {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
+				board.setItemInGrid(new Location(loc.getLocX(), i), b);
+			}
+		}else if(loc.isWallHorizontal() && loc.getLocX() > 13) {
+			for (int j = loc.getLocX(); j < loc.getLocX() - 3; j--) {
+				board.setItemInGrid(new Location(j, loc.getLocY()), b);
+			}
+			
+		}else if (loc.isWallVertical() && loc.getLocY() > 13) {
+			for (int i = loc.getLocY(); i < loc.getLocY() - 3; i--) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), b);
 			}
 		}

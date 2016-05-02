@@ -1,5 +1,7 @@
 package com.umons.model;
 
+import java.util.ArrayList;
+
 public class Wall extends Square{
 	
 	/**
@@ -32,4 +34,10 @@ public class Wall extends Square{
 		}
 	}
 	
+	
+	
+
 }
+
+
+

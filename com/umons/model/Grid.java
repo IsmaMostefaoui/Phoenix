@@ -1,5 +1,7 @@
 package com.umons.model;
 
+import java.util.ArrayList;
+
 /**
  * Modélise une grille.
  * Possède :
@@ -13,6 +15,7 @@ public class Grid {
 
 	private Square[][] board;
 	private static final int LENGTH = 17; //sans les bords
+	private ArrayList<Location>wall = new ArrayList<Location>();
 	
 	
 	/**
@@ -162,6 +165,16 @@ public class Grid {
 		this.getItem(loc).setFull(b);
 		
 	}
+	/**
+	 * Getteur de Wall (contientla Location de tous les murs de la grille)
+	 * @param wallLoc La Location du mur
+	 */
+	public void setWall(Location wallLoc) {
+		wall.add(wallLoc);
+	}
 	
+	public ArrayList<Location> getWall() {
+		return wall;
+	}
 	
 }
