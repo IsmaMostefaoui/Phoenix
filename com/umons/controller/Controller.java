@@ -88,13 +88,10 @@ public class Controller {
 		// pour faire joueur ceux qui ne sont pas reels.
 		MyMouseListener.setClickCoordNotToNull();
 		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
-			System.out.println("je suis rentré dans player1 est un robot ???");
 			IRobot IA = (IRobot) players[0];
 			IA.play(game, finder, players[1]);
 			game.nextPlayer();
-			System.out.println("\nREPAINT\n" + panel);
-			panel.validate();
-			System.out.println("\nREPAINT\n" + panel);
+			panel.repaint();
 		}
 		if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
 			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
@@ -103,7 +100,7 @@ public class Controller {
 			IRobot IA = (IRobot) players[1];
 			IA.play(game, finder, players[0]);
 			game.nextPlayer();
-			panel.validate();
+			panel.repaint();
 		}
 
 
