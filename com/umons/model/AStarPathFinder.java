@@ -152,12 +152,12 @@ public class AStarPathFinder implements IPathFinder{
 	
 	
 		
-		
-		
-		//Override pour la MediumIA
-		@Override
 		public Path findPath(int sx, int sy, int tx, int ty) {
+
 			Square targetSquare = new Square(tx, ty);
+			if (targetSquare.isBlocked()) {
+				return null;
+			}
 			openList.clear();
 			closeList.clear();
 			nodes[sx][sy].cost = 0;
@@ -200,10 +200,15 @@ public class AStarPathFinder implements IPathFinder{
 					}
 				}
 			}
+			
+			
+			if (nodes[tx][ty].parent == null) {
+				return null;
+			}
+			
 			Path path = new Path();
 			Node target = nodes[tx][ty];
 			while (target != nodes[sx][sy]) {
-				System.out.println(target);
 				path.prependStep(target.getX(), target.getY());
 				target = target.parent;
 			}

@@ -21,14 +21,6 @@ public class RegularIA extends Player implements IRobot{
 	for (int j = 0; j < players.length; j++) {
 		path.add(shortestPath(players[j], finder)); //une fois qu'on trouve le chemin le plus court on l'ajoute à la liste des chemins
 	}
-	System.out.println("path size: " + path.size());
-	for (int i = 0; i < path.size(); i++) {
-		path.get(i);
-		System.out.println("i: " + i);
-		for (int j = 0; j < path.get(i).getLength(); j++){
-			System.out.println(path.get(i).getStep(j));
-		}
-	}
 	return path;
 	}
 	
@@ -44,9 +36,8 @@ public class RegularIA extends Player implements IRobot{
 		Path minPath = finder.findPath(player.getLoc().getLocX(), player.getLoc().getLocY(), 0, player.getCoordFinish());
 		if (player.getOrder()==1 || player.getOrder()==2) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
-				System.out.println(": " + playerLoc.getLocX() + "" + playerLoc.getLocY() + "" + coordFinish);
 				Path currentPath = finder.findPath(playerLoc.getLocX(), playerLoc.getLocY(), 2*i, coordFinish);
-				if ((currentPath.getLength() < minPath.getLength())) { //si le chemin courant est plus petit que le minimum actuelle
+				if ((minPath != null && currentPath != null && currentPath.getLength() < minPath.getLength())) { //si le chemin courant est plus petit que le minimum actuelle
 					//on change
 					minPath = currentPath;
 				}
@@ -79,7 +70,6 @@ public class RegularIA extends Player implements IRobot{
 		if (player.getOrder()==1 || player.getOrder()==2) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				Path currentPath = finder.findPath(locWall, playerLoc.getLocX(), playerLoc.getLocY(), 2*i, coordFinish);
-				System.out.println("wich is null ? : " + minPath);
 				if ((minPath != null && currentPath != null && currentPath.getLength() <= minPath.getLength())) { //si le chemin courant est plus petit que le minimum actuelle
 					//on change
 					minPath = currentPath;
@@ -133,23 +123,20 @@ public class RegularIA extends Player implements IRobot{
 		ArrayList<Path> path = testFinderMove(players, finder);
 		
 		if (path.get(0).getLength() <= path.get(1).getLength()) {
-			System.out.println("path[0].getLength() = " + path.get(0).getLength() );
-			System.out.println("path[1].getLength() = " + path.get(0).getLength() );
-			Location nextLocation = path.get(0).getStep(1);
-			System.out.println("NextLocation = " + nextLocation);
-			board.setItemInGrid(this.getLoc(), false);
-			board.setItemInGrid(nextLocation, true);
-			this.setLoc(nextLocation);
-			BoardGUI.locPawn2 = nextLocation;
+			this.move(path);
 			
 		}else {
 			Location nextWall = chooseWall(players, finder);
 			System.out.println("nextWall: " + nextWall);
-			super.putWall(nextWall, finder);
-			if (nextWall.isWallHorizontal()){
-				BoardGUI.locWallHorizontal.add(nextWall);
-			}else {
+			if (nextWall != null) {
+				super.putWall(nextWall, finder);
+					if (nextWall != null && this.getNbreOfWall() != 0 && nextWall.isWallHorizontal()){
+					BoardGUI.locWallHorizontal.add(nextWall);
+				}else if(this.getNbreOfWall() != 0 ) {
 					BoardGUI.locWallVertical.add(nextWall);
+				}
+			}else {
+				this.move(path);
 			}
 		}				
 	}
@@ -175,11 +162,12 @@ public class RegularIA extends Player implements IRobot{
 				//shortWallPath peut etre null
 				//si son chemin le plus court est plus grand que son chemin de départ (et son chemin maximum par la suite) et que
 				//notre chemin n'est pas devnu plus long avec la pose du mur
-				if (shortWallPath != null && shortWallPath.getLength() >= maxPath.getLength() && thisPlayerShortWallPath.getLength() <= thisPlayerFixTab.getLength()) {
-					maxPath = shortWallPath;
-					System.out.println("chox nextWall: " + wallAvailable);
-					//on prend ce mur
-					nextWall = wallAvailable;
+				if (shortWallPath != null && maxPath != null && thisPlayerShortWallPath != null && thisPlayerFixTab != null) {
+					if (shortWallPath.getLength() > maxPath.getLength() && thisPlayerShortWallPath.getLength() < thisPlayerFixTab.getLength()) {
+						maxPath = shortWallPath;
+						//on prend ce mur
+						nextWall = wallAvailable;
+					}
 				}
 			}
 			
@@ -192,10 +180,12 @@ public class RegularIA extends Player implements IRobot{
 				System.out.println("regle de mur: " + ARules.rPutWall(wallAvailable) + " " + ARules.rSlotFull(wallAvailable));
 				if (ARules.rPutWall(wallAvailable) && ARules.rSlotFull(wallAvailable) && mode.testFinder(players[0], wallAvailable, finder)){
 					Path shortWallPath = shortestPath(wallAvailable, players[1], finder);
-					if (shortWallPath.getLength() > maxPath.getLength()) {
-						maxPath = shortWallPath;
-						System.out.println("chox nextWall: " + wallAvailable);
-						nextWall = wallAvailable;
+					if (shortWallPath != null && maxPath != null) {
+						if (shortWallPath.getLength() > maxPath.getLength()) {
+							maxPath = shortWallPath;
+							System.out.println("chox nextWall: " + wallAvailable);
+							nextWall = wallAvailable;
+						}
 					}
 				}
 				
@@ -204,14 +194,22 @@ public class RegularIA extends Player implements IRobot{
 		return nextWall;
 	}
 			
+	public void move(ArrayList<Path> path) {
+		Location nextLocation = path.get(0).getStep(1);
+		board.setItemInGrid(this.getLoc(), false);
+		board.setItemInGrid(nextLocation, true);
+		this.setLoc(nextLocation);
+		BoardGUI.locPawn2 = nextLocation;
+	}
+	
 	@Override
 	public boolean putWall(Location[] tabWall, IPathFinder finder){
-		//TODO
 		return true;
 	}
+	
 	@Override
 	public void move() {
-		//TODO
+		
 	}
 	
 	
