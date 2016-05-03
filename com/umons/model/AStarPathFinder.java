@@ -1,11 +1,12 @@
 package com.umons.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class AStarPathFinder implements IPathFinder{
 
-	
+	private static final long serialVersionUID = 4985738610919398909L;
 	//BUUUUGGGG
 	ArrayList<Location>listSquareAvailable;
 	private Node[][] nodes;
@@ -32,9 +33,8 @@ public class AStarPathFinder implements IPathFinder{
 	public Path findPath(Location coordWall, int sx, int sy, int tx, int ty) {
 		//ajouter le mur que le joueur veut poser pour simuler
 		//ensuite l enlever a la fin et decider pour de vrai si oui ou non on le pose
-		if (!ARules.rSlotFull(coordWall)) {
-			setWallTo(coordWall, true);
-		}
+		
+		setWallTo(coordWall, true);
 		//on verifie que la case d arrive n est pas bloque, auquel cas, c est mort pour cette case
 		Square targetSquare = new Square(tx, ty);
 		if (targetSquare.isBlocked()) {
@@ -148,61 +148,69 @@ public class AStarPathFinder implements IPathFinder{
 		return path;
 	}
 		
-	//Override pour la 	RegularIA
-	public Path findPath(int sx, int sy, int tx, int ty) {
-		Square targetSquare = new Square(tx, ty);
-		openList.clear();
-		closeList.clear();
-		nodes[sx][sy].cost = 0;
-		nodes[sx][sy].depth = 0;
-		openList.add(nodes[sx][sy]);
-		nodes[tx][ty].parent = null;
-		maxDepth = 0;
-		int x = -1;
-		while (maxDepth < maxSearchDistance && openList.size() > 0) {
-			boolean checkNode = false;
-			x++;
-			Node current = (Node) openList.getFirst();			
-			if (current == nodes[tx][ty]) {
-				break;
-			}
-			openList.remove(current);
-			closeList.add(current);
-			listSquareAvailable = ARules.rSquareAvailable(new Location(current.getX(), current.getY()));
-			for (int i = 0; i < listSquareAvailable.size(); i++) {
-				if (closeList.contains(new Node(listSquareAvailable.get(i)))) {
-					listSquareAvailable.remove(i);
-				}
-			}
-			for (int i = 0; i < listSquareAvailable.size(); i++) {
-				float nextStepCost = current.cost + board.getMovementCost(new Location(current.getX(), current.getY()), listSquareAvailable.get(i));
-				Node neighbour = nodes [listSquareAvailable.get(i).getLocX()][listSquareAvailable.get(i).getLocY()];
-				if (nextStepCost < neighbour.cost) {
-					if (openList.contains(neighbour)){
-						openList.remove(neighbour);
-					}
-					if (closeList.contains(neighbour)) {
-						closeList.remove(neighbour);
-					}
-				}
-				if (!openList.contains(neighbour) && !closeList.contains(neighbour)) {
-					neighbour.cost = nextStepCost;
-					neighbour.heuristic = heuristic.getCost(new Location(neighbour.getX(), neighbour.getY()), new Location(tx, ty));
-					maxDepth = Math.max(maxDepth,  neighbour.setParent(current));
-					openList.add(neighbour);
-				}
-			}
-		}
-		Path path = new Path();
-		Node target = nodes[tx][ty];
-		while (target != nodes[sx][sy]) {
-			path.prependStep(target.getX(), target.getY());
-			target = target.parent;
-		}
-		path.prependStep(sx, sy);
-		return path;
+	
+	
+	
 		
-	}	
+		
+		
+		//Override pour la MediumIA
+		@Override
+		public Path findPath(int sx, int sy, int tx, int ty) {
+			Square targetSquare = new Square(tx, ty);
+			openList.clear();
+			closeList.clear();
+			nodes[sx][sy].cost = 0;
+			nodes[sx][sy].depth = 0;
+			openList.add(nodes[sx][sy]);
+			nodes[tx][ty].parent = null;
+			maxDepth = 0;
+			int x = -1;
+			while (maxDepth < maxSearchDistance && openList.size() > 0) {
+				boolean checkNode = false;
+				x++;
+				Node current = (Node) openList.getFirst();			
+				if (current == nodes[tx][ty]) {
+					break;
+				}
+				openList.remove(current);
+				closeList.add(current);
+				listSquareAvailable = ARules.rSquareAvailable(new Location(current.getX(), current.getY()));
+				for (int i = 0; i < listSquareAvailable.size(); i++) {
+					if (closeList.contains(new Node(listSquareAvailable.get(i)))) {
+						listSquareAvailable.remove(i);
+					}
+				}
+				for (int i = 0; i < listSquareAvailable.size(); i++) {
+					float nextStepCost = current.cost + board.getMovementCost(new Location(current.getX(), current.getY()), listSquareAvailable.get(i));
+					Node neighbour = nodes [listSquareAvailable.get(i).getLocX()][listSquareAvailable.get(i).getLocY()];
+					if (nextStepCost < neighbour.cost) {
+						if (openList.contains(neighbour)){
+							openList.remove(neighbour);
+						}
+						if (closeList.contains(neighbour)) {
+							closeList.remove(neighbour);
+						}
+					}
+					if (!openList.contains(neighbour) && !closeList.contains(neighbour)) {
+						neighbour.cost = nextStepCost;
+						neighbour.heuristic = heuristic.getCost(new Location(neighbour.getX(), neighbour.getY()), new Location(tx, ty));
+						maxDepth = Math.max(maxDepth,  neighbour.setParent(current));
+						openList.add(neighbour);
+					}
+				}
+			}
+			Path path = new Path();
+			Node target = nodes[tx][ty];
+			while (target != nodes[sx][sy]) {
+				System.out.println(target);
+				path.prependStep(target.getX(), target.getY());
+				target = target.parent;
+			}
+			path.prependStep(sx, sy);
+			return path;
+			
+		}	
 	
 	/**
 	 * Rempli un objet plusieurs objets wall dans la board
@@ -210,22 +218,13 @@ public class AStarPathFinder implements IPathFinder{
 	 * @param b vrai si on doit remplir l objet, faux si on doit le vider
 	 */
 	public void setWallTo(Location loc, boolean b) {
-		if (loc.isWallHorizontal() && loc.getLocX() <= 13) {
+		if (loc.isWallHorizontal()) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				board.setItemInGrid(new Location(j, loc.getLocY()), b);
 			}
 				
-		}else if (loc.isWallVertical() && loc.getLocY() <= 13) {
+		}else if (loc.isWallVertical()) {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
-				board.setItemInGrid(new Location(loc.getLocX(), i), b);
-			}
-		}else if(loc.isWallHorizontal() && loc.getLocX() > 13) {
-			for (int j = loc.getLocX(); j < loc.getLocX() - 3; j--) {
-				board.setItemInGrid(new Location(j, loc.getLocY()), b);
-			}
-			
-		}else if (loc.isWallVertical() && loc.getLocY() > 13) {
-			for (int i = loc.getLocY(); i < loc.getLocY() - 3; i--) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), b);
 			}
 		}
@@ -237,7 +236,9 @@ public class AStarPathFinder implements IPathFinder{
 	 * @author Inspired by Kevin Glass's code
 	 *
 	 */
-	private class SortedList{
+	private class SortedList implements Serializable{
+		
+		private static final long serialVersionUID = 5342378002612086428L;
 		
 		private ArrayList list = new ArrayList();
 		
@@ -283,7 +284,9 @@ public class AStarPathFinder implements IPathFinder{
 	 * @author Inspired by Kevin Glass's code
 	 *
 	 */
-	public class Node implements Comparable{
+	public class Node implements Comparable, Serializable{
+
+		private static final long serialVersionUID = -8080561462065197289L;
 		
 		private int x;
 		private int y;
@@ -293,10 +296,10 @@ public class AStarPathFinder implements IPathFinder{
 		private int depth;
 		
 		/**
-		 * Cr�e un nouveau noeud
+		 * Crée un nouveau noeud
 		 * 
-		 * @param x la coordonn�es en x du noeud
-		 * @param y la coordonn�es en y du noeud
+		 * @param x la coordonnées en x du noeud
+		 * @param y la coordonnées en y du noeud
 		 */
 		public Node(int x, int y) {
 			this.x = x;
