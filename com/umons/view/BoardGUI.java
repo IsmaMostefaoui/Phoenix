@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -19,6 +21,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -80,16 +84,18 @@ public class BoardGUI extends JPanel{
 	 * @param player1 une instance du joueur 1
 	 * @param player2 une instance du joueur 2
 	 */
-	public BoardGUI(Game game, final JFrame parentFrame) {
-				
-		this.player1 = game.getMode().getPlayer()[0]; this.player2 = game.getMode().getPlayer()[1];
+	public BoardGUI(Game game) {
+		
+		this.player1 = game.getMode().getPlayer()[0]; 
+		this.player2 = game.getMode().getPlayer()[1];
+		
 		if (game.getMode().getNumberOfPlayer() == 4) {
 			this.player3 = game.getMode().getPlayer()[2];
 			this.player4 = game.getMode().getPlayer()[3];
 		}
 		this.game = game;
 		customFont = new Font("comic sans ms", 10, 11);
-		infoPanel = new InfoGUI(parentFrame);
+		infoPanel = new InfoGUI();
 		this.setLayout(new BorderLayout());
 		this.add(infoPanel, BorderLayout.EAST);
 		infoPanel.setPreferredSize(new Dimension(lInfo,QuoridorGUI.HEIGHT));
@@ -148,6 +154,17 @@ public class BoardGUI extends JPanel{
 	
 		drawWallHorizontal(g2d, colorWall);
 		drawWallVertical(g2d, colorWall);
+		
+		/*
+		 * if (game.win(player1)){
+			winScreen("Joueur Jaune");
+		}else if (game.win(player2)) {
+			winScreen("Joueur Bleu");
+		}else if (player3 != null && game.win(player3)){
+			winScreen("Joueur Violet");
+		}else if (player4 != null && game.win(player4)) {
+			winScreen("Joueur Vert");
+		}*/
 	}
 	
 	/**
@@ -357,17 +374,6 @@ public class BoardGUI extends JPanel{
 		return this;
 	}
 	
-	
-	
-	/**
-	 * Pas encore fonctionnel
-	 * @param g2d
-	 */
-	public void drawVictory(Graphics g2d) {
-		//TODO
-		//JPanel victoryPanel = new VictoryPanel();
-	}
-	
 	/**
 	 * Classe représentant le panel de droite lors de l'affichage de la board.
 	 * Sert à accueillir le bouton save, back et le label d'affichage des infos de jeu (//TODO)
@@ -388,14 +394,15 @@ public class BoardGUI extends JPanel{
 		 * Initalise le panel d'Info. Place deux boutons save et back.
 		 * @param parentFrame la frame sur laquelle est posé le panel
 		 */
-		public InfoGUI(final JFrame parentFrame) {
+		public InfoGUI() {
 			
 			this.setLayout(new BorderLayout());
 			
 			backButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					((QuoridorGUI)parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
+					JFrame parentFrame = (JFrame) InfoGUI.this.getParent().getParent().getParent().getParent();
+					((QuoridorGUI) parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
 				}
 			});
 			this.add(backButton, BorderLayout.SOUTH);
@@ -404,6 +411,8 @@ public class BoardGUI extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					try{
+						File f = new File("./save");
+						f.mkdir();
 						FileOutputStream fos = new FileOutputStream("./save/save.sv");
 						BufferedOutputStream bos = new BufferedOutputStream(fos);
 						ObjectOutputStream oos = new ObjectOutputStream(bos);

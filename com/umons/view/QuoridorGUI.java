@@ -31,7 +31,7 @@ public class QuoridorGUI extends JFrame{
 	static final int width = (int) screenDimension.getWidth();
 	
 	public static final int HEIGHT = (8*height)/9;
-	static final int WIDTH = 2*width/3;
+	public static final int WIDTH = 2*width/3;
 	
 	public static JPanel content = new JPanel();
 	public static CardLayout cl = new CardLayout();

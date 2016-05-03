@@ -4,12 +4,19 @@ import com.umons.controller.Controller;
 
 public class Mode1Vs1 extends AMode {
 	
+	int IA;
+	int nbreHumans;
+	
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
 	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
 	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
 	 */
 	public Mode1Vs1(int IA, int nbreHumans) {
+		
+		this.IA = IA;
+		this.nbreHumans = nbreHumans;
+		
 		board = new Grid();
 		players = new Player[2];
 		this.nbreHumans = nbreHumans;
@@ -69,6 +76,29 @@ public class Mode1Vs1 extends AMode {
 	@Override
 	public boolean getAllPlayerRobot() {
 		return (!players[0].isHumanPlayer() && !players[1].isHumanPlayer());
+	}
+
+	@Override
+	public void reset() {
+		board = new Grid();
+		players = new Player[2];
+		if (nbreHumans == 2){
+			players[0] = new Player(board, Player.POS1, 1, this);
+			players[1] = new Player(board, Player.POS2, 2, this);
+		}else if (nbreHumans == 1){
+			players[0] = new Player(board, Player.POS1, 1, this);
+			switch (IA){
+			case AMode.EASY:
+				players[1] = new RandomIA(board, Player.POS2, 2, this);
+				break;
+			case AMode.MEDIUM:
+				players[1] = new MediumIA(board, Player.POS2, 2, this);
+				break;
+			case AMode.DIFFICULT:
+				players[1] = new RegularIA(board, Player.POS2, 2, this);
+				break;
+			}
+		}
 	}
 
 }

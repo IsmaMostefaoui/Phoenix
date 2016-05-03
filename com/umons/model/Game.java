@@ -1,9 +1,7 @@
 package com.umons.model;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.umons.view.MenuGUI;
 import com.umons.view.QuoridorGUI;
 
 public class Game {
@@ -60,14 +58,14 @@ public class Game {
 	
 	/**
 	 * Verifie si le Joueur à gagner la partie (A atteint l'extremité opposé de la grille)
-	 * @param player une instance le Player
+	 * @param string une instance le Player
 	 * @return True si le joueur à gagner,sinon false
 	 */
-	public boolean win(Player player) {
-		if (player.getOrder() == 1 || player.getOrder() == 2){
-			return player.getCoordFinish() == player.getLoc().getLocY();
+	public boolean win(Player string) {
+		if (string.getOrder() == 1 || string.getOrder() == 2){
+			return string.getCoordFinish() == string.getLoc().getLocY();
 		}else {
-			return player.getCoordFinish() == player.getLoc().getLocX();
+			return string.getCoordFinish() == string.getLoc().getLocX();
 		}
 		/*
 		if (player.getOrder() == 1) {
@@ -87,8 +85,8 @@ public class Game {
 	}
 	
 	public void stop(JPanel off) {
+		off.setFocusable(false);
 		off.setEnabled(false);
-		off.setVisible(false);
 	}
 	
 	public AMode getMode() {

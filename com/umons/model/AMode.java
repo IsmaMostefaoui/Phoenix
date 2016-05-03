@@ -34,7 +34,7 @@ public abstract class AMode implements Serializable{
 	 */
 	public void init(QuoridorGUI frame, Game game) {
 		ARules.setBoard(board);
-		JPanel board = new BoardGUI(game, frame);
+		JPanel board = new BoardGUI(game);
 		
 		this.boardPanel = board;
 		this.frame = frame;
@@ -44,10 +44,9 @@ public abstract class AMode implements Serializable{
 		MyMouseListener l = new MyMouseListener(controller);
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
-		frame.setPane(board, 0);
+		frame.setPane(board, QuoridorGUI.BOARDGUI);
 		if (this.getAllPlayerRobot()) {
 			try {
-				System.err.println("controller.makerobotplay(");;
 				controller.makeRobotPlay();
 			}catch (InterruptedException ie) {
 				System.err.println("Erreur de thread dans Mode: ");
@@ -91,6 +90,8 @@ public abstract class AMode implements Serializable{
 	public JPanel getPane() {
 		return boardPanel;
 	}
+	
+	public abstract void reset();
 	
 	public abstract boolean getAllPlayerRobot();
 }

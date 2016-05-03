@@ -1,5 +1,15 @@
 package com.umons.controller;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.umons.model.*;
@@ -31,49 +41,36 @@ public class Controller {
 		try {
 			if (game.getTour() == 0 && players[0].isHumanPlayer()) {
 				players[0].play(game, temp, finder);
-				makeRobotPlay();		
+				if (game.win(players[0])){
+					winScreen("Joueur Jaune");
+				}else {
+					makeRobotPlay();
+				}
 			}
 			else if (game.getTour() == 1 && players[1].isHumanPlayer()) {
 				players[1].play(game, temp, finder);
-				makeRobotPlay();
+				if (game.win(players[1])){
+					winScreen("Joueur Bleu");
+				}else {
+					makeRobotPlay();
+				}
 			}
 			else if (game.getTour() == 2 && players[2].isHumanPlayer()) {
 				players[2].play(game, temp, finder);
-				makeRobotPlay();
+				if (game.win(players[2])){
+					winScreen("Joueur Violet");
+				}else {
+					makeRobotPlay();
+				}
 			}
 			else if (game.getTour() == 3 && players[3].isHumanPlayer()) {
 				players[3].play(game, temp, finder);
-				makeRobotPlay();
+				if (game.win(players[3])){
+					winScreen("Joueur Vert");
+				}else {
+					makeRobotPlay();
+				}
 			}
-			/*
-			switch (game.getTour()){
-			case 0:
-				if (players[0].isHumanPLayer()){
-					players[0].play(game, temp, finder);
-					makeRobotPlay();
-					panel.repaint();
-					break;
-				}
-			case 1:
-				if (players[1].isHumanPLayer()) {
-					players[1].play(game, temp, finder);
-					makeRobotPlay();
-					break;
-				}
-			case 2:
-				System.out.println("tour: " + game.getTour());
-				if (players[2].isHumanPLayer()){
-					players[2].play(game, temp, finder);
-					makeRobotPlay();
-					break;
-				}
-			case 3:
-				if (players[3].isHumanPLayer()) {
-					players[3].play(game, temp, finder);
-					makeRobotPlay();
-					break;
-				}
-			}*/
 		}catch (InterruptedException ie){
 			System.err.println("Erreur dans le sleep");
 			ie.printStackTrace();
@@ -86,15 +83,14 @@ public class Controller {
 	public void makeRobotPlay() throws InterruptedException {
 		// ca je le met pour directement check si les joueur suivant est un robot. Ainsi je profite du fait que le joueur reel ait clicke
 		// pour faire joueur ceux qui ne sont pas reels.
-		MyMouseListener.setClickCoordNotToNull();
 		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
-			System.out.println("je suis rentré dans player1 est un robot ???");
-			MediumIA IA = (MediumIA) players[0];
+			IRobot IA = (IRobot) players[0];
 			IA.play(game, finder, players[1]);
 			game.nextPlayer();
-			System.out.println("\nREPAINT\n" + panel);
-			panel.validate();
-			System.out.println("\nREPAINT\n" + panel);
+			panel.repaint();
+			if (game.win((Player) (IA))) {
+				winScreen("Robot Jaune");
+			}
 		}
 		if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
 			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
@@ -103,7 +99,10 @@ public class Controller {
 			IRobot IA = (IRobot) players[1];
 			IA.play(game, finder, players[0]);
 			game.nextPlayer();
-			panel.validate();
+			panel.repaint();
+			if (game.win((Player) (IA))) {
+				winScreen("Robot Bleu");
+			}
 		}
 
 		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
@@ -111,6 +110,9 @@ public class Controller {
 			IA.play(game, finder, players[3]);
 			game.nextPlayer();
 			panel.repaint();
+			if (game.win((Player) (IA))) {
+				winScreen("Robot Violet");
+			}
 		}
 
 		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
@@ -118,6 +120,9 @@ public class Controller {
 			IA.play(game, finder, players[2]);
 			game.nextPlayer();
 			panel.repaint();
+			if (game.win((Player) (IA))) {
+				winScreen("Robot Vert");
+			}
 		}
 		
 		//TODO
@@ -129,6 +134,62 @@ public class Controller {
 	
 	public void updatePanel(){
 		panel.repaint();
+	}
+	 /**
+	  * Fait apparaître la fenetre informant le joueur du gagnat de la partie !
+	  */
+	public  void winScreen(String player) {
+		final QuoridorGUI parentFrame = (QuoridorGUI) ((BoardGUI)panel).getParent().getParent().getParent();
+		final JDialog win = new JDialog(parentFrame, true);
+		win.setTitle("!! Félicitations !!");
+		win.setLayout(new FlowLayout());
+		
+		JLabel winner = new JLabel("Bravo " + player + ", vous avez gagné !");
+		win.add(winner);
+		
+		JButton playAgain = new JButton("Recommencer");
+		win.add(playAgain);
+		playAgain.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mode.reset();
+				parentFrame.initGame("", mode);
+				win.dispose();
+				
+				/*
+				Game game = new Game(mode);
+				mode.init(parentFrame, game);
+				parentFrame.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
+				parentFrame.switchToPanel(QuoridorGUI.BOARDGUI);
+				win.dispose();
+				mode.getPane().repaint();
+				*/
+			}
+		});
+		
+		JButton backToMenu = new JButton("Revenir au menu");
+		win.add(backToMenu);
+		backToMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parentFrame.switchToPanel(QuoridorGUI.MENUGUI);	
+				win.dispose();
+			}
+		});
+		
+		JButton quit = new JButton("Quitter");
+		win.add(quit);
+		quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		win.setSize(4*QuoridorGUI.WIDTH/10, QuoridorGUI.HEIGHT/9);
+		win.setLocationRelativeTo(null);
+		win.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		win.setVisible(true);
 	}
 	
 	public static Location pixelToCoord(Location loc) {

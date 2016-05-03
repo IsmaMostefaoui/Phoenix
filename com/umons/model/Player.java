@@ -13,7 +13,7 @@ public class Player implements Serializable{
 	protected AMode mode;
 	protected Location loc;
 	protected int numberOfWall;
-	protected final int NB_WALL = 10;
+	protected int defaultNbreWall = 10;
 	protected Grid board;
 	protected final int orderNumber;
 	protected boolean human;
@@ -32,7 +32,7 @@ public class Player implements Serializable{
 	public Player(Grid board, Location loc, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
-		numberOfWall = NB_WALL;
+		numberOfWall = defaultNbreWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
 		this.human = true;
@@ -48,6 +48,7 @@ public class Player implements Serializable{
 	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
+		defaultNbreWall = nbreOfWall;
 		this.numberOfWall = nbreOfWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
@@ -152,7 +153,14 @@ public class Player implements Serializable{
 			return 0;
 		}
 	}
-	
+
+	public void resetNumberOfWall() {
+		if (defaultNbreWall == 10) {
+			this.numberOfWall = 10;
+		}else {
+			this.numberOfWall = 5;
+		}
+	}
 	
 	/**
 	 * getter
@@ -183,6 +191,7 @@ public class Player implements Serializable{
 	public int getOrder() {
 		return orderNumber;
 	}
+	
 	@Override
 	public boolean equals(Object other) {
 		Player p = (Player)other;

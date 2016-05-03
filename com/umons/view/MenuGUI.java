@@ -41,6 +41,7 @@ public class MenuGUI extends JPanel{
 	 */
 	public MenuGUI(final QuoridorGUI parentFrame) {
 		System.out.println("dans le constructeur");
+		/*
 		try {
 			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
 		}catch (IOException ie) {
@@ -48,7 +49,7 @@ public class MenuGUI extends JPanel{
 			ie.printStackTrace();
 		}catch (Exception e){
 			e.printStackTrace();
-		}
+		}*/
 		setLayout(new GridBagLayout());
 		
 		GridBagLayout gb = new GridBagLayout();
