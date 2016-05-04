@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 
 import com.umons.model.AMode;
 import com.umons.model.Game;
+import com.umons.model.Main;
 import com.umons.model.Mode1Vs1;
 import com.umons.model.Mode2Vs2;
 
@@ -63,6 +64,7 @@ public class QuoridorGUI extends JFrame{
 		}
 		menuBar();
 		if (panelName == MENUGUI){
+			//TODO horrible mais sinon chargement trop long
 			this.setContentPane(new MenuGUI(this));
 			if (nextPanes[BOARDGUI] != null){
 				((BoardGUI)nextPanes[BOARDGUI]).reset();
