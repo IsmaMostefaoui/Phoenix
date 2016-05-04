@@ -82,6 +82,8 @@ public class Mode1Vs1 extends AMode {
 		}else if (nbreHumans == 1){
 			players[1] = setPlayerTo(IA);
 		}
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
 	}
 
 }

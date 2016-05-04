@@ -83,6 +83,10 @@ public class Player implements Serializable{
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Location loc, IPathFinder finder){
+		if (loc == null){
+			return false;
+		}
+		
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);

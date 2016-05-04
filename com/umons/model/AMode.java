@@ -47,8 +47,10 @@ public abstract class AMode implements Serializable{
 		frame.setPane(board, QuoridorGUI.BOARDGUI);
 		try {
 			//TODO
-			controller.makeRobotPlay();
-			board.repaint();
+			if (getAllPlayerRobot()){
+				controller.makeRobotPlay();
+				board.repaint();
+			}
 		}catch(InterruptedException ie) {
 			ie.printStackTrace();
 		}
