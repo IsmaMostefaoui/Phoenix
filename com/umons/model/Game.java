@@ -1,5 +1,7 @@
 package com.umons.model;
 
+import java.util.Random;
+
 import javax.swing.JPanel;
 
 import com.umons.view.QuoridorGUI;
@@ -7,13 +9,14 @@ import com.umons.view.QuoridorGUI;
 public class Game {
 
 	private int numberPlayer;
-	private static int tour = 0;
+	private int tour;
 	private AMode mode;
 	
 	public Game(AMode mode) {
 		this.mode = mode;
 		this.numberPlayer = mode.getNumberOfPlayer();
-		
+		Random r = new Random();
+		tour = r.nextInt(numberPlayer);
 	}
 	
 	/**
@@ -41,8 +44,8 @@ public class Game {
 	/**
 	 * Setter pour initialiser le nombre de tour
 	 */
-	public static void setTour(int t) {
-		tour = t;
+	public void setTour(int t) {
+		this.tour = t;
 	}
 	
 	/*

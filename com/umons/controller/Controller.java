@@ -90,6 +90,8 @@ public class Controller {
 				}else {
 					makeRobotPlay();
 				}
+			}else {
+				makeRobotPlay();
 			}
 		}catch (InterruptedException ie){
 			System.err.println("Erreur dans le sleep");
@@ -144,12 +146,49 @@ public class Controller {
 				winScreen("Robot Vert");
 			}
 		}
-		
-		//TODO
-		if (mode.getAllPlayerRobot() && i != 50) {
-			i++;
-			makeRobotPlay();
+	}
+	
+	/**
+	 * Fait jouer toutes les IA
+	 * @return le numéro du joueur qui a gagné (1, 2, 3 ou 4) sinon retourne -1
+	 */
+	public int makeRobotPlayTerminal() {
+		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
+			IRobot IA = (IRobot) players[0];
+			IA.play(game, finder, players[1]);
+			game.nextPlayer();
+			if (game.win((Player) (IA))) {
+				return 1;
+			}
 		}
+		if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
+			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
+			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
+			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
+			IRobot IA = (IRobot) players[1];
+			IA.play(game, finder, players[0]);
+			game.nextPlayer();
+			if (game.win((Player) (IA))) {
+				return 2;
+			}
+		}
+
+		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
+			IRobot IA = (IRobot) players[2];
+			IA.play(game, finder, players[3]);
+			if (game.win((Player) (IA))) {
+				return 3;
+			}
+		}
+
+		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
+			IRobot IA = (IRobot) players[3];
+			IA.play(game, finder, players[2]);
+			game.nextPlayer();
+			if (game.win((Player) (IA))) {
+				return 4;
+			}
+		}return makeRobotPlayTerminal();
 	}
 	
 	public void updatePanel(){

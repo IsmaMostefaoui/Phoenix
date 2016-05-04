@@ -32,7 +32,7 @@ public abstract class AMode implements Serializable{
 	 * Initalise une game
 	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie
 	 */
-	public void init(QuoridorGUI frame, Game game) {
+	public void init(QuoridorGUI frame, Game game){
 		ARules.setBoard(board);
 		JPanel board = new BoardGUI(game);
 		
@@ -45,24 +45,49 @@ public abstract class AMode implements Serializable{
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
 		frame.setPane(board, QuoridorGUI.BOARDGUI);
-		
+		try {
+			//TODO
+			controller.makeRobotPlay();
+			board.repaint();
+		}catch(InterruptedException ie) {
+			ie.printStackTrace();
+		}
 	}
 	
 	/**
-	 * Initalise une game
+	 * Initalise une game pour le mode console
 	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie
+	 * @return le numéro du joueur qui a gagné (1, 2, 3 ou 4)
 	 */
-	public void init(Game game) {
+	public int play(Game game) {
 		ARules.setBoard(board);
 		controller = new Controller(this, game, finder);
 		if (this.getAllPlayerRobot()) {
-			try {
-				controller.makeRobotPlay();
-			}catch (InterruptedException ie) {
+			//try {
+				return controller.makeRobotPlayTerminal();
+			/*
+			 }catch (InterruptedException ie) {
 				System.err.println("Erreur de thread dans Mode: ");
 				ie.printStackTrace();
-			}
+			}*/
 		}
+		return -1;
+	}
+	
+	/**
+	 * Initialise un joueur de la partie comme étant une IA
+	 * @param IA le degré de difficulté de l'IA
+	 * @return Une instance de Player correspondant à une IA
+	 */
+	public Player setPlayerTo(int IA) {
+		switch (IA){
+		case AMode.EASY:
+			return new RandomIA(board, Player.POS2, 2, this);
+		case AMode.MEDIUM:
+			return new MediumIA(board, Player.POS2, 2, this);
+		case AMode.DIFFICULT:
+			return new RegularIA(board, Player.POS2, 2, this);
+		}return null;
 	}
 	
 	/**
@@ -101,8 +126,15 @@ public abstract class AMode implements Serializable{
 		return boardPanel;
 	}
 	
+	/**
+	 * Réinitialise le mode de jeu selon le constructeur
+	 */
 	public abstract void reset();
 	
+	/**
+	 * Vérifie si tous les joueurs sont des IA
+	 * @return vrai si les joueurs sont des IA, faux sinon
+	 */
 	public abstract boolean getAllPlayerRobot();
 }
 

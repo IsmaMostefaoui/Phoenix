@@ -66,7 +66,6 @@ public class Player implements Serializable{
 		List<Location> list = ARules.rSquareAvailable(this);	
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).equals(loc)) {
-				System.out.println(board);
 				board.setItemInGrid(this.getLoc(), false);
 				this.loc = loc;
 				board.setItemInGrid(loc, true);
@@ -84,10 +83,8 @@ public class Player implements Serializable{
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Location loc, IPathFinder finder){
-		System.out.println("test dans player pour putwall: ");
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
-				System.out.println("Apres l activation du bloc n° " + j + " du mur");
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
 			}
 			numberOfWall--;
@@ -96,7 +93,6 @@ public class Player implements Serializable{
 		}else if (numberOfWall > 0 && loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
-				System.out.println("Apres l activation du bloc n° " + i + " du mur");
 			}
 			numberOfWall--;
 			return true;
@@ -123,12 +119,10 @@ public class Player implements Serializable{
 			}
 			game.nextPlayer();
 		}else if (temp.isWallHorizontal() && this.putWall(temp, finder)){
-			System.out.println("locwall rempli");
 			BoardGUI.locWallHorizontal.add(temp);
 			game.nextPlayer();
 			//aud.run();
 		}else if (temp.isWallVertical() && this.putWall(temp, finder)){
-			System.out.println("locwall rempli");
 			BoardGUI.locWallVertical.add(temp);
 			game.nextPlayer();
 			//aud.run();

@@ -371,7 +371,7 @@ public class BoardGUI extends JPanel{
 		locWallHorizontal = locWallHorizontalParam;
 		locWallVertical = locWallVerticalParam;
 		
-		Game.setTour(tour);
+		game.setTour(tour);
 		
 		return this;
 	}

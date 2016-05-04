@@ -52,7 +52,7 @@ public class QuoridorGUI extends JFrame{
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
 		
-		setVisible(true);
+		//setVisible(true);
 	}
 	
 	public void switchToPanel(int panelName) {

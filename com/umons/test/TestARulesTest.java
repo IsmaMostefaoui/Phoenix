@@ -1,4 +1,4 @@
-package com.umons.test;
+/*package com.umons.test;
 
 import static org.junit.Assert.*;
 
@@ -62,4 +62,4 @@ public class TestARulesTest {
 		
 	}
 
-}
+}*/
