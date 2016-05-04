@@ -77,11 +77,9 @@ public class Player {
 	 * @param loc la position du début du mur (le premier bloc à gauche [horizontal], le premier bloc en haut[vertical]
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
-	public boolean putWall(Location loc, IPathFinder finder){
-		System.out.println("test dans player pour putwall: ");
+	public boolean putWall(Location loc, IPathFinder finder) {
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
-				System.out.println("Apres l activation du bloc n° " + j + " du mur");
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
 				board.setWall(new Location(j, loc.getLocY()));
 			}
@@ -92,7 +90,6 @@ public class Player {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
 				board.setWall(new Location(loc.getLocX(), i));
-				System.out.println("Apres l activation du bloc n° " + i + " du mur");
 			}
 			numberOfWall--;
 			return true;
@@ -119,12 +116,10 @@ public class Player {
 			}
 			game.nextPlayer();
 		}else if (temp.isWallHorizontal() && this.putWall(temp, finder)){
-			System.out.println("locwall rempli");
 			BoardGUI.locWallHorizontal.add(temp);
 			game.nextPlayer();
 			//aud.run();
 		}else if (temp.isWallVertical() && this.putWall(temp, finder)){
-			System.out.println("locwall rempli");
 			BoardGUI.locWallVertical.add(temp);
 			game.nextPlayer();
 			//aud.run();

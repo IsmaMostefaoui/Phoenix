@@ -57,7 +57,6 @@ public class Mode2Vs2 extends AMode{
 	@Override
 	public boolean testFinder(Player player, Location coordWall, IPathFinder finder){
 		boolean[] check = {true, true, true, true};
-		long timeStart = System.currentTimeMillis();
 		for (int j = 0; j < players.length; j++) {
 			for (int i = 0; i < ((Grid.getLen()/2)+1); i++) {
 				if (players[j].getOrder()==1 || players[j].getOrder()==2) {
@@ -76,8 +75,7 @@ public class Mode2Vs2 extends AMode{
 					}
 				}
 			}
-		}long timeEnd = System.currentTimeMillis();
-		System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
+		}
 		return check[0] && check [1] && check[2] && check[3];
 	}
 
