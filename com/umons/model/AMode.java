@@ -45,6 +45,16 @@ public abstract class AMode implements Serializable{
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
 		frame.setPane(board, QuoridorGUI.BOARDGUI);
+		
+	}
+	
+	/**
+	 * Initalise une game
+	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie
+	 */
+	public void init(Game game) {
+		ARules.setBoard(board);
+		controller = new Controller(this, game, finder);
 		if (this.getAllPlayerRobot()) {
 			try {
 				controller.makeRobotPlay();
@@ -67,7 +77,7 @@ public abstract class AMode implements Serializable{
 	public abstract Player[] getPlayer();
 	
 	/**
-	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonées coordWall se lon l'algorithme de recherche "finder"
+	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonées coordWall selon l'algorithme de recherche "finder"
 	 * @param player l instance du joueur qui pose le mur
 	 * @param finder
 	 * @param loc la position du mur qui risque de bloquer un joueur

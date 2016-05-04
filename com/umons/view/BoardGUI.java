@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.umons.controller.Controller;
@@ -38,6 +39,7 @@ import com.umons.model.*;
  */
 public class BoardGUI extends JPanel{
 
+	private static final long serialVersionUID = -4654501903638515366L;
 	
 	private Font customFont;
 	private Game game;
@@ -392,17 +394,23 @@ public class BoardGUI extends JPanel{
 		
 		/**
 		 * Initalise le panel d'Info. Place deux boutons save et back.
-		 * @param parentFrame la frame sur laquelle est posé le panel
 		 */
 		public InfoGUI() {
 			
 			this.setLayout(new BorderLayout());
-			
 			backButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 					JFrame parentFrame = (JFrame) InfoGUI.this.getParent().getParent().getParent().getParent();
-					((QuoridorGUI) parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
+					
+					String[] options = {"Oui", "Non"};
+					
+					int choice = JOptionPane.showOptionDialog(parentFrame, "Voulez-vous sauvegader avant de quitter ?", "Sauvegarder ?", 
+							     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					if (choice == JOptionPane.YES_OPTION){
+						save();
+					}((QuoridorGUI) parentFrame).switchToPanel(QuoridorGUI.MENUGUI);
 				}
 			});
 			this.add(backButton, BorderLayout.SOUTH);
@@ -410,23 +418,12 @@ public class BoardGUI extends JPanel{
 			saveButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					try{
-						File f = new File("./save");
-						f.mkdir();
-						FileOutputStream fos = new FileOutputStream("./save/save.sv");
-						BufferedOutputStream bos = new BufferedOutputStream(fos);
-						ObjectOutputStream oos = new ObjectOutputStream(bos);
-						oos.writeObject(game.getMode());
-						oos.writeObject(locWallHorizontal);
-						oos.writeObject(locWallVertical);
-						//TODO save le mode AMode pour générer un mode dans le reload qui correspond au mode précedent
-						oos.writeInt(game.getTour());
-						System.out.println("Sauvegarde réussi !");
-						oos.close();
-						bos.close();
-						fos.close();
-					}catch(Exception e){
-						e.printStackTrace();
+					JFrame parentFrame = (JFrame) InfoGUI.this.getParent().getParent().getParent().getParent();
+					String[] options = {"OK", "Annuler"};
+					int choice = JOptionPane.showOptionDialog(parentFrame, "Sauvegarder écrasera la partie précedemment chargé !", "Ecraser les données ?", 
+								 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					if (choice == JOptionPane.YES_OPTION){
+						save();
 					}
 				}
 			});
@@ -447,6 +444,27 @@ public class BoardGUI extends JPanel{
 			labelPlayerTour = new JLabel();
 			this.add(labelPlayerTour, BorderLayout.WEST);
 			this.setBackground(new Color(127, 140, 141));
+		}
+		
+		public void save() {
+			try{
+				File f = new File("./save");
+				f.mkdir();
+				FileOutputStream fos = new FileOutputStream("./save/save.sv");
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				ObjectOutputStream oos = new ObjectOutputStream(bos);
+				oos.writeObject(game.getMode());
+				oos.writeObject(locWallHorizontal);
+				oos.writeObject(locWallVertical);
+				//TODO save le mode AMode pour générer un mode dans le reload qui correspond au mode précedent
+				oos.writeInt(game.getTour());
+				System.out.println("Sauvegarde réussi !");
+				oos.close();
+				bos.close();
+				fos.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 }

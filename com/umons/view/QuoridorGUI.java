@@ -113,8 +113,8 @@ public class QuoridorGUI extends JFrame{
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(1, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);
-					difficultFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-					difficultFrame.setResizable(false);
+					difficultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					difficultFrame.setResizable(true);
 					difficultFrame.setVisible(true);
 				}
 			});

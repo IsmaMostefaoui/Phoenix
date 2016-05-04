@@ -28,8 +28,28 @@ public class Controller {
 	private JPanel panel;
 	private Player[] players;
 	
+	/**
+	 * Constructeur du controller pour le mode graphique
+	 * @param mode Instance du mode de jeu (1vs1, 2vs2)
+	 * @param panel Un JPanel représentant le panel de la grille
+	 * @param game une instance de game régissant certaines règles
+	 * @param finder l'instance de l'algorithme choisi pour le pathfinding
+	 */
 	public Controller(AMode mode, JPanel panel, Game game, IPathFinder finder){
 		this.panel = panel;
+		this.game = game;
+		this.finder = finder;
+		this.mode = mode;
+		players = mode.getPlayer();
+	}
+	
+	/**
+	 * Constructeur du controller pour le mode console
+	 * @param mode
+	 * @param game
+	 * @param finder
+	 */
+	public Controller(AMode mode, Game game, IPathFinder finder){
 		this.game = game;
 		this.finder = finder;
 		this.mode = mode;
