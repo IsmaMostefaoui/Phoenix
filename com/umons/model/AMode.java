@@ -1,5 +1,7 @@
 package com.umons.model;
 
+import java.io.Serializable;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -8,17 +10,18 @@ import com.umons.controller.MyMouseListener;
 import com.umons.view.BoardGUI;
 import com.umons.view.QuoridorGUI;
 
-public abstract class AMode{
+public abstract class AMode implements Serializable{
 	
+	private static final long serialVersionUID = 7479369038416187671L;
 	
 	protected Player[] players;
 	protected Grid board;
-	protected JPanel boardPanel;
-	protected JFrame frame;
+	protected transient JPanel boardPanel;
+	protected transient JFrame frame;
 	protected AStarHeuristic heuristic;
 	protected IPathFinder finder;
 	protected int nbreHumans;
-	protected Controller controller;
+	protected transient Controller controller;
 	
 	public static final int EASY = 0;
 	public static final int MEDIUM = 1;
@@ -29,9 +32,9 @@ public abstract class AMode{
 	 * Initalise une game
 	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie
 	 */
-	public void init(QuoridorGUI frame, Game game) {
+	public void init(QuoridorGUI frame, Game game){
 		ARules.setBoard(board);
-		JPanel board = new BoardGUI(game, frame);
+		JPanel board = new BoardGUI(game);
 		
 		this.boardPanel = board;
 		this.frame = frame;
@@ -41,16 +44,50 @@ public abstract class AMode{
 		MyMouseListener l = new MyMouseListener(controller);
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
-		frame.setPane(board, 0);
+		frame.setPane(board, QuoridorGUI.BOARDGUI);
+		try {
+			//TODO
+			controller.makeRobotPlay();
+			board.repaint();
+		}catch(InterruptedException ie) {
+			ie.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Initalise une game pour le mode console
+	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie
+	 * @return le numéro du joueur qui a gagné (1, 2, 3 ou 4)
+	 */
+	public int play(Game game) {
+		ARules.setBoard(board);
+		controller = new Controller(this, game, finder);
 		if (this.getAllPlayerRobot()) {
-			try {
-				System.err.println("controller.makerobotplay(");;
-				controller.makeRobotPlay();
-			}catch (InterruptedException ie) {
+			//try {
+				return controller.makeRobotPlayTerminal();
+			/*
+			 }catch (InterruptedException ie) {
 				System.err.println("Erreur de thread dans Mode: ");
 				ie.printStackTrace();
-			}
+			}*/
 		}
+		return -1;
+	}
+	
+	/**
+	 * Initialise un joueur de la partie comme étant une IA
+	 * @param IA le degré de difficulté de l'IA
+	 * @return Une instance de Player correspondant à une IA
+	 */
+	public Player setPlayerTo(int IA) {
+		switch (IA){
+		case AMode.EASY:
+			return new RandomIA(board, Player.POS2, 2, this);
+		case AMode.MEDIUM:
+			return new MediumIA(board, Player.POS2, 2, this);
+		case AMode.DIFFICULT:
+			return new RegularIA(board, Player.POS2, 2, this);
+		}return null;
 	}
 	
 	/**
@@ -65,7 +102,7 @@ public abstract class AMode{
 	public abstract Player[] getPlayer();
 	
 	/**
-	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonées coordWall se lon l'algorithme de recherche "finder"
+	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonées coordWall selon l'algorithme de recherche "finder"
 	 * @param player l instance du joueur qui pose le mur
 	 * @param finder
 	 * @param loc la position du mur qui risque de bloquer un joueur
@@ -89,6 +126,15 @@ public abstract class AMode{
 		return boardPanel;
 	}
 	
+	/**
+	 * Réinitialise le mode de jeu selon le constructeur
+	 */
+	public abstract void reset();
+	
+	/**
+	 * Vérifie si tous les joueurs sont des IA
+	 * @return vrai si les joueurs sont des IA, faux sinon
+	 */
 	public abstract boolean getAllPlayerRobot();
 }
 

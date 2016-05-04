@@ -1,6 +1,8 @@
 package com.umons.model;
 //pour apres, si on veut developer une autre technique de path finding pour l'IA
 
+import java.io.Serializable;
+
 /**
  * A description of an implementation that can find a path from one 
  * location on a tile map to another based on information provided
@@ -8,7 +10,7 @@ package com.umons.model;
  * 
  * @author Kevin Glass
  */
-public interface IPathFinder {
+public interface IPathFinder extends Serializable{
 
 	/**
 	 * Find a path from the starting location provided (sx,sy) to the target

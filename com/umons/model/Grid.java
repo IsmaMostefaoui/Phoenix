@@ -1,6 +1,7 @@
 package com.umons.model;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Modélise une grille.
@@ -10,8 +11,9 @@ import java.util.ArrayList;
  * @author robin
  *
  */
-public class Grid {
-	//Herite des methodes de Rules
+public class Grid implements Serializable{
+
+	private static final long serialVersionUID = 690341445697163612L;
 
 	private Square[][] board;
 	private static final int LENGTH = 17; //sans les bords

@@ -8,14 +8,22 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.umons.model.AMode;
 import com.umons.model.Game;
+import com.umons.model.Location;
 import com.umons.model.Mode1Vs1;
+import com.umons.model.Player;
 
 
 public class MenuGUI extends JPanel{
@@ -27,6 +35,11 @@ public class MenuGUI extends JPanel{
 	MyButton quitButton;
 	MyButton reloadButton;
 	
+	
+	/**
+	 * Constructeur du Panel MenuGUI. Charge une image.
+	 * @param parentFrame
+	 */
 	public MenuGUI(final QuoridorGUI parentFrame) {
 		System.out.println("dans le constructeur");
 		try {
@@ -52,9 +65,9 @@ public class MenuGUI extends JPanel{
 		
 		startButton = new MyButton("START", new Color(248, 140, 6));
 		startButton.addActionListener(new ActionListener() {
-			
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				Mode1Vs1 mode = new Mode1Vs1(1, AMode.MEDIUM);
+				Mode1Vs1 mode = new Mode1Vs1(AMode.MEDIUM, 1);
 				Game game = new Game(mode);
 				mode.init(parentFrame, game);
 				parentFrame.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
@@ -68,10 +81,9 @@ public class MenuGUI extends JPanel{
 		
 		reloadButton = new MyButton("RELOAD", new Color(248, 100, 5));
 		reloadButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("charge la partie précedemment sauvé");
+				load(parentFrame);
 			}
 		});
 		gb.setConstraints(reloadButton, gbc);
@@ -96,6 +108,47 @@ public class MenuGUI extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(Color.BLACK);
 		g2d.drawImage(image, -450, -75, this);
+	}
+	
+	public void load(QuoridorGUI parentFrame){
+		try{
+			FileInputStream fis = new FileInputStream("./save/save.sv");
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			ObjectInputStream ois = new ObjectInputStream(bis);
+			
+			AMode mode = (AMode)ois.readObject();
+			
+			Player[] players = (Player[])mode.getPlayer();
+			
+			@SuppressWarnings("unchecked")
+			ArrayList<Location> locWallHorizontal = (ArrayList<Location>)ois.readObject();
+			@SuppressWarnings("unchecked")
+			ArrayList<Location> locWallVertical = (ArrayList<Location>)ois.readObject();
+			
+			int tour = ois.readInt();
+			//TODO voir le todo du save dans BoardGUI
+			Game game = new Game(mode);
+			mode.init(parentFrame, game);
+			
+			BoardGUI board = ((BoardGUI) mode.getPane()).reload(players, locWallHorizontal, locWallVertical, tour);
+			
+			parentFrame.setPane(board, QuoridorGUI.BOARDGUI);
+			parentFrame.switchToPanel(QuoridorGUI.BOARDGUI);
+		}catch(IOException ie) {	
+			JLabel warningLabel = new JLabel("Vous n'avez de précedente partie sauvegardé");
+			warningLabel.setForeground(Color.white);
+			MenuGUI.this.add(warningLabel);
+			try {
+				Thread.sleep(500);
+			}catch (Exception e2) {
+				System.err.println("Erreur dans le thread de warning: ");
+				e2.printStackTrace();
+			}
+		}catch(ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

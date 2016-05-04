@@ -1,11 +1,15 @@
 package com.umons.model;
 
+import java.io.Serializable;
+
 /**
  * @author Inspired by Kevin Glass's code[1]
  * [1] http://www.cokeandcode.com/main/tutorials/path-finding/
  */
-public class AStarHeuristic {
+public class AStarHeuristic implements Serializable{
 	
+	private static final long serialVersionUID = -1796292856014720847L;
+
 	/**
 	 * Calcul le poid d'une case selon sa distance par rapport à la cible finale
 	 * @param current current la Location de la case actuelle

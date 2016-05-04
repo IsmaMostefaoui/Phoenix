@@ -1,15 +1,19 @@
 package com.umons.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.umons.view.BoardGUI;
 
-public class Player {
+public class Player implements Serializable{
 
+
+	private static final long serialVersionUID = 1321463430487427409L;
+	
 	protected AMode mode;
 	protected Location loc;
 	protected int numberOfWall;
-	protected final int NB_WALL = 10;
+	protected int defaultNbreWall = 10;
 	protected Grid board;
 	protected final int orderNumber;
 	protected boolean human;
@@ -28,7 +32,7 @@ public class Player {
 	public Player(Grid board, Location loc, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
-		numberOfWall = NB_WALL;
+		numberOfWall = defaultNbreWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
 		this.human = true;
@@ -44,6 +48,7 @@ public class Player {
 	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
+		defaultNbreWall = nbreOfWall;
 		this.numberOfWall = nbreOfWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
@@ -77,7 +82,7 @@ public class Player {
 	 * @param loc la position du début du mur (le premier bloc à gauche [horizontal], le premier bloc en haut[vertical]
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
-	public boolean putWall(Location loc, IPathFinder finder) {
+	public boolean putWall(Location loc, IPathFinder finder){
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
@@ -144,7 +149,14 @@ public class Player {
 			return 0;
 		}
 	}
-	
+
+	public void resetNumberOfWall() {
+		if (defaultNbreWall == 10) {
+			this.numberOfWall = 10;
+		}else {
+			this.numberOfWall = 5;
+		}
+	}
 	
 	/**
 	 * getter
@@ -175,6 +187,7 @@ public class Player {
 	public int getOrder() {
 		return orderNumber;
 	}
+	
 	@Override
 	public boolean equals(Object other) {
 		Player p = (Player)other;
