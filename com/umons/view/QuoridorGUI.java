@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 
 import com.umons.model.AMode;
 import com.umons.model.Game;
+import com.umons.model.Main;
 import com.umons.model.Mode1Vs1;
 import com.umons.model.Mode2Vs2;
 
@@ -30,8 +31,8 @@ public class QuoridorGUI extends JFrame{
 	static final int height = (int) screenDimension.getHeight();
 	static final int width = (int) screenDimension.getWidth();
 	
-	public static final int HEIGHT = (6*height)/7;
-	static final int WIDTH = 2*width/3;
+	public static final int HEIGHT = (8*height)/9;
+	public static final int WIDTH = 2*width/3;
 	
 	public static JPanel content = new JPanel();
 	public static CardLayout cl = new CardLayout();
@@ -51,7 +52,7 @@ public class QuoridorGUI extends JFrame{
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
 		
-		setVisible(true);
+		//setVisible(true);
 	}
 	
 	public void switchToPanel(int panelName) {
@@ -62,8 +63,15 @@ public class QuoridorGUI extends JFrame{
 			printMenuBar = false;
 		}
 		menuBar();
-		this.setContentPane(nextPanes[panelName]);
-		SwingUtilities.updateComponentTreeUI(this);
+		if (panelName == MENUGUI){
+			//TODO horrible mais sinon chargement trop long
+			this.setContentPane(new MenuGUI(this));
+			if (nextPanes[BOARDGUI] != null){
+				((BoardGUI)nextPanes[BOARDGUI]).reset();
+			}
+		}else {
+			this.setContentPane(nextPanes[panelName]);
+		}SwingUtilities.updateComponentTreeUI(this);
 		
 	}
 	
@@ -103,12 +111,12 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame difficultFrame = new JFrame();
-					difficultFrame.setSize(400,  70);
+					difficultFrame.setSize(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9);
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(1, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);
-					difficultFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-					difficultFrame.setResizable(false);
+					difficultFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					difficultFrame.setResizable(true);
 					difficultFrame.setVisible(true);
 				}
 			});
@@ -132,7 +140,7 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame difficultFrame = new JFrame();
-					difficultFrame.setSize(400,  70);
+					difficultFrame.setSize(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9);
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(2, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);

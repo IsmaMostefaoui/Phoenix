@@ -113,22 +113,22 @@ public abstract class ARules {
 		List<Location> squareAvailable = new ArrayList<Location>();
 		Location locPlayer = player.getLoc();
 		//Location de toutes les cases autour du joueur
-		Location locUP = locPlayer.squareUp();
-		Location locUPUP = locUP.squareUp(); //LOC de la case upup (saut)
+		Location locUP = locPlayer.itemUp();
+		Location locUPUP = locUP.itemUp(); //LOC de la case upup (saut)
 
-		Location locDOWN = locPlayer.squareDown() ;
-		Location locDOWNDOWN = locDOWN.squareDown(); //LOC de la case DOWNDOWN (saut)
+		Location locDOWN = locPlayer.itemDown() ;
+		Location locDOWNDOWN = locDOWN.itemDown(); //LOC de la case DOWNDOWN (saut)
 	
-		Location locLEFT = locPlayer.squareLeft();
-		Location locLEFTLEFT = locLEFT.squareLeft(); //LOC de la case LEFTLEFT (saut)
+		Location locLEFT = locPlayer.itemLeft();
+		Location locLEFTLEFT = locLEFT.itemLeft(); //LOC de la case LEFTLEFT (saut)
 	
-		Location locRIGHT = locPlayer.squareRight();
-		Location locRIGHTRIGHT = locRIGHT.squareRight(); //LOC de la case RIGHT (saut)
+		Location locRIGHT = locPlayer.itemRight();
+		Location locRIGHTRIGHT = locRIGHT.itemRight(); //LOC de la case RIGHT (saut)
 
-		Location locDHG = locUP.squareLeft(); //loc de la pos en haut à gauche
-		Location locDHD = locUP.squareRight(); //loc de la pos en haut à droite
-		Location locDBD = locDOWN.squareRight(); //loc de la pos en Bas à droite
-		Location locDBG = locDOWN.squareLeft(); //loc de la pos en BAS  à gauche
+		Location locDHG = locUP.itemLeft(); //loc de la pos en haut à gauche
+		Location locDHD = locUP.itemRight(); //loc de la pos en haut à droite
+		Location locDBD = locDOWN.itemRight(); //loc de la pos en Bas à droite
+		Location locDBG = locDOWN.itemLeft(); //loc de la pos en BAS  à gauche
 		
 		//Diago haut gauche et haut Droite + faceToFace UP
 		if (!rCheckWall(player, locUP)) { //si pas de mur UP
@@ -210,22 +210,22 @@ public abstract class ARules {
 		ArrayList<Location> squareAvailable = new ArrayList<Location>();
 		Location locPlayer = player;
 		//Location de toutes les cases autour du joueur
-		Location locUP = locPlayer.squareUp();
-		Location locUPUP = locUP.squareUp(); //LOC de la case upup (saut)
+		Location locUP = locPlayer.itemUp();
+		Location locUPUP = locUP.itemUp(); //LOC de la case upup (saut)
 
-		Location locDOWN = locPlayer.squareDown() ;
-		Location locDOWNDOWN = locDOWN.squareDown(); //LOC de la case DOWNDOWN (saut)
+		Location locDOWN = locPlayer.itemDown() ;
+		Location locDOWNDOWN = locDOWN.itemDown(); //LOC de la case DOWNDOWN (saut)
 	
-		Location locLEFT = locPlayer.squareLeft();
-		Location locLEFTLEFT = locLEFT.squareLeft(); //LOC de la case LEFTLEFT (saut)
+		Location locLEFT = locPlayer.itemLeft();
+		Location locLEFTLEFT = locLEFT.itemLeft(); //LOC de la case LEFTLEFT (saut)
 	
-		Location locRIGHT = locPlayer.squareRight();
-		Location locRIGHTRIGHT = locRIGHT.squareRight(); //LOC de la case RIGHT (saut)
+		Location locRIGHT = locPlayer.itemRight();
+		Location locRIGHTRIGHT = locRIGHT.itemRight(); //LOC de la case RIGHT (saut)
 		
-		Location locDHG = locUP.squareLeft(); //loc de la pos en haut à gauche
-		Location locDHD = locUP.squareRight(); //loc de la pos en haut à droite
-		Location locDBD = locDOWN.squareRight(); //loc de la pos en Bas à droite
-		Location locDBG = locDOWN.squareLeft(); //loc de la pos en BAS  à gauche
+		Location locDHG = locUP.itemLeft(); //loc de la pos en haut à gauche
+		Location locDHD = locUP.itemRight(); //loc de la pos en haut à droite
+		Location locDBD = locDOWN.itemRight(); //loc de la pos en Bas à droite
+		Location locDBG = locDOWN.itemLeft(); //loc de la pos en BAS  à gauche
 		
 		//Diago haut gauche et haut Droite + faceToFace UP
 		if (!rCheckWall(player, locUP)) { //si pas de mur UP

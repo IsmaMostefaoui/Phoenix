@@ -1,15 +1,19 @@
 package com.umons.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.umons.view.BoardGUI;
 
-public class Player {
+public class Player implements Serializable{
 
+
+	private static final long serialVersionUID = 1321463430487427409L;
+	
 	protected AMode mode;
 	protected Location loc;
 	protected int numberOfWall;
-	protected final int NB_WALL = 10;
+	protected int defaultNbreWall = 10;
 	protected Grid board;
 	protected final int orderNumber;
 	protected boolean human;
@@ -28,7 +32,7 @@ public class Player {
 	public Player(Grid board, Location loc, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
-		numberOfWall = NB_WALL;
+		numberOfWall = defaultNbreWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
 		this.human = true;
@@ -44,6 +48,7 @@ public class Player {
 	public Player(Grid board, Location loc, int nbreOfWall, int orderNumber, AMode mode) {
 		this.loc = loc;
 		this.board = board;
+		defaultNbreWall = nbreOfWall;
 		this.numberOfWall = nbreOfWall;
 		this.orderNumber = orderNumber;
 		this.mode = mode;
@@ -78,10 +83,8 @@ public class Player {
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Location loc, IPathFinder finder){
-		System.out.println("test dans player pour putwall: ");
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
-				System.out.println("Apres l activation du bloc n° " + j + " du mur");
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
 				board.setWall(new Location(j, loc.getLocY()));
 			}
@@ -92,7 +95,7 @@ public class Player {
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
 				board.setWall(new Location(loc.getLocX(), i));
-				System.out.println("Apres l activation du bloc n° " + i + " du mur");
+	
 			}
 			numberOfWall--;
 			return true;
@@ -119,12 +122,10 @@ public class Player {
 			}
 			game.nextPlayer();
 		}else if (temp.isWallHorizontal() && this.putWall(temp, finder)){
-			System.out.println("locwall rempli");
 			BoardGUI.locWallHorizontal.add(temp);
 			game.nextPlayer();
 			//aud.run();
 		}else if (temp.isWallVertical() && this.putWall(temp, finder)){
-			System.out.println("locwall rempli");
 			BoardGUI.locWallVertical.add(temp);
 			game.nextPlayer();
 			//aud.run();
@@ -149,7 +150,14 @@ public class Player {
 			return 0;
 		}
 	}
-	
+
+	public void resetNumberOfWall() {
+		if (defaultNbreWall == 10) {
+			this.numberOfWall = 10;
+		}else {
+			this.numberOfWall = 5;
+		}
+	}
 	
 	/**
 	 * getter
@@ -180,6 +188,7 @@ public class Player {
 	public int getOrder() {
 		return orderNumber;
 	}
+	
 	@Override
 	public boolean equals(Object other) {
 		Player p = (Player)other;

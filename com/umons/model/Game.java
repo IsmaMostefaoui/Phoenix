@@ -1,23 +1,22 @@
 package com.umons.model;
 
-import javax.swing.JFrame;
+import java.util.Random;
+
 import javax.swing.JPanel;
 
-import com.umons.view.MenuGUI;
 import com.umons.view.QuoridorGUI;
 
 public class Game {
 
 	private int numberPlayer;
-	private static int tour = 0;
-	private Grid board;
+	private int tour;
 	private AMode mode;
 	
 	public Game(AMode mode) {
 		this.mode = mode;
-		this.board = mode.board;
 		this.numberPlayer = mode.getNumberOfPlayer();
-		
+		Random r = new Random();
+		tour = r.nextInt(numberPlayer);
 	}
 	
 	/**
@@ -42,6 +41,13 @@ public class Game {
 		tour = 0;
 	}
 	
+	/**
+	 * Setter pour initialiser le nombre de tour
+	 */
+	public void setTour(int t) {
+		this.tour = t;
+	}
+	
 	/*
 	public boolean play(Player player, Location loc) {
 		if (loc.isSquare()) {
@@ -55,14 +61,14 @@ public class Game {
 	
 	/**
 	 * Verifie si le Joueur à gagner la partie (A atteint l'extremité opposé de la grille)
-	 * @param player une instance le Player
+	 * @param string une instance le Player
 	 * @return True si le joueur à gagner,sinon false
 	 */
-	public boolean win(Player player) {
-		if (player.getOrder() == 1 || player.getOrder() == 2){
-			return player.getCoordFinish() == player.getLoc().getLocY();
+	public boolean win(Player string) {
+		if (string.getOrder() == 1 || string.getOrder() == 2){
+			return string.getCoordFinish() == string.getLoc().getLocY();
 		}else {
-			return player.getCoordFinish() == player.getLoc().getLocX();
+			return string.getCoordFinish() == string.getLoc().getLocX();
 		}
 		/*
 		if (player.getOrder() == 1) {
@@ -82,8 +88,8 @@ public class Game {
 	}
 	
 	public void stop(JPanel off) {
+		off.setFocusable(false);
 		off.setEnabled(false);
-		off.setVisible(false);
 	}
 	
 	public AMode getMode() {
