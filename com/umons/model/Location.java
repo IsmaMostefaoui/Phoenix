@@ -1,9 +1,10 @@
 package com.umons.model;
 
-import com.umons.view.BoardGUI;
-import com.umons.view.QuoridorGUI;
+import java.io.Serializable;
 
-public class Location {
+public class Location implements Serializable{
+
+	private static final long serialVersionUID = -414141962435812650L;
 
 	private int x;
 	private int y;
@@ -16,37 +17,37 @@ public class Location {
 	
 	
 	/**
-	 * Permet d'obtenir l'objet Location au dessus de la location actuelle
+	 * Permet d'obtenir l'objet Location situé 2 coordonnées au dessus de la location actuelle
 	 * @return un Objet Location 
 	 */
-	public Location squareUp() {
+	public Location itemUp() {
 		return new Location(x, y-2);
 	}
 	
 	
 	/**
-	 * Permet d'obtenir l'objet Location en dessous de la location actuelle
+	 * Permet d'obtenir l'objet Location situé 2 coordonnées en bas de la location actuelle
 	 * @return un Objet Location 
 	 */
-	public Location squareDown() {
+	public Location itemDown() {
 		return new Location(x, y+2);
 	}
 	
 	
 	/**
-	 * Permet d'obtenir l'objet Location à gauche de la location actuelle
+	 * Permet d'obtenir l'objet Location situé 2 coordonnées à gauche de la location actuelle
 	 * @return un Objet Location 
 	 */
-	public Location squareLeft() {
+	public Location itemLeft() {
 		return new Location (x-2, y);
 	}
 	
 	
 	/**
-	 * Permet d'obtenir l'objet Location a droite de la location actuelle
+	 * Permet d'obtenir l'objet Location situé 2 coordonnées à droite de la location actuelle
 	 * @return un Objet Location 
 	 */
-	public Location squareRight() {
+	public Location itemRight() {
 		return new Location (x+2, y);
 	}
 	

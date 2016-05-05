@@ -1,8 +1,13 @@
 package com.umons.model;
 
-import com.umons.controller.Controller;
+import java.util.Random;
 
 public class Mode2Vs2 extends AMode{
+
+	private static final long serialVersionUID = 2775811177978274876L;
+	
+	int IA;
+	int nbreHumans;
 	
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
@@ -10,6 +15,8 @@ public class Mode2Vs2 extends AMode{
 	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
 	 */
 	public Mode2Vs2(int IA, int nbreHumans) {
+		
+		this.IA = IA;
 		board = new Grid();
 		players = new Player[4];
 		this.nbreHumans = nbreHumans;
@@ -20,26 +27,21 @@ public class Mode2Vs2 extends AMode{
 			players[2] = new Player(board, Player.POS3, 3, this);
 			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
-			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
-			switch(IA){
-			case AMode.EASY:
-				System.out.println("je suis dans le mode easy dans mode 2vs 2");
-				players[1] = new RandomIA(board, Player.POS2, 2, this);
-				players[2] = new RandomIA(board, Player.POS3, 3, this);
-				players[3] = new RandomIA(board, Player.POS4, 4, this);
-				break;
-			case AMode.MEDIUM:
-				players[1] = new MediumIA(board, Player.POS2, 2, this);
-				players[2] = new MediumIA(board, Player.POS3, 3, this);
-				players[3] = new MediumIA(board, Player.POS4, 4, this);
-				break;
-			case AMode.DIFFICULT:
-				players[1] = new RegularIA(board, Player.POS2, 2, this);
-				players[2] = new RegularIA(board, Player.POS3, 3, this);
-				players[3] = new RegularIA(board, Player.POS4, 4, this);
-				break;
-			}
+			players[1] = setPlayerTo(IA);
+			players[2] = setPlayerTo(IA);
+			players[3] = setPlayerTo(IA);
 		}
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
+	}
+	
+	public Mode2Vs2(String modeConsole, int IA1, int IA2, int IA3, int IA4) {
+		board = new Grid();
+		players = new Player[4];
+		players[0] = setPlayerTo(IA1);
+		players[1] = setPlayerTo(IA2);
+		players[2] = setPlayerTo(IA3);
+		players[3] = setPlayerTo(IA4);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
@@ -76,11 +78,31 @@ public class Mode2Vs2 extends AMode{
 				}
 			}
 		}
+
 		return check[0] && check [1] && check[2] && check[3];
 	}
 
 	@Override
 	public boolean getAllPlayerRobot() {
 		return (!players[0].isHumanPlayer() && !players[1].isHumanPlayer() && !players[2].isHumanPlayer() && !players[3].isHumanPlayer());
+	}
+	
+	@Override
+	public void reset() {
+		board = new Grid();
+		players = new Player[4];
+		players[0] = new Player(board, Player.POS1, 1, this);
+		if (nbreHumans == 4){
+			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
+			players[1] = new Player(board, Player.POS2, 2, this);
+			players[2] = new Player(board, Player.POS3, 3, this);
+			players[3] = new Player(board, Player.POS4, 4, this);
+		}else if (nbreHumans == 1){
+			players[1] = setPlayerTo(IA);
+			players[2] = setPlayerTo(IA);
+			players[3] = setPlayerTo(IA);
+		}
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
 	}
 }

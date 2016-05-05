@@ -52,10 +52,7 @@ public class AStarPathFinder implements IPathFinder{
 		nodes[tx][ty].parent = null;
 
 		maxDepth = 0;
-		int x = -1;
 		while (maxDepth < maxSearchDistance && openList.size() > 0) {
-			boolean checkNode = false;
-			x++;
 			
 			Node current = (Node) openList.getFirst();
 			//on regarde si le premier noeud de la liste est bien un noeud on le pion peut se deplacer
