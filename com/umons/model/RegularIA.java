@@ -122,7 +122,7 @@ public class RegularIA extends Player implements IRobot{
 		Player[] players = {this, opponent};
 		ArrayList<Path> path = testFinderMove(players, finder);
 		System.out.println("Jouer " + this.getOrder() + "  pos actuelle = " + this.getLoc());
-		if (path.get(0).getLength() <= path.get(1).getLength()) {
+		if (path.get(0) != null && path.get(1) != null && (path.get(0).getLength() <= path.get(1).getLength())) {
 			this.move(path);	
 		}else {
 			Location nextWall = chooseWall(players, finder);
