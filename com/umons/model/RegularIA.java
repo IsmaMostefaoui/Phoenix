@@ -206,6 +206,7 @@ public class RegularIA extends Player implements IRobot{
 			
 	public void move(ArrayList<Path> path) {
 		Location nextLocation = path.get(0).getStep(1);
+		System.out.println("nextLocation: " + nextLocation);
 		board.setItemInGrid(this.getLoc(), false);
 		board.setItemInGrid(nextLocation, true);
 		this.setLoc(nextLocation);

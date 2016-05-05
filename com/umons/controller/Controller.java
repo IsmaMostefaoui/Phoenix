@@ -116,8 +116,12 @@ public class Controller {
 			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
 			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
 			IRobot IA = (IRobot) players[1];
+			System.out.println("---------------");
+			System.out.println("le robot 2 joue");
 			IA.play(game, finder, players[0]);
+			System.out.println("C'était le tour de " + game.getTour());
 			game.nextPlayer();
+			System.out.println("C'est maintenant le tour de: " + game.getTour());
 			panel.repaint();
 			if (game.win((Player) (IA))) {
 				winScreen("Robot Bleu");
@@ -127,8 +131,12 @@ public class Controller {
 
 		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[2];
+			System.out.println("---------------");
+			System.out.println("le robot 3 joue");
 			IA.play(game, finder, players[3]);
+			System.out.println("C'était le tour de " + game.getTour());
 			game.nextPlayer();
+			System.out.println("C'est maintenant le tour de: " + game.getTour());
 			panel.repaint();
 			if (game.win((Player) (IA))) {
 				winScreen("Robot Violet");
@@ -138,8 +146,12 @@ public class Controller {
 
 		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[3];
+			System.out.println("---------------");
+			System.out.println("le robot 4 joue");
 			IA.play(game, finder, players[2]);
+			System.out.println("C'était le tour de " + game.getTour());
 			game.nextPlayer();
+			System.out.println("C'est maintenant le tour de: " + game.getTour());
 			panel.repaint();
 			if (game.win((Player) (IA))) {
 				winScreen("Robot Vert");
@@ -202,7 +214,7 @@ public class Controller {
 		win.setTitle("!! Félicitations !!");
 		win.setLayout(new FlowLayout());
 		
-		JLabel winner = new JLabel("Bravo " + player + ", vous avez gagné !");
+		JLabel winner = new JLabel("Bravo " + player + ", vous avez gagné la partie !");
 		win.add(winner);
 		
 		JButton playAgain = new JButton("Recommencer");
