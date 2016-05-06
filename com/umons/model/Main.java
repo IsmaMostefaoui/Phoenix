@@ -7,8 +7,5 @@ public class Main {
 		QuoridorGUI frame = new QuoridorGUI("THE QUORIDOR [J VS J]");
 		frame.switchToPanel(QuoridorGUI.MENUGUI);
 		frame.setVisible(true);		
-
-
-
 	}
 }

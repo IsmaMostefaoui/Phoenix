@@ -24,22 +24,7 @@ public class Mode1Vs1 extends AMode {
 		if (nbreHumans == 2){
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
-			//ATTENTION besoin de definir une interface pour ne pas spécifier forcement quelle type d ia utiliser dans le constructeur
-			players[0] = new Player(board, Player.POS1, 1, this);
-
-			switch (IA){
-			case AMode.EASY:
-				players[1] = new RandomIA(board, Player.POS2, 2, this);
-				break;
-			case AMode.MEDIUM:
-				players[1] = new MediumIA(board, Player.POS2, 2, this);
-				break;
-			case AMode.DIFFICULT:
-				players[1] = new RegularIA(board, Player.POS2, 2, this);
-				break;
-			}
-
-
+			players[1] = setPlayerTo(IA, Player.POS2, 2);
 
 		}
 		heuristic = new AStarHeuristic();
@@ -50,8 +35,8 @@ public class Mode1Vs1 extends AMode {
 		
 		board = new Grid();
 		players = new Player[2];
-		players[0] = setPlayerTo(IA1);
-		players[1] = setPlayerTo(IA2);
+		players[0] = setPlayerTo(IA1, Player.POS1, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 2);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
@@ -94,8 +79,10 @@ public class Mode1Vs1 extends AMode {
 		if (nbreHumans == 2){
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA);
+			players[1] = setPlayerTo(IA, Player.POS2, 2);
 		}
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
 	}
 
 }

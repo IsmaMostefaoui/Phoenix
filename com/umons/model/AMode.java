@@ -48,7 +48,8 @@ public abstract class AMode implements Serializable{
 		try {
 			//TODO
 			controller.makeRobotPlay();
-			board.repaint();
+			Thread.sleep(250);
+			controller.updatePanel();
 		}catch(InterruptedException ie) {
 			ie.printStackTrace();
 		}
@@ -79,14 +80,14 @@ public abstract class AMode implements Serializable{
 	 * @param IA le degré de difficulté de l'IA
 	 * @return Une instance de Player correspondant à une IA
 	 */
-	public Player setPlayerTo(int IA) {
+	public Player setPlayerTo(int IA, Location POS, int order) {
 		switch (IA){
 		case AMode.EASY:
-			return new RandomIA(board, Player.POS2, 2, this);
+			return new RandomIA(board, POS, order, this);
 		case AMode.MEDIUM:
-			return new MediumIA(board, Player.POS2, 2, this);
+			return new MediumIA(board, POS, order, this);
 		case AMode.DIFFICULT:
-			return new RegularIA(board, Player.POS2, 2, this);
+			return new RegularIA(board, POS, order, this);
 		}return null;
 	}
 	

@@ -27,9 +27,9 @@ public class Mode2Vs2 extends AMode{
 			players[2] = new Player(board, Player.POS3, 3, this);
 			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA);
-			players[2] = setPlayerTo(IA);
-			players[3] = setPlayerTo(IA);
+			players[1] = setPlayerTo(IA, Player.POS2, 2);
+			players[2] = setPlayerTo(IA, Player.POS3, 3);
+			players[3] = setPlayerTo(IA, Player.POS4, 4);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -38,10 +38,10 @@ public class Mode2Vs2 extends AMode{
 	public Mode2Vs2(String modeConsole, int IA1, int IA2, int IA3, int IA4) {
 		board = new Grid();
 		players = new Player[4];
-		players[0] = setPlayerTo(IA1);
-		players[1] = setPlayerTo(IA2);
-		players[2] = setPlayerTo(IA3);
-		players[3] = setPlayerTo(IA4);
+		players[0] = setPlayerTo(IA1, Player.POS1, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 2);
+		players[2] = setPlayerTo(IA3, Player.POS3, 3);
+		players[3] = setPlayerTo(IA4, Player.POS4, 4);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
@@ -78,7 +78,6 @@ public class Mode2Vs2 extends AMode{
 				}
 			}
 		}
-
 		return check[0] && check [1] && check[2] && check[3];
 	}
 
@@ -98,9 +97,9 @@ public class Mode2Vs2 extends AMode{
 			players[2] = new Player(board, Player.POS3, 3, this);
 			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA);
-			players[2] = setPlayerTo(IA);
-			players[3] = setPlayerTo(IA);
+			players[1] = setPlayerTo(IA, Player.POS2, 2);
+			players[2] = setPlayerTo(IA, Player.POS3, 3);
+			players[3] = setPlayerTo(IA, Player.POS4, 4);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);

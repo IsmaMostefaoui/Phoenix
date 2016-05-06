@@ -23,6 +23,7 @@ public class Game {
 	 * Passe au joueur suivant
 	 */
 	public void nextPlayer() {
+		System.out.println("C'est au tour de: " + tour);
 		tour = ((tour+1)%numberPlayer);
 		
 	}
@@ -38,7 +39,8 @@ public class Game {
 	 * Réinitialise le tour en le mettant à 0 (i.e. pour le premier joueurs)
 	 */
 	public void resetTour() {
-		tour = 0;
+		Random r = new Random();
+		tour = r.nextInt(numberPlayer);
 	}
 	
 	/**
