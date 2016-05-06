@@ -134,7 +134,9 @@ public class RegularIA extends Player implements IRobot{
 				if (nextWall.isWallHorizontal()){
 					System.out.println("yolo");
 					BoardGUI.locWallHorizontal.add(nextWall);
+					System.out.println("BoardGUI = " + BoardGUI.locWallHorizontal);
 				}else {
+					System.out.println("vnsfkbdjk");
 					BoardGUI.locWallVertical.add(nextWall);
 				}
 			}else if (path.get(0) != null && path.get(1) != null) {

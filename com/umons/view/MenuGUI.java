@@ -43,7 +43,7 @@ public class MenuGUI extends JPanel{
 	public MenuGUI(final QuoridorGUI parentFrame) {
 		System.out.println("dans le constructeur");
 		try {
-			image = ImageIO.read(new File("./misc/wallpper.jpg"));
+			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
 		}catch (IOException ie) {
 			System.err.println("Erreur d'image :");
 			ie.printStackTrace();
