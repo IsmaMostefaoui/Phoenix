@@ -17,8 +17,6 @@ public class Mode2Vs2 extends AMode{
 	public Mode2Vs2(int IA, int nbreHumans) {
 		
 		this.IA = IA;
-		this.nbreHumans = nbreHumans;
-		
 		board = new Grid();
 		players = new Player[4];
 		this.nbreHumans = nbreHumans;
@@ -79,8 +77,7 @@ public class Mode2Vs2 extends AMode{
 					}
 				}
 			}
-		}long timeEnd = System.currentTimeMillis();
-		//System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
+		}
 		return check[0] && check [1] && check[2] && check[3];
 	}
 

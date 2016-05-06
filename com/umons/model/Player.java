@@ -83,6 +83,7 @@ public class Player implements Serializable{
 	 * @return un boolean, true si le mur à été placé, sinon false
 	 */
 	public boolean putWall(Location loc, IPathFinder finder){
+
 		if (loc == null){
 			return false;
 		}

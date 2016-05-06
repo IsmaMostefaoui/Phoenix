@@ -25,6 +25,7 @@ public class Mode1Vs1 extends AMode {
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
 			players[1] = setPlayerTo(IA, Player.POS2, 2);
+
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -62,8 +63,6 @@ public class Mode1Vs1 extends AMode {
 				}
 			}
 		}
-		long timeEnd = System.currentTimeMillis();
-		//System.out.println("\n\n\n--------------TIME: " + ((timeEnd - timeStart)) + "----------------");
 		return check[0] && check [1];
 	}
 

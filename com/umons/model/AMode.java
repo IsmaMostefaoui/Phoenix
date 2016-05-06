@@ -45,6 +45,11 @@ public abstract class AMode implements Serializable{
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
 		frame.setPane(board, QuoridorGUI.BOARDGUI);
+	
+	}
+	
+	
+	public void makeRobotPlay() {
 		try {
 			//TODO
 			controller.makeRobotPlay();

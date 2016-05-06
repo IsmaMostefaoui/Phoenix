@@ -1,7 +1,10 @@
 package com.umons.model;
 
+
 import java.util.ArrayList;
 import java.io.Serializable;
+
+
 
 /**
  * Modélise une grille.

@@ -1,0 +1,579 @@
+Mode 2 joueurs lancé !
+test null: com.umons.model.MediumIA@175cb80(8, 5) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(8, 5) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 4----------------
+test null: com.umons.model.MediumIA@175cb80(8, 3) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(8, 3) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(4, 3) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(4, 3) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(7, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(7, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(12, 5) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(12, 5) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(6, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(6, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(11, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(11, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(10, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(14, 3) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 3) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(9, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(9, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 1) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(15, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 4----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 4----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 0) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(15, 4) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 4----------------
+test null: com.umons.model.MediumIA@175cb80(14, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(14, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 3----------------
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 8----------------
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 6) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 4----------------
+test null: com.umons.model.MediumIA@175cb80(13, 8) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 8) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 2----------------
+test null: com.umons.model.MediumIA@175cb80(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(13, 2) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+test null: com.umons.model.MediumIA@175cb80(12, 11) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(12, 11) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+test null: com.umons.model.MediumIA@175cb80(10, 13) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 13) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@175cb80(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(10, 7) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+test null: com.umons.model.MediumIA@175cb80(6, 13) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(6, 13) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 0----------------
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+test null: com.umons.model.MediumIA@175cb80(5, 12) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(5, 12) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 0----------------
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+test null: com.umons.model.MediumIA@175cb80(4, 9) finder: com.umons.model.AStarPathFinder@5c83413f
+test null: com.umons.model.MediumIA@3b7a863f(4, 9) finder: com.umons.model.AStarPathFinder@5c83413f
+
+
+
+--------------TIME: 1----------------
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+Mode 2 joueurs lancé !
+
+ !!!!!!!!!! 2 !!!!!!!!
+
+0.0
+NaN
+10.0
+Infinity
+0.0
+NaN
+0.0
+NaN
+Sur un nombre d'essai de 10 le pourcentage de victoire de chaque IA est: 
+IA Standard: NaN
+IA Standard: Infinity

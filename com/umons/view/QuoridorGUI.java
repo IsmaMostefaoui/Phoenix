@@ -175,6 +175,7 @@ public class QuoridorGUI extends JFrame{
 		Game game = new Game(mode);
 		mode.init(this, game);
 		((BoardGUI) mode.getPane()).reset();
+		mode.makeRobotPlay();
 		QuoridorGUI.this.setTitle("THE QUORIDOR " + text);
 		QuoridorGUI.this.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
 		QuoridorGUI.this.switchToPanel(QuoridorGUI.BOARDGUI);

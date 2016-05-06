@@ -125,17 +125,21 @@ public class RegularIA extends Player implements IRobot{
 	public void play(Game game, IPathFinder finder, Player opponent){
 		Player[] players = {this, opponent};
 		ArrayList<Path> path = testFinderMove(players, finder);
-		if (path.get(0).getLength() <= path.get(1).getLength()) {
+		System.out.println("Jouer " + this.getOrder() + "  pos actuelle = " + this.getLoc());
+		if (path.get(0) != null && path.get(1) != null && (path.get(0).getLength() <= path.get(1).getLength())) {
 			this.move(path);	
 		}else {
 			Location nextWall = chooseWall(players, finder);
 			if (super.putWall(nextWall, finder)) {
 				if (nextWall.isWallHorizontal()){
+					System.out.println("yolo");
 					BoardGUI.locWallHorizontal.add(nextWall);
+					System.out.println("BoardGUI = " + BoardGUI.locWallHorizontal);
 				}else {
+					System.out.println("vnsfkbdjk");
 					BoardGUI.locWallVertical.add(nextWall);
 				}
-			}else {
+			}else if (path.get(0) != null && path.get(1) != null) {
 				move(path);
 			}
 			
@@ -206,7 +210,6 @@ public class RegularIA extends Player implements IRobot{
 			
 	public void move(ArrayList<Path> path) {
 		Location nextLocation = path.get(0).getStep(1);
-		System.out.println("nextLocation: " + nextLocation);
 		board.setItemInGrid(this.getLoc(), false);
 		board.setItemInGrid(nextLocation, true);
 		this.setLoc(nextLocation);
