@@ -167,6 +167,7 @@ public class Controller {
 		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[0];
 			IA.play(game, finder, players[1]);
+			System.out.println("Joueur " + game.getTour() + " joue");
 			game.nextPlayer();
 			if (game.win((Player) (IA))) {
 				return 1;
@@ -178,6 +179,7 @@ public class Controller {
 			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
 			IRobot IA = (IRobot) players[1];
 			IA.play(game, finder, players[0]);
+			System.out.println("Joueur " + game.getTour() + " joue");
 			game.nextPlayer();
 			if (game.win((Player) (IA))) {
 				return 2;
@@ -187,6 +189,8 @@ public class Controller {
 		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[2];
 			IA.play(game, finder, players[3]);
+			System.out.println("Joueur " + game.getTour() + " joue");
+			game.nextPlayer();
 			if (game.win((Player) (IA))) {
 				return 3;
 			}
@@ -195,6 +199,7 @@ public class Controller {
 		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
 			IRobot IA = (IRobot) players[3];
 			IA.play(game, finder, players[2]);
+			System.out.println("Joueur " + game.getTour() + " joue");
 			game.nextPlayer();
 			if (game.win((Player) (IA))) {
 				return 4;

@@ -111,7 +111,7 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame difficultFrame = new JFrame();
-					difficultFrame.setSize(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9);
+					difficultFrame.setSize(new Dimension(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9));
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(1, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);
@@ -140,7 +140,7 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JFrame difficultFrame = new JFrame();
-					difficultFrame.setPreferredSize(new Dimension(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9));
+					difficultFrame.setSize(new Dimension(QuoridorGUI.WIDTH/4, QuoridorGUI.HEIGHT/9));
 					ChoiceDifficultyGUI choice = new ChoiceDifficultyGUI(2, difficultFrame, QuoridorGUI.this);
 					difficultFrame.add(choice);
 					difficultFrame.setLocationRelativeTo(null);

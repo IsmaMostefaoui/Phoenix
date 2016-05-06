@@ -34,6 +34,7 @@ public class MenuGUI extends JPanel{
 	MyButton startButton;
 	MyButton quitButton;
 	MyButton reloadButton;
+	MyButton rulesButton;
 	
 	
 	/**
@@ -43,7 +44,7 @@ public class MenuGUI extends JPanel{
 	public MenuGUI(final QuoridorGUI parentFrame) {
 		System.out.println("dans le constructeur");
 		try {
-			image = ImageIO.read(new File("./misc/wallpper.jpg"));
+			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
 		}catch (IOException ie) {
 			System.err.println("Erreur d'image :");
 			ie.printStackTrace();
@@ -90,7 +91,19 @@ public class MenuGUI extends JPanel{
 		this.add(reloadButton);
 		
 		gbc.gridy = 2;
-		quitButton = new MyButton("QUIT", new Color(248, 60, 4));
+		
+		rulesButton = new MyButton("RULES", new Color(248, 60, 5));
+		rulesButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parentFrame.switchToPanel(QuoridorGUI.RULESGUI);
+			}
+		});
+		gb.setConstraints(rulesButton, gbc);
+		this.add(rulesButton);
+		
+		gbc.gridy = 3;
+		quitButton = new MyButton("QUIT", new Color(248, 20, 4));
 		quitButton.addActionListener(new ActionListener() {
 			
 			@Override

@@ -31,8 +31,8 @@ public class MainStat {
 			System.out.println("Sur un nombre d'essai de " + gameNumber + " le pourcentage de victoire de chaque IA est: " );
 			System.out.println("IA 1 " + args[1] + ": " + tabOfWin[0] + " %");
 			System.out.println("IA 2 " + args[2] + ": " + tabOfWin[1] + " %");
-			System.out.println("IA 3 " + args[1] + ": " + tabOfWin[0] + " %");
-			System.out.println("IA 4 " + args[2] + ": " + tabOfWin[1] + " %");
+			System.out.println("IA 3 " + args[3] + ": " + tabOfWin[2] + " %");
+			System.out.println("IA 4 " + args[4] + ": " + tabOfWin[3] + " %");
 		}
 	}
 	
