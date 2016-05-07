@@ -11,7 +11,7 @@ Une fois qu'une tâche a été effectué, faire un commit avec le numéro de la 
 [OBLIGATOIRE] Revoir l'encapsulation de toutes nos classes !!
 [OBLIGATOIRE] Faire les test unités !
 ##[OBLIGATOIRE] Implémenter un Path Finding
-[OBLIGATOIRE] Implémenter une RandomIA et une RegularIA
+##[OBLIGATOIRE] Implémenter une RandomIA et une RegularIA
 ##[OBLIGATOIRE] Ajouter la possibilité de sauvegarder une partie et de la reprendre
 [FACULTATIF] Ajouter la possibilité de revenir en arrière (Ctrl + Z)
 ##[OBLIGATOIRE] Ajouter un menu (Nouvelle Partie[->2 Joueurs[->1 vs IA//1 vs Joueur]//4 Joueurs(Joueur seulement)]//Charger Partie(si implémenté)//Quitter)
