@@ -1,13 +1,15 @@
 package com.umons.model;
 
-import java.util.Random;
-
 public class Mode2Vs2 extends AMode{
 
 	private static final long serialVersionUID = 2775811177978274876L;
 	
 	int IA;
 	int nbreHumans;
+	int IA1;
+	int IA2;
+	int IA3;
+	int IA4;
 	
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
@@ -37,6 +39,10 @@ public class Mode2Vs2 extends AMode{
 	
 	public Mode2Vs2(String modeConsole, int IA1, int IA2, int IA3, int IA4) {
 		board = new Grid();
+		this.IA1 = IA1;
+		this.IA2 = IA2;
+		this.IA3 = IA3;
+		this.IA4 = IA4;
 		players = new Player[4];
 		players[0] = setPlayerTo(IA1, Player.POS1, 1);
 		players[1] = setPlayerTo(IA2, Player.POS2, 2);
@@ -90,17 +96,30 @@ public class Mode2Vs2 extends AMode{
 	public void reset() {
 		board = new Grid();
 		players = new Player[4];
-		players[0] = new Player(board, Player.POS1, 1, this);
 		if (nbreHumans == 4){
+			players[0] = new Player(board, Player.POS1, 1, this);
 			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
 			players[1] = new Player(board, Player.POS2, 2, this);
 			players[2] = new Player(board, Player.POS3, 3, this);
 			players[3] = new Player(board, Player.POS4, 4, this);
 		}else if (nbreHumans == 1){
+			players[0] = new Player(board, Player.POS1, 1, this);
 			players[1] = setPlayerTo(IA, Player.POS2, 2);
 			players[2] = setPlayerTo(IA, Player.POS3, 3);
 			players[3] = setPlayerTo(IA, Player.POS4, 4);
 		}
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
+	}
+	
+	@Override
+	public void resetConsole(){
+		board = new Grid();
+		players = new Player[4];
+		players[0] = setPlayerTo(IA1, Player.POS1, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 2);
+		players[2] = setPlayerTo(IA3, Player.POS3, 3);
+		players[3] = setPlayerTo(IA4, Player.POS4, 4);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}

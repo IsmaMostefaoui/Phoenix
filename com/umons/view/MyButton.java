@@ -67,8 +67,8 @@ public class MyButton extends JButton{
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				MyButton.this.color = color.brighter();
-				MyButton.this.setBorder(BorderFactory.createLineBorder(color.brighter().brighter(), 2));
+				MyButton.this.color = MyButton.this.color.brighter();
+				MyButton.this.setBorder(BorderFactory.createLineBorder(MyButton.this.color.brighter().brighter(), 2));
 			}
 			
 			@Override

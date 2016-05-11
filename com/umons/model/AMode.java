@@ -138,6 +138,11 @@ public abstract class AMode implements Serializable{
 	public abstract void reset();
 	
 	/**
+	 * Reinitialise le mode de jeu selon le constructeur console
+	 */
+	public abstract void resetConsole();
+	
+	/**
 	 * Vérifie si tous les joueurs sont des IA
 	 * @return vrai si les joueurs sont des IA, faux sinon
 	 */

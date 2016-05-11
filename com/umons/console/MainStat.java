@@ -52,6 +52,8 @@ public class MainStat {
 		float[] percentOfWin = {0, 0, 0, 0};
 		int defautGameNumber = gameNumber;
 		while (gameNumber > 0){
+			System.out.println("New game ! ");
+			mode.resetConsole();
 			Game game = new Game(mode);
 			int playerWin = mode.play(game);
 			switch(playerWin){

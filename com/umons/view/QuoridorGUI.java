@@ -10,12 +10,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
 import com.umons.model.AMode;
 import com.umons.model.Game;
-import com.umons.model.Main;
 import com.umons.model.Mode1Vs1;
 import com.umons.model.Mode2Vs2;
 

@@ -5,6 +5,8 @@ public class Mode1Vs1 extends AMode {
 	private static final long serialVersionUID = -7116175129659919662L;
 	
 	int IA;
+	int IA1;
+	int IA2;
 	int nbreHumans;
 	
 	/**
@@ -32,8 +34,9 @@ public class Mode1Vs1 extends AMode {
 	}
 	
 	public Mode1Vs1(String modeConsole, int IA1, int IA2) {
-		
 		board = new Grid();
+		this.IA1 = IA1;
+		this.IA2 = IA2;
 		players = new Player[2];
 		players[0] = setPlayerTo(IA1, Player.POS1, 1);
 		players[1] = setPlayerTo(IA2, Player.POS2, 2);
@@ -81,6 +84,16 @@ public class Mode1Vs1 extends AMode {
 		}else if (nbreHumans == 1){
 			players[1] = setPlayerTo(IA, Player.POS2, 2);
 		}
+		heuristic = new AStarHeuristic();
+		finder = new AStarPathFinder(board, 500, heuristic);
+	}
+	
+	@Override
+	public void resetConsole(){
+		board = new Grid();
+		players = new Player[2];
+		players[0] = setPlayerTo(IA1, Player.POS1, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 2);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}

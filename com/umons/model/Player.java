@@ -68,6 +68,7 @@ public class Player implements Serializable{
 			if (list.get(i).equals(loc)) {
 				board.setItemInGrid(this.getLoc(), false);
 				this.loc = loc;
+				System.out.println("Jouer " + this.getOrder() + "  pos actuelle = " + this.getLoc());
 				board.setItemInGrid(loc, true);
 				return true;
 			}
@@ -89,6 +90,7 @@ public class Player implements Serializable{
 		}
 		
 		if (numberOfWall > 0 && loc.isWallHorizontal() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
+			System.out.println("Joueur " + this.getOrder() + " pose un mur à " + loc);
 			for (int j = loc.getLocX(); j < loc.getLocX() + 3; j++) {
 				board.setItemInGrid(new Location(j, loc.getLocY()), true);
 				board.setWall(new Location(j, loc.getLocY()));
@@ -97,6 +99,7 @@ public class Player implements Serializable{
 			return true;
 			
 		}else if (numberOfWall > 0 && loc.isWallVertical() && ARules.rPutWall(loc) && ARules.rSlotFull(loc) && mode.testFinder(this, loc, finder)) {
+			System.out.println("Joueur " + this.getOrder() + " pose un mur à " + loc);
 			for (int i = loc.getLocY(); i < loc.getLocY() + 3; i++) {
 				board.setItemInGrid(new Location(loc.getLocX(), i), true);
 				board.setWall(new Location(loc.getLocX(), i));
