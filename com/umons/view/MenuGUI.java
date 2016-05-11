@@ -1,6 +1,7 @@
 package com.umons.view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -99,7 +100,12 @@ public class MenuGUI extends JPanel{
 		rulesButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parentFrame.switchToPanel(QuoridorGUI.RULESGUI);
+				Desktop d = Desktop.getDesktop();
+				try {
+					d.open(new File("./misc/regle_du_jeu.pdf"));
+				} catch (IOException ie) {
+					ie.printStackTrace();
+				}
 			}
 		});
 		gb.setConstraints(rulesButton, gbc);
