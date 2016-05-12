@@ -1,8 +1,13 @@
-package com.umons.model;
+package com.umons.model.pathFinding;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.umons.model.ARules;
+import com.umons.model.board.Grid;
+import com.umons.model.board.Item;
+import com.umons.model.board.Location;
 
 public class AStarPathFinder implements IPathFinder{
 
@@ -64,28 +69,6 @@ public class AStarPathFinder implements IPathFinder{
 			//on regarde si le premier noeud de la liste est bien un noeud on le pion peut se deplacer
 			//a cause des calculs parfois un noeud plus haut est autorise (calculs a modifier)
 			//si on est pas a notre premiere iteration (auquel cas listSquareAvailable est vide)
-			/*if (x!=0) {
-				System.out.println("in: " + x);
-				//on parcours toute l open list a la recherche d un noeud valide
-				for (int i = 0; i < openList.size(); i++){
-					if (!listSquareAvailable.contains(new Location(current.x, current.y))) {
-						System.out.println(current);
-						openList.remove(current);
-						if (i < (openList.size()-1)){
-							current = (Node) openList.get(i+1);
-						}
-					}else {
-						checkNode = true;
-						break;
-					}
-				}
-			}
-			//si on en a pas trouve, alors c est qu il y a pas de chemin
-			if (!checkNode && x!=0) {
-				setWallTo(coordWall, true);
-				return null;
-			}*/
-						
 			if (current == nodes[tx][ty]) {
 				break;
 			}

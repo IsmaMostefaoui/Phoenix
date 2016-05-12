@@ -1,8 +1,14 @@
-package com.umons.model;
+package com.umons.model.playerAbstraction;
 
 import java.io.Serializable;
 import java.util.List;
 
+import com.umons.model.AMode;
+import com.umons.model.ARules;
+import com.umons.model.Game;
+import com.umons.model.board.Grid;
+import com.umons.model.board.Location;
+import com.umons.model.pathFinding.IPathFinder;
 import com.umons.view.BoardGUI;
 
 public class Player implements Serializable{

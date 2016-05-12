@@ -2,6 +2,9 @@ package com.umons.model;
 
 import java.util.Random;
 
+import com.umons.controller.Controller;
+import com.umons.model.playerAbstraction.Player;
+
 public class Game {
 
 	private int numberPlayer;
@@ -17,16 +20,17 @@ public class Game {
 		this.numberPlayer = mode.getNumberOfPlayer();
 		Random r = new Random();
 		tour = r.nextInt(numberPlayer);
+		System.out.println("controller " + mode.getController());
 	}
 	
 	/**
 	 * Passe au joueur suivant
 	 */
 	public void nextPlayer() {
-		System.out.println("C'est au tour de: " + tour);
 		tour = ((tour+1)%numberPlayer);
 		
 	}
+	
 	/**
 	 * etourne le tour actuel de la game
 	 * @return un int tour

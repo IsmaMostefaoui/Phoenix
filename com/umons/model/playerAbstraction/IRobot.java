@@ -1,4 +1,8 @@
-package com.umons.model;
+package com.umons.model.playerAbstraction;
+
+import com.umons.model.Game;
+import com.umons.model.board.Location;
+import com.umons.model.pathFinding.IPathFinder;
 
 public interface IRobot {
 	

@@ -1,5 +1,9 @@
 package com.umons.model;
 import java.util.*;
+
+import com.umons.model.board.Grid;
+import com.umons.model.board.Location;
+import com.umons.model.playerAbstraction.Player;
 /**
  * Modélise l'ensemble des règles communes à tous les modes de jeux
  * @author isma

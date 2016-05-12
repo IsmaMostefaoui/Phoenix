@@ -174,8 +174,16 @@ public class QuoridorGUI extends JFrame{
 			JMenu option = new JMenu("Options");
 			menuBar.add(option);
 			
-			JMenuItem undo = new JMenuItem("Undo (Ctrl+Z)");
-			option.add(undo);
+			JMenuItem pass = new JMenuItem("Passez son tour");
+			option.add(pass);
+			pass.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Game game = ((BoardGUI) QuoridorGUI.this.nextPanes[BOARDGUI]).getGame();
+					game.nextPlayer();
+					QuoridorGUI.this.repaint();
+				}
+			});
 
 		}else {
 			getContentPane().remove(menuBar);

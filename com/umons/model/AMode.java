@@ -7,6 +7,14 @@ import javax.swing.JPanel;
 
 import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
+import com.umons.model.board.Grid;
+import com.umons.model.board.Location;
+import com.umons.model.pathFinding.AStarHeuristic;
+import com.umons.model.pathFinding.IPathFinder;
+import com.umons.model.playerAbstraction.MediumIA;
+import com.umons.model.playerAbstraction.Player;
+import com.umons.model.playerAbstraction.RandomIA;
+import com.umons.model.playerAbstraction.RegularIA;
 import com.umons.view.BoardGUI;
 import com.umons.view.QuoridorGUI;
 
@@ -85,6 +93,10 @@ public abstract class AMode implements Serializable{
 		case AMode.DIFFICULT:
 			return new RegularIA(board, POS, nbreWall, order, this);
 		}return null;
+	}
+	
+	public Controller getController(){
+		return controller;
 	}
 	
 	/**

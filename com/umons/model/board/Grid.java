@@ -1,4 +1,4 @@
-package com.umons.model;
+package com.umons.model.board;
 
 
 import java.util.ArrayList;

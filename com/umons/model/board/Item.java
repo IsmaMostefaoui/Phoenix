@@ -1,6 +1,8 @@
-package com.umons.model;
+package com.umons.model.board;
 
 import java.io.Serializable;
+
+import com.umons.model.ARules;
 
 public class Item implements Serializable{
 

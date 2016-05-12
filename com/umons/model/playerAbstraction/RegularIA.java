@@ -1,10 +1,20 @@
-package com.umons.model;
+package com.umons.model.playerAbstraction;
 
 import java.util.ArrayList;
+
+import com.umons.model.AMode;
+import com.umons.model.ARules;
+import com.umons.model.Game;
+import com.umons.model.board.Grid;
+import com.umons.model.board.Location;
+import com.umons.model.pathFinding.IPathFinder;
+import com.umons.model.pathFinding.Path;
 import com.umons.view.BoardGUI;
 
 public class RegularIA extends Player implements IRobot{
-	
+
+	private static final long serialVersionUID = 5053087481566937460L;
+
 	public RegularIA(Grid grid, Location loc, int NbreOfWall ,int OrderNumber, AMode mode) {
 		super(grid, loc, NbreOfWall, OrderNumber, mode);
 		this.human = false;
@@ -123,6 +133,7 @@ public class RegularIA extends Player implements IRobot{
 	}
 	
 	public void play(Game game, IPathFinder finder, Player opponent){
+		System.out.println("j'utilise une ia compliqué pour moi qui suit: " + this.getOrder());
 		Player[] players = {this, opponent};
 		ArrayList<Path> path = testFinderMove(players, finder);
 		if (path.get(0) != null && path.get(1) != null && (path.get(0).getLength() <= path.get(1).getLength())) {

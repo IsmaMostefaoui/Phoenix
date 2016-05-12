@@ -1,6 +1,8 @@
-package com.umons.model;
+package com.umons.model.pathFinding;
 
 import java.io.Serializable;
+
+import com.umons.model.board.Location;
 
 /**
  * @author Inspired by Kevin Glass's code[1]

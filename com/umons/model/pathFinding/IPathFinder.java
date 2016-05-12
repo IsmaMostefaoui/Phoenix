@@ -1,6 +1,8 @@
-package com.umons.model;
+package com.umons.model.pathFinding;
 
 import java.io.Serializable;
+
+import com.umons.model.board.Location;
 
 /**
  * La description d'une implménetation qui peut trouver un chemnin sunr un grille à partir de deux position

@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.umons.model.*;
+import com.umons.model.board.Location;
+import com.umons.model.pathFinding.IPathFinder;
+import com.umons.model.playerAbstraction.IRobot;
+import com.umons.model.playerAbstraction.Player;
 import com.umons.view.BoardGUI;
 import com.umons.view.QuoridorGUI;
 
@@ -224,6 +228,7 @@ public class Controller {
 		final JDialog win = new JDialog(parentFrame, true);
 		win.setTitle("!! Félicitations !!");
 		win.setLayout(new FlowLayout());
+		win.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		
 		JLabel winner = new JLabel("Bravo " + player + ", vous avez gagné la partie !");
 		win.add(winner);

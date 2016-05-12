@@ -1,6 +1,8 @@
-package com.umons.model;
+package com.umons.model.pathFinding;
 
 import java.util.ArrayList;
+
+import com.umons.model.board.Location;
 
 /**
  * A path determined by some path finding algorithm. A series of steps from

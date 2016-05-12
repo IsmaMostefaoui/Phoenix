@@ -25,9 +25,9 @@ import javax.swing.JPanel;
 
 import com.umons.model.AMode;
 import com.umons.model.Game;
-import com.umons.model.Location;
 import com.umons.model.Mode1Vs1;
-import com.umons.model.Player;
+import com.umons.model.board.Location;
+import com.umons.model.playerAbstraction.Player;
 
 
 public class MenuGUI extends JPanel{
@@ -160,7 +160,6 @@ public class MenuGUI extends JPanel{
 			ArrayList<Location> locWallVertical = (ArrayList<Location>)ois.readObject();
 			
 			int tour = ois.readInt();
-			//TODO voir le todo du save dans BoardGUI
 			Game game = new Game(mode);
 			mode.init(parentFrame, game);
 			
@@ -169,11 +168,11 @@ public class MenuGUI extends JPanel{
 			parentFrame.setPane(board, QuoridorGUI.BOARDGUI);
 			parentFrame.switchToPanel(QuoridorGUI.BOARDGUI);
 		}catch(IOException ie) {	
-			JLabel warningLabel = new JLabel("Vous n'avez de précedente partie sauvegardé");
+			JLabel warningLabel = new JLabel("Vous n'avez pas de précedente partie sauvegardé");
 			warningLabel.setForeground(Color.white);
 			MenuGUI.this.add(warningLabel);
 			try {
-				Thread.sleep(500);
+				Thread.sleep(100);
 			}catch (Exception e2) {
 				System.err.println("Erreur dans le thread de warning: ");
 				e2.printStackTrace();

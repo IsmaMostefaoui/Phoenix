@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
 import com.umons.model.*;
+import com.umons.model.board.Location;
+import com.umons.model.playerAbstraction.Player;
 
 /**
  * Surcharge de JPanel. Classe représentant le plateau du Quoridor (dessin)
@@ -47,9 +49,9 @@ public class BoardGUI extends JPanel{
 	public static int SQUARE_NUMBER = 9;
 	
 	public static final int lSquare = QuoridorGUI.width/28;
-	public static final Color[] colorPawn = {new Color(243, 156, 18), new Color(100, 50, 250), new Color(220, 50, 250),new Color(46, 204, 113)};
-	public static final Color colorPreviewWall = new Color(52, 73, 94, 120);
-	public static final Color colorWall = new Color(52, 73, 94);
+	public final Color[] colorPawn = {new Color(243, 156, 18), new Color(100, 50, 250), new Color(220, 50, 250),new Color(46, 204, 113)};
+	public final Color colorPreviewWall = new Color(52, 73, 94, 120);
+	public final Color colorWall = new Color(52, 73, 94);
 	
 	public static final int lSpaceEdge = 5;
 	
@@ -148,15 +150,13 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(Color.WHITE);
 		g2d.drawOval(locPix.getLocX(), locPix.getLocY(), lPawn-1, lPawn-1);
 		if (numberOfWall < 10 && player3 == null) {
-			g2d.setColor(Color.BLACK);
-			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
+			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 18));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2d.drawString(Integer.toString(numberOfWall), locPix.getLocX() + 2*lPawn/5, locPix.getLocY() + 3*lPawn/5);
+			g2d.drawString(Integer.toString(numberOfWall), locPix.getLocX() + 2*lPawn/5-2, locPix.getLocY() + 3*lPawn/5+2);
 		}else if (numberOfWall < 5 && player3!= null){
-			g2d.setColor(Color.BLACK);
-			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
+			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 18));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2d.drawString(Integer.toString(numberOfWall), locPix.getLocX() + 2*lPawn/5, locPix.getLocY() + 3*lPawn/5);
+			g2d.drawString(Integer.toString(numberOfWall), locPix.getLocX() + 2*lPawn/5-2, locPix.getLocY() + 3*lPawn/5+2);
 		}
 	}
 	
@@ -200,8 +200,22 @@ public class BoardGUI extends JPanel{
 		int HEIGHT = 0;
 		for (int i =0; i < SQUARE_NUMBER; i++) {
 			for (int j = 0; j < SQUARE_NUMBER; j++) {
-				g2d.setColor(new Color(100, 100, 100));
-				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
+				if (player1.getCoordFinish() == 2*i){
+					g2d.setColor(this.colorPawn[0]);
+					g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
+				}else if (player2.getCoordFinish() == 2*i){
+					g2d.setColor(this.colorPawn[1]);
+					g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
+				}else if (player3 != null && player3.getCoordFinish() == 2*j){
+					g2d.setColor(this.colorPawn[2]);
+					g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
+				}else if (player4 != null && player4.getCoordFinish() == 2*j){
+					g2d.setColor(this.colorPawn[3]);
+					g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
+				}else{
+					g2d.setColor(new Color(100, 100, 100));
+					g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare, lSquare);
+				}
 				g2d.setColor(Color.WHITE);
 				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare-lSpaceEdge, lSquare-lSpaceEdge);
 				SPACE += lSquare + lWall;
@@ -346,6 +360,10 @@ public class BoardGUI extends JPanel{
 		return this;
 	}
 	
+	public Game getGame() {
+		return game;
+	}
+	
 	/**
 	 * Classe représentant le panel de droite lors de l'affichage de la board.
 	 * Sert à accueillir le bouton save, back.
@@ -358,7 +376,6 @@ public class BoardGUI extends JPanel{
 		
 		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
 		MyButton saveButton = new MyButton("SAVE", new Color(127, 140, 141));
-		MyButton passButton = new MyButton("PASS", new Color(127, 140, 141));
 		
 		/**
 		 * Initalise le panel d'Info. Place deux boutons save et back.
@@ -396,17 +413,6 @@ public class BoardGUI extends JPanel{
 				}
 			});
 			this.add(saveButton, BorderLayout.NORTH);
-			
-			passButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					BoardGUI.this.game.nextPlayer();
-					BoardGUI.this.repaint();
-					
-				}
-			});
-			this.add(passButton, BorderLayout.CENTER);
 			
 			labelPlayerTour = new JLabel();
 			this.add(labelPlayerTour, BorderLayout.WEST);

@@ -1,5 +1,12 @@
 package com.umons.model;
 
+import com.umons.model.board.Grid;
+import com.umons.model.board.Location;
+import com.umons.model.pathFinding.AStarHeuristic;
+import com.umons.model.pathFinding.AStarPathFinder;
+import com.umons.model.pathFinding.IPathFinder;
+import com.umons.model.playerAbstraction.Player;
+
 public class Mode1Vs1 extends AMode {
 	
 	private static final long serialVersionUID = -7116175129659919662L;
