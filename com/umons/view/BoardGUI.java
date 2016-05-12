@@ -4,25 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -51,7 +44,6 @@ public class BoardGUI extends JPanel{
 	
 	InfoGUI infoPanel;
 	
-	//constante representant la taille des carre, des murs et des pions
 	public static int SQUARE_NUMBER = 9;
 	
 	public static final int lSquare = QuoridorGUI.width/28;
@@ -63,7 +55,6 @@ public class BoardGUI extends JPanel{
 	
 	public static final int lWall = QuoridorGUI.width/60;
 	public static final int lPawn = lSquare - lSpaceEdge;
-	//constante representant les x et y a partir d'ou on commence a dessiner le carre
 	public static final int START_X = 5*lWall/6;
 	public static final int START_Y = 2*lWall/3;
 	
@@ -72,7 +63,6 @@ public class BoardGUI extends JPanel{
 	
 	public final int lSpaceWall = 2*lWall/5;
 	
-	//position des joueurs et des murs horizontaux et verticaux en temps reel
 	public static Location locPawn1 = Player.POS1;
 	public static Location locPawn2 = Player.POS2;
 	public static Location locPawn3 = Player.POS3;
@@ -101,21 +91,6 @@ public class BoardGUI extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.add(infoPanel, BorderLayout.EAST);
 		infoPanel.setPreferredSize(new Dimension(lInfo,QuoridorGUI.HEIGHT));
-		
-		/*try {
-            //create the font to use. Specify the size!
-			InputStream myStream = new BufferedInputStream(new FileInputStream("D:\\Mes documents\\worksplace\\Phoenix\\src\\com\\umons\\misc\\FunSized.ttf"));
-            customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch(FontFormatException e)
-        {
-            e.printStackTrace();
-        }
-        */
 	}
 	
 	/**
@@ -156,17 +131,6 @@ public class BoardGUI extends JPanel{
 	
 		drawWallHorizontal(g2d, colorWall);
 		drawWallVertical(g2d, colorWall);
-		
-		/*
-		 * if (game.win(player1)){
-			winScreen("Joueur Jaune");
-		}else if (game.win(player2)) {
-			winScreen("Joueur Bleu");
-		}else if (player3 != null && game.win(player3)){
-			winScreen("Joueur Violet");
-		}else if (player4 != null && game.win(player4)) {
-			winScreen("Joueur Vert");
-		}*/
 	}
 	
 	/**
@@ -183,7 +147,12 @@ public class BoardGUI extends JPanel{
 		g2d.fillOval(locPix.getLocX(), locPix.getLocY(), lPawn-2, lPawn-2);
 		g2d.setColor(Color.WHITE);
 		g2d.drawOval(locPix.getLocX(), locPix.getLocY(), lPawn-1, lPawn-1);
-		if (numberOfWall != 10) {
+		if (numberOfWall < 10 && player3 == null) {
+			g2d.setColor(Color.BLACK);
+			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.drawString(Integer.toString(numberOfWall), locPix.getLocX() + 2*lPawn/5, locPix.getLocY() + 3*lPawn/5);
+		}else if (numberOfWall < 5 && player3!= null){
 			g2d.setColor(Color.BLACK);
 			g2d.setFont(new Font("Comic Sans Ms", Font.BOLD, 15));
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -310,7 +279,7 @@ public class BoardGUI extends JPanel{
 	}
 	
 	/**
-	 * Temporaire, dessine le "tour" courant en haut a droite
+	 * Affiche le tour sur la case correspondant au joueur dont c'est le tour
 	 * @param g2d l outil pour dessiner
 	 */
 	public void drawTour(Graphics2D g2d) {
@@ -379,9 +348,7 @@ public class BoardGUI extends JPanel{
 	
 	/**
 	 * Classe représentant le panel de droite lors de l'affichage de la board.
-	 * Sert à accueillir le bouton save, back et le label d'affichage des infos de jeu (//TODO)
-	 * @author isma
-	 *
+	 * Sert à accueillir le bouton save, back.
 	 */
 	private class InfoGUI extends JPanel{
 
@@ -391,7 +358,7 @@ public class BoardGUI extends JPanel{
 		
 		MyButton backButton = new MyButton("BACK", new Color(127, 140, 141));
 		MyButton saveButton = new MyButton("SAVE", new Color(127, 140, 141));
-		//MyButton passButton = new MyButton("PASS", new Color(127, 140, 141));
+		MyButton passButton = new MyButton("PASS", new Color(127, 140, 141));
 		
 		/**
 		 * Initalise le panel d'Info. Place deux boutons save et back.
@@ -430,17 +397,16 @@ public class BoardGUI extends JPanel{
 			});
 			this.add(saveButton, BorderLayout.NORTH);
 			
-			//TODO
-			/*
 			passButton.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					//TODO
-					System.out.println("Passe le tour");
+					BoardGUI.this.game.nextPlayer();
+					BoardGUI.this.repaint();
+					
 				}
 			});
-			this.add(passButton, BorderLayout.NORTH);*/
+			this.add(passButton, BorderLayout.CENTER);
 			
 			labelPlayerTour = new JLabel();
 			this.add(labelPlayerTour, BorderLayout.WEST);
@@ -457,7 +423,6 @@ public class BoardGUI extends JPanel{
 				oos.writeObject(game.getMode());
 				oos.writeObject(locWallHorizontal);
 				oos.writeObject(locWallVertical);
-				//TODO save le mode AMode pour générer un mode dans le reload qui correspond au mode précedent
 				oos.writeInt(game.getTour());
 				System.out.println("Sauvegarde réussi !");
 				oos.close();

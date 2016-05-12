@@ -48,7 +48,11 @@ public class MenuGUI extends JPanel{
 	public MenuGUI(final QuoridorGUI parentFrame) {
 		System.out.println("dans le constructeur");
 		try {
+			float timeFirst = System.currentTimeMillis();
 			image = ImageIO.read(new File("./misc/wallpaper.jpg"));
+			float timeEnd = System.currentTimeMillis();
+			System.out.println("----------TIME: " + (timeEnd - timeFirst) + "--------------");
+			System.out.println("Image Chargé");
 		}catch (IOException ie) {
 			System.err.println("Erreur d'image :");
 			ie.printStackTrace();
@@ -77,6 +81,7 @@ public class MenuGUI extends JPanel{
 				mode.init(parentFrame, game);
 				parentFrame.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
 				parentFrame.switchToPanel(QuoridorGUI.BOARDGUI);
+				mode.makeRobotPlay();
 			}
 		});
 		gb.setConstraints(startButton, gbc);
@@ -125,6 +130,9 @@ public class MenuGUI extends JPanel{
 		this.add(quitButton);
 	}
 	
+	/**
+	 * Dessin l'image de fond pour le menu
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
@@ -132,6 +140,10 @@ public class MenuGUI extends JPanel{
 		g2d.drawImage(image, -450, -75, this);
 	}
 	
+	/**
+	 * Charge une partie à partir d'une ancienne sauvegarde
+	 * @param parentFrame
+	 */
 	public void load(QuoridorGUI parentFrame){
 		try{
 			FileInputStream fis = new FileInputStream("./save/save.sv");

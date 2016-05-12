@@ -45,37 +45,28 @@ public abstract class AMode implements Serializable{
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
 		frame.setPane(board, QuoridorGUI.BOARDGUI);
-	
 	}
 	
-	
+	/**
+	 * Fait jouer les robots
+	 * @see Controller#makeRobotPlay()
+	 */
 	public void makeRobotPlay() {
-		try {
-			//TODO
-			controller.makeRobotPlay();
-			Thread.sleep(250);
-			controller.updatePanel();
-		}catch(InterruptedException ie) {
-			ie.printStackTrace();
-		}
+		controller.makeRobotPlay();
+		controller.updatePanel();
 	}
 	
 	/**
 	 * Initalise une game pour le mode console
 	 * @param game un objet game ou sont definis certaines fonctions pratique concernant le deroulement d une partie
 	 * @return le numéro du joueur qui a gagné (1, 2, 3 ou 4)
+	 * @see Controller#makeRobotPlayTerminal()
 	 */
 	public int play(Game game) {
 		ARules.setBoard(board);
 		controller = new Controller(this, game, finder);
 		if (this.getAllPlayerRobot()) {
-			//try {
-				return controller.makeRobotPlayTerminal();
-			/*
-			 }catch (InterruptedException ie) {
-				System.err.println("Erreur de thread dans Mode: ");
-				ie.printStackTrace();
-			}*/
+			return controller.makeRobotPlayTerminal();
 		}
 		return -1;
 	}
@@ -85,14 +76,14 @@ public abstract class AMode implements Serializable{
 	 * @param IA le degré de difficulté de l'IA
 	 * @return Une instance de Player correspondant à une IA
 	 */
-	public Player setPlayerTo(int IA, Location POS, int order) {
+	public Player setPlayerTo(int IA, Location POS, int nbreWall, int order) {
 		switch (IA){
 		case AMode.EASY:
-			return new RandomIA(board, POS, order, this);
+			return new RandomIA(board, POS, nbreWall, order, this);
 		case AMode.MEDIUM:
-			return new MediumIA(board, POS, order, this);
+			return new MediumIA(board, POS, nbreWall, order, this);
 		case AMode.DIFFICULT:
-			return new RegularIA(board, POS, order, this);
+			return new RegularIA(board, POS, nbreWall, order, this);
 		}return null;
 	}
 	
@@ -110,8 +101,8 @@ public abstract class AMode implements Serializable{
 	/**
 	 * Test si il y a un chemin pour le joueur player apres qu'il ait mis un mur de coordonées coordWall selon l'algorithme de recherche "finder"
 	 * @param player l instance du joueur qui pose le mur
-	 * @param finder
-	 * @param loc la position du mur qui risque de bloquer un joueur
+	 * @param coordWall la position du mur qui risque de bloquer un joueur
+	 * @param finder une instance de l'algorithme de recherche de chemin utilisé
 	 * @return vrai si il y a un chemin, faux sinon
 	 */
 	public abstract boolean testFinder(Player player, Location coordWall, IPathFinder finder);

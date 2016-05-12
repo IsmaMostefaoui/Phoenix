@@ -17,6 +17,7 @@ import com.umons.model.Mode2Vs2;
 
 public class ChoiceDifficultyGUI extends JPanel{
 
+	private static final long serialVersionUID = 203063644112661637L;
 	int mode;
 	int difficult;
 	
@@ -31,6 +32,12 @@ public class ChoiceDifficultyGUI extends JPanel{
 	final JFrame parentFrame;
 	final QuoridorGUI quoridorFrame;
 	
+	/**
+	 * Constrcuteur de la fenêtre qui demande la difficulté de l'IA.
+	 * @param mode mode de jeu AMode
+	 * @param parentFrame la fenetre associé à ce panel
+	 * @param quoridorFrame la fentre sur laquelle parentFrame est associé
+	 */
 	public ChoiceDifficultyGUI(int mode, final JFrame parentFrame, final QuoridorGUI quoridorFrame) {
 		
 		this.parentFrame = parentFrame;
@@ -87,6 +94,10 @@ public class ChoiceDifficultyGUI extends JPanel{
 		});
 	}
 	
+	/**
+	 * Initialise le mode choisi selon la difficulté choisie.
+	 * @param difficult
+	 */
 	public void initIA(int difficult){
 		AMode mode;
 		System.out.println("mode: " + ChoiceDifficultyGUI.this.mode);

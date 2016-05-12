@@ -12,7 +12,8 @@ public class Mode1Vs1 extends AMode {
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
 	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
-	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
+	 * @param IA un int correspondant à une difficulté
+	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie) [1, 2]
 	 */
 	public Mode1Vs1(int IA, int nbreHumans) {
 		
@@ -26,20 +27,27 @@ public class Mode1Vs1 extends AMode {
 		if (nbreHumans == 2){
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA, Player.POS2, 2);
+			players[1] = setPlayerTo(IA, Player.POS2, 10, 2);
 
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
 	
+	/**
+	 * Initlise tous les joueurs comme étant des IA et n'initialise pas de panel.
+	 * @see Mode1Vs1#Mode1Vs1(int, int)
+	 * @param modeConsole string pour faire la différence entre les deux constructeur
+	 * @param IA1
+	 * @param IA2
+	 */
 	public Mode1Vs1(String modeConsole, int IA1, int IA2) {
 		board = new Grid();
 		this.IA1 = IA1;
 		this.IA2 = IA2;
 		players = new Player[2];
-		players[0] = setPlayerTo(IA1, Player.POS1, 1);
-		players[1] = setPlayerTo(IA2, Player.POS2, 2);
+		players[0] = setPlayerTo(IA1, Player.POS1, 10, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 10, 2);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
@@ -82,7 +90,7 @@ public class Mode1Vs1 extends AMode {
 		if (nbreHumans == 2){
 			players[1] = new Player(board, Player.POS2, 2, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA, Player.POS2, 2);
+			players[1] = setPlayerTo(IA, Player.POS2, 10, 2);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -92,8 +100,8 @@ public class Mode1Vs1 extends AMode {
 	public void resetConsole(){
 		board = new Grid();
 		players = new Player[2];
-		players[0] = setPlayerTo(IA1, Player.POS1, 1);
-		players[1] = setPlayerTo(IA2, Player.POS2, 2);
+		players[0] = setPlayerTo(IA1, Player.POS1, 10, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 10, 2);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}

@@ -37,11 +37,13 @@ public class QuoridorGUI extends JFrame{
 	
 	public static int BOARDGUI = 0;
 	public static int MENUGUI = 1;
-	public static int RULESGUI = 2;
-	public static int VICTORYGUI = 3;
 	
 	private JPanel[] nextPanes = new JPanel[5];
 	
+	/**
+	 * Constructeur de la fenê	tre principale. Initialise certaines caractéristique.
+	 * @param title le titre de la fenêtre.
+	 */
 	public QuoridorGUI(String title) {
 		super();
 		setTitle(title);
@@ -49,10 +51,13 @@ public class QuoridorGUI extends JFrame{
 		setResizable(false);
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
-		
-		//setVisible(true);
 	}
 	
+	/**
+	 * Permet de changer de contentPane. Switch parmis différent panel situé dans un tableau.
+	 * @see QuoridorGUI#setPane(JPanel, int)
+	 * @param panelName une constante représentant le nom du panel sur lequel switché: [BOARDGUI, MENUGUI]
+	 */
 	public void switchToPanel(int panelName) {
 		getContentPane().removeAll();
 		if (panelName == BOARDGUI) { 
@@ -62,7 +67,6 @@ public class QuoridorGUI extends JFrame{
 		}
 		menuBar();
 		if (panelName == MENUGUI){
-			//TODO horrible mais sinon chargement trop long
 			this.setContentPane(new MenuGUI(this));
 			if (nextPanes[BOARDGUI] != null){
 				((BoardGUI)nextPanes[BOARDGUI]).reset();
@@ -70,13 +74,22 @@ public class QuoridorGUI extends JFrame{
 		}else {
 			this.setContentPane(nextPanes[panelName]);
 		}SwingUtilities.updateComponentTreeUI(this);
+		this.getContentPane().repaint();
 		
 	}
 	
+	/**
+	 * Ajoute ou remplace un panel dans le tableau des panels
+	 * @param panelToAdd une instance de JPanel correspondant au panel à ajouter
+	 * @param index l'index sous forme de constante [BOARDGUI, MENUGUI]
+	 */
 	public void setPane(JPanel panelToAdd, int index) {
 		nextPanes[index] = panelToAdd;
 	}
 	
+	/**
+	 * Permet d'ajouter ou de retirer un JMenuBar de la fenêtre selon la variable printMenuBar
+	 */
 	public void menuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		if (printMenuBar) {
@@ -169,6 +182,12 @@ public class QuoridorGUI extends JFrame{
 		}
 	}
 	
+	/**
+	 * Initialise une partie graphique. Prépare la board en lui ajoutant tout le necessaire et switch de panel
+	 * @param text le texte de la fenetre
+	 * @param mode le mode courant
+	 * @see QuoridorGUI#switchToPanel(int)
+	 */
 	public void initGame(String text, AMode mode){
 		Game game = new Game(mode);
 		mode.init(this, game);

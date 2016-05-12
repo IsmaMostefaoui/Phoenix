@@ -7,7 +7,7 @@ import java.util.Collections;
 public class AStarPathFinder implements IPathFinder{
 
 	private static final long serialVersionUID = 4985738610919398909L;
-	//BUUUUGGGG
+
 	ArrayList<Location>listSquareAvailable;
 	private Node[][] nodes;
 	private Grid board;
@@ -17,6 +17,12 @@ public class AStarPathFinder implements IPathFinder{
 	ArrayList<Node> closeList = new ArrayList<Node>();
 	SortedList openList = new SortedList();
 	
+	/**
+	 * Constructeur du finder. Initialise une board, un nombre max d'essai de chemin et une heuristique.
+	 * @param board
+	 * @param maxSearchDistance
+	 * @param heuristic
+	 */
 	public AStarPathFinder(Grid board, int maxSearchDistance, AStarHeuristic heuristic) {
 		nodes = new Node[Grid.getLen()][Grid.getLen()];
 		for (int i = 0; i < Grid.getLen(); i++) {
@@ -36,7 +42,7 @@ public class AStarPathFinder implements IPathFinder{
 		
 		setWallTo(coordWall, true);
 		//on verifie que la case d arrive n est pas bloque, auquel cas, c est mort pour cette case
-		Square targetSquare = new Square(tx, ty);
+		Item targetSquare = new Item(tx, ty);
 		if (targetSquare.isBlocked()) {
 			setWallTo(coordWall, false);
 			return null;
@@ -145,74 +151,71 @@ public class AStarPathFinder implements IPathFinder{
 		return path;
 	}
 		
-	
-	
-	
-		
-		public Path findPath(int sx, int sy, int tx, int ty) {
+	/**
+	 * Surcharge de findPath. Cette méthode ne prend pas de coordonénes de mur en parametre. Elle ne simule donc pas la pose d'un mur
+	 * @see AStarPathFinder#findPath(Location, int, int, int, int)
+	 */
+	public Path findPath(int sx, int sy, int tx, int ty) {
 
-			Square targetSquare = new Square(tx, ty);
-			if (targetSquare.isBlocked()) {
-				return null;
+		Item targetSquare = new Item(tx, ty);
+		if (targetSquare.isBlocked()) {
+			return null;
+		}
+		openList.clear();
+		closeList.clear();
+		nodes[sx][sy].cost = 0;
+		nodes[sx][sy].depth = 0;
+		openList.add(nodes[sx][sy]);
+		nodes[tx][ty].parent = null;
+		maxDepth = 0;
+		while (maxDepth < maxSearchDistance && openList.size() > 0) {
+			Node current = (Node) openList.getFirst();			
+			if (current == nodes[tx][ty]) {
+				break;
 			}
-			openList.clear();
-			closeList.clear();
-			nodes[sx][sy].cost = 0;
-			nodes[sx][sy].depth = 0;
-			openList.add(nodes[sx][sy]);
-			nodes[tx][ty].parent = null;
-			maxDepth = 0;
-			int x = -1;
-			while (maxDepth < maxSearchDistance && openList.size() > 0) {
-				boolean checkNode = false;
-				x++;
-				Node current = (Node) openList.getFirst();			
-				if (current == nodes[tx][ty]) {
-					break;
-				}
-				openList.remove(current);
-				closeList.add(current);
-				listSquareAvailable = ARules.rSquareAvailable(new Location(current.getX(), current.getY()));
-				for (int i = 0; i < listSquareAvailable.size(); i++) {
-					if (closeList.contains(new Node(listSquareAvailable.get(i)))) {
-						listSquareAvailable.remove(i);
-					}
-				}
-				for (int i = 0; i < listSquareAvailable.size(); i++) {
-					float nextStepCost = current.cost + board.getMovementCost(new Location(current.getX(), current.getY()), listSquareAvailable.get(i));
-					Node neighbour = nodes [listSquareAvailable.get(i).getLocX()][listSquareAvailable.get(i).getLocY()];
-					if (nextStepCost < neighbour.cost) {
-						if (openList.contains(neighbour)){
-							openList.remove(neighbour);
-						}
-						if (closeList.contains(neighbour)) {
-							closeList.remove(neighbour);
-						}
-					}
-					if (!openList.contains(neighbour) && !closeList.contains(neighbour)) {
-						neighbour.cost = nextStepCost;
-						neighbour.heuristic = heuristic.getCost(new Location(neighbour.getX(), neighbour.getY()), new Location(tx, ty));
-						maxDepth = Math.max(maxDepth,  neighbour.setParent(current));
-						openList.add(neighbour);
-					}
+			openList.remove(current);
+			closeList.add(current);
+			listSquareAvailable = ARules.rSquareAvailable(new Location(current.getX(), current.getY()));
+			for (int i = 0; i < listSquareAvailable.size(); i++) {
+				if (closeList.contains(new Node(listSquareAvailable.get(i)))) {
+					listSquareAvailable.remove(i);
 				}
 			}
-			
-			
-			if (nodes[tx][ty].parent == null) {
-				return null;
+			for (int i = 0; i < listSquareAvailable.size(); i++) {
+				float nextStepCost = current.cost + board.getMovementCost(new Location(current.getX(), current.getY()), listSquareAvailable.get(i));
+				Node neighbour = nodes [listSquareAvailable.get(i).getLocX()][listSquareAvailable.get(i).getLocY()];
+				if (nextStepCost < neighbour.cost) {
+					if (openList.contains(neighbour)){
+						openList.remove(neighbour);
+					}
+					if (closeList.contains(neighbour)) {
+						closeList.remove(neighbour);
+					}
+				}
+				if (!openList.contains(neighbour) && !closeList.contains(neighbour)) {
+					neighbour.cost = nextStepCost;
+					neighbour.heuristic = heuristic.getCost(new Location(neighbour.getX(), neighbour.getY()), new Location(tx, ty));
+					maxDepth = Math.max(maxDepth,  neighbour.setParent(current));
+					openList.add(neighbour);
+				}
 			}
-			
-			Path path = new Path();
-			Node target = nodes[tx][ty];
-			while (target != nodes[sx][sy]) {
-				path.prependStep(target.getX(), target.getY());
-				target = target.parent;
-			}
-			path.prependStep(sx, sy);
-			return path;
-			
-		}	
+		}
+		
+		
+		if (nodes[tx][ty].parent == null) {
+			return null;
+		}
+		
+		Path path = new Path();
+		Node target = nodes[tx][ty];
+		while (target != nodes[sx][sy]) {
+			path.prependStep(target.getX(), target.getY());
+			target = target.parent;
+		}
+		path.prependStep(sx, sy);
+		return path;
+		
+	}	
 	
 	/**
 	 * Rempli un objet plusieurs objets wall dans la board
@@ -251,16 +254,12 @@ public class AStarPathFinder implements IPathFinder{
 			return list.get(0);
 		}
 		
-		public Object get(int i) {
-			return list.get(i);
-		}
-		
 		public void clear() {
 			list.clear();
 		}
 		
 		/**
-		 * Ajout un objet puis trie la liste.
+		 * Ajout un objet dans la liste puis la trie.
 		 * @param obj
 		 */
 		public void add(Object obj) {
@@ -268,14 +267,28 @@ public class AStarPathFinder implements IPathFinder{
 			Collections.sort(list);
 		}
 		
+		/**
+		 * Précondition: le node est un objet Node
+		 * Enlève un noeud de la liste
+		 * @param node
+		 */
 		public void remove(Node node) {
 			list.remove(node);
 		}
 		
+		/**
+		 * Retourne la taille de la sortedList
+		 * @return la taille de la liste
+		 */
 		public int size() {
 			return list.size();
 		}
 		
+		/**
+		 * Vérifie si la liste contient l'objet obj
+		 * @param obj objet de type Objetc à vérifier
+		 * @return vrai si la liste contient l'objet, faux sinon
+		 */
 		public boolean contains(Object obj) {
 			return list.contains(obj);
 		}
@@ -330,7 +343,7 @@ public class AStarPathFinder implements IPathFinder{
 		}
 		
 		/**
-		 * Utiliser dans la comparaison de noeud
+		 * Compare deux noeud
 		 * @see Comparable#compareTo(Object)
 		 */
 		public int compareTo(Object other) {
@@ -348,6 +361,10 @@ public class AStarPathFinder implements IPathFinder{
 			}
 		}
 		
+		/**
+		 * Vérifier les coordonées de chaque noeud
+		 * @see Object#equals(Object)
+		 */
 		public boolean equals(Object obj) {
 			Node no = (Node)obj;
 			return (x == no.getX() && y == no.getY());
@@ -367,6 +384,9 @@ public class AStarPathFinder implements IPathFinder{
 			return y;
 		}
 		
+		/**
+		 * Affiche un noeud dans la console (debug)
+		 */
 		public String toString() {
 			String s = "*" + cost + "/" + heuristic + "*" + "(" + x + ", " + y + ")";
 			return s;

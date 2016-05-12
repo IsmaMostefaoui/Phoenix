@@ -35,6 +35,7 @@ public class Location implements Serializable{
 	
 	
 	/**
+	 * Précondition: l'objet item est dans la grille
 	 * Permet d'obtenir l'objet Location situé 2 coordonnées à gauche de la location actuelle
 	 * @return un Objet Location 
 	 */
@@ -44,52 +45,13 @@ public class Location implements Serializable{
 	
 	
 	/**
+	 * Précondition: l'objet item est dans la grille
 	 * Permet d'obtenir l'objet Location situé 2 coordonnées à droite de la location actuelle
 	 * @return un Objet Location 
 	 */
 	public Location itemRight() {
 		return new Location (x+2, y);
 	}
-	
-	
-	//POUR TEST CONSOLE
-	/**
-	 * Modifie les entrées consoles en coordonées de type Location
-	 * @param direction String représentant la direction du pion
-	 * @return Location représentant les coordonnées de l'endroit ou le player (le pion) va se déplacer
-	 */
-	public Location stringToCoord(String direction) {
-		// tableau de la forme {x, y}
-		switch (direction) {
-		case "z":
-			return new Location(getLocX(), getLocY()-2);
-		case "s":
-			return new Location(getLocX(), getLocY()+2);
-		case "d":
-			return new Location(getLocX()+2, getLocY());
-		case "q":
-			return new Location(getLocX()-2, getLocY());
-		case "zz":
-			return new Location(getLocX(), getLocY()-4);
-		case "ss":
-			return new Location(getLocX(), getLocY()+4);
-		case "dd":
-			return new Location(getLocX()+4, getLocY());
-		case "qq":
-			return new Location(getLocX()-4, getLocY());
-		case "dbd":
-			return new Location(getLocX()+2, getLocY()+2);
-		case "dbg":
-			return new Location(getLocX()-2, getLocY()+2);
-		case "dhg":
-			return new Location(getLocX()-2, getLocY()-2);
-		case "dhd":
-			return new Location(getLocX()+2, getLocY()-2);
-		default:
-			return null;
-		}
-	}
-	
 	
 	/**
 	 * Verifie si l'objet Location est une case
@@ -101,6 +63,7 @@ public class Location implements Serializable{
 	
 	
 	/**
+	 * Précondition: l'objet Item simule un mur
 	 * Verifie si un Mur est horizontal
 	 * @return true si il est horizontal,sinon false
 	 */
@@ -110,6 +73,7 @@ public class Location implements Serializable{
 	
 	
 	/**
+	 * Précondition: l'objet Item simule un mur
 	 * Verifie si un Mur est vertical
 	 * @return true si il est vertical,sinon false
 	 */
@@ -123,7 +87,7 @@ public class Location implements Serializable{
 	 * @return true si le déplacement est autorisé,sinon false
 	 */
 	public boolean inGrid(Grid board) {
-		return ((getLocX() >= 0) && (getLocX() < board.getLen()) && (getLocY() >= 0 && getLocY() < board.getLen()));
+		return ((getLocX() >= 0) && (getLocX() < Grid.getLen()) && (getLocY() >= 0 && getLocY() < Grid.getLen()));
 	}
 
 	
@@ -192,6 +156,7 @@ public class Location implements Serializable{
 	}
 	
 	/**
+	 * Précondition: l'objet item est une case
 	 * @return ls coordonnees Location du mur du dessus
 	 */
 	public Location wallRight() {

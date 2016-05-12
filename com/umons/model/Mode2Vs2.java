@@ -14,6 +14,7 @@ public class Mode2Vs2 extends AMode{
 	/**
 	 * Constructeur du Mode1Vs1. Initialise la grille, l'heuristique pour le pathfinding (et donc init. le pathfinding aussi).
 	 * Initialise aussi un tableau de joueur correspondant au joueurs (humains ou non) pour le mode.
+	 * @param IA un int correspondant à une difficulté
 	 * @param nbreHumans le nombre de joueur humain dans la partie (le reste sera mis en IA automatiquement selon l'IA choisie)
 	 */
 	public Mode2Vs2(int IA, int nbreHumans) {
@@ -22,21 +23,29 @@ public class Mode2Vs2 extends AMode{
 		board = new Grid();
 		players = new Player[4];
 		this.nbreHumans = nbreHumans;
-		players[0] = new Player(board, Player.POS1, 1, this);
+		players[0] = new Player(board, Player.POS1, 5, 1, this);
 		if (nbreHumans == 4){
-			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
-			players[1] = new Player(board, Player.POS2, 2, this);
-			players[2] = new Player(board, Player.POS3, 3, this);
-			players[3] = new Player(board, Player.POS4, 4, this);
+			players[1] = new Player(board, Player.POS2, 5, 2, this);
+			players[2] = new Player(board, Player.POS3, 5, 3, this);
+			players[3] = new Player(board, Player.POS4, 5, 4, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA, Player.POS2, 2);
-			players[2] = setPlayerTo(IA, Player.POS3, 3);
-			players[3] = setPlayerTo(IA, Player.POS4, 4);
+			players[1] = setPlayerTo(IA2, Player.POS2, 5, 2);
+			players[2] = setPlayerTo(IA3, Player.POS3, 5, 3);
+			players[3] = setPlayerTo(IA4, Player.POS4, 5, 4);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
 	
+	/**
+	 * Initlise tous les joueurs comme étant des IA et n'initialise pas de panel.
+	 * @see Mode1Vs1#Mode1Vs1(int, int)
+	 * @param modeConsole string pour faire la différence entre les deux constructeur
+	 * @param IA1 un int correspondant à une difficulté de la première IA
+	 * @param IA2 un int correspondant à une difficulté de la seconde IA
+	 * @param IA3 un int correspondant à une difficulté de la troisème IA
+	 * @param IA4 un int correspondant à une difficulté de la dernière IA
+	 */
 	public Mode2Vs2(String modeConsole, int IA1, int IA2, int IA3, int IA4) {
 		board = new Grid();
 		this.IA1 = IA1;
@@ -44,10 +53,10 @@ public class Mode2Vs2 extends AMode{
 		this.IA3 = IA3;
 		this.IA4 = IA4;
 		players = new Player[4];
-		players[0] = setPlayerTo(IA1, Player.POS1, 1);
-		players[1] = setPlayerTo(IA2, Player.POS2, 2);
-		players[2] = setPlayerTo(IA3, Player.POS3, 3);
-		players[3] = setPlayerTo(IA4, Player.POS4, 4);
+		players[0] = setPlayerTo(IA1, Player.POS1, 5, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 5, 2);
+		players[2] = setPlayerTo(IA3, Player.POS3, 5, 3);
+		players[3] = setPlayerTo(IA4, Player.POS4, 5, 4);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}
@@ -97,16 +106,16 @@ public class Mode2Vs2 extends AMode{
 		board = new Grid();
 		players = new Player[4];
 		if (nbreHumans == 4){
-			players[0] = new Player(board, Player.POS1, 1, this);
+			players[0] = new Player(board, Player.POS1, 5, 1, this);
 			//la aussi je suppose que l ia sera toujours numero 2 or c est pas vrai voir commentaire dans mouseclicked dans mml
-			players[1] = new Player(board, Player.POS2, 2, this);
-			players[2] = new Player(board, Player.POS3, 3, this);
-			players[3] = new Player(board, Player.POS4, 4, this);
+			players[1] = new Player(board, Player.POS2, 5, 2, this);
+			players[2] = new Player(board, Player.POS3, 5, 3, this);
+			players[3] = new Player(board, Player.POS4, 5, 4, this);
 		}else if (nbreHumans == 1){
 			players[0] = new Player(board, Player.POS1, 1, this);
-			players[1] = setPlayerTo(IA, Player.POS2, 2);
-			players[2] = setPlayerTo(IA, Player.POS3, 3);
-			players[3] = setPlayerTo(IA, Player.POS4, 4);
+			players[1] = setPlayerTo(IA, Player.POS2, 5, 2);
+			players[2] = setPlayerTo(IA, Player.POS3, 5, 3);
+			players[3] = setPlayerTo(IA, Player.POS4, 5, 4);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
@@ -116,10 +125,10 @@ public class Mode2Vs2 extends AMode{
 	public void resetConsole(){
 		board = new Grid();
 		players = new Player[4];
-		players[0] = setPlayerTo(IA1, Player.POS1, 1);
-		players[1] = setPlayerTo(IA2, Player.POS2, 2);
-		players[2] = setPlayerTo(IA3, Player.POS3, 3);
-		players[3] = setPlayerTo(IA4, Player.POS4, 4);
+		players[0] = setPlayerTo(IA1, Player.POS1, 5, 1);
+		players[1] = setPlayerTo(IA2, Player.POS2, 5, 2);
+		players[2] = setPlayerTo(IA3, Player.POS3, 5, 3);
+		players[3] = setPlayerTo(IA4, Player.POS4, 5, 4);
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);
 	}

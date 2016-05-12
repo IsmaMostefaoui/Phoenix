@@ -7,6 +7,7 @@ import com.umons.model.Mode2Vs2;
 
 public class MainStat {
 
+	
 	public static void main(String[] args) {
 		int gameNumber = Integer.parseInt(args[0]);
 		if (args.length <= 2){
@@ -17,7 +18,7 @@ public class MainStat {
 			int IA1 = convertToIA(args[1]);
 			int IA2 = convertToIA(args[2]);
 			AMode mode = new Mode1Vs1("console", IA1, IA2);
-			float[] tabOfWin = playConsole("2", mode, gameNumber);
+			float[] tabOfWin = playConsole(mode, gameNumber);
 			System.out.println("Sur un nombre d'essai de " + gameNumber + " le pourcentage de victoire de chaque IA est: " );
 			System.out.println("IA 1 " + args[1] + ": " + tabOfWin[0] + " %");
 			System.out.println("IA 2 " + args[2] + ": " + tabOfWin[1] + " %");
@@ -27,7 +28,7 @@ public class MainStat {
 			int IA3 = convertToIA(args[3]);
 			int IA4 = convertToIA(args[4]);
 			AMode mode = new Mode2Vs2("console", IA1, IA2, IA3, IA4);
-			float[] tabOfWin = playConsole("4", mode, gameNumber);
+			float[] tabOfWin = playConsole(mode, gameNumber);
 			System.out.println("Sur un nombre d'essai de " + gameNumber + " le pourcentage de victoire de chaque IA est: " );
 			System.out.println("IA 1 " + args[1] + ": " + tabOfWin[0] + " %");
 			System.out.println("IA 2 " + args[2] + ": " + tabOfWin[1] + " %");
@@ -36,6 +37,11 @@ public class MainStat {
 		}
 	}
 	
+	/**
+	 * Retourne un mode selon le string IA
+	 * @param IA un string décrivant la difficulté de l'IA (Facile, Standard, Difficile)
+	 * @return une constance de AMode représentant la difficulté choisie
+	 */
 	public static int convertToIA(String IA){
 		switch(IA) {
 		case "Facile":
@@ -48,8 +54,14 @@ public class MainStat {
 		return -1;
 	}
 	
-	public static float[] playConsole(String text, AMode mode, int gameNumber) {
-		float[] percentOfWin = {0, 0, 0, 0};
+	/**
+	 * Fait jouer autant de fois de partie que voulu.
+	 * @param mode le mode de jeu 
+	 * @param gameNumber le nombre de partie à jouer
+	 * @return le pourcentage de réussite de chaque IA ou -1 si l'IA n'a pas joué
+	 */
+	public static float[] playConsole(AMode mode, int gameNumber) {
+		float[] percentOfWin = {-1, -1, -1, -1};
 		int defautGameNumber = gameNumber;
 		while (gameNumber > 0){
 			System.out.println("New game ! ");

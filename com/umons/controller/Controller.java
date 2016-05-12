@@ -15,10 +15,6 @@ import com.umons.view.QuoridorGUI;
 
 public class Controller {
 	
-	
-	//temp
-	int i = 0;
-	
 	private AMode mode;
 	private IPathFinder finder;
 	private Game game;
@@ -42,9 +38,9 @@ public class Controller {
 	
 	/**
 	 * Constructeur du controller pour le mode console
-	 * @param mode
-	 * @param game
-	 * @param finder
+	 * @param mode Instance du mode de jeu (1vs1, 2vs2)
+	 * @param game une instance de game régissant certaines règles
+	 * @param finder l'instance de l'algorithme choisi pour le pathfinding
 	 */
 	public Controller(AMode mode, Game game, IPathFinder finder){
 		this.game = game;
@@ -53,114 +49,122 @@ public class Controller {
 		players = mode.getPlayer();
 	}
 	
+	/**
+	 * Fait joueur les joueur. Récupère les coordonnées d'un click 
+	 * et fait joueur l'insatance du joueur correspondant au tour de game. 
+	 * Après chaque click d'un joeur, fait jouer toutes les IA de la partie(si IA il y'a) avec makeRobotPlay
+	 * Lorsqu'un joueur gagne, appelle winScreen pour afficher le gagnant
+	 * @see Controller#winScreen(String)
+	 * @see Controller#makeRobotPlay()
+	 */
 	public void makePlayerPlay(){
 		Location temp = Controller.pixelToCoord(MyMouseListener.getClickCoord());
-		try {
-			if (game.getTour() == 0 && players[0].isHumanPlayer()) {
-				players[0].play(game, temp, finder);
-				if (game.win(players[0])){
-					winScreen("Joueur Jaune");
-				}else {
-					makeRobotPlay();
-				}
-			}
-			else if (game.getTour() == 1 && players[1].isHumanPlayer()) {
-				players[1].play(game, temp, finder);
-				if (game.win(players[1])){
-					winScreen("Joueur Bleu");
-				}else {
-					makeRobotPlay();
-				}
-			}
-			else if (game.getTour() == 2 && players[2].isHumanPlayer()) {
-				players[2].play(game, temp, finder);
-				if (game.win(players[2])){
-					winScreen("Joueur Violet");
-				}else {
-					makeRobotPlay();
-				}
-			}
-			else if (game.getTour() == 3 && players[3].isHumanPlayer()) {
-				players[3].play(game, temp, finder);
-				if (game.win(players[3])){
-					winScreen("Joueur Vert");
-				}else {
-					makeRobotPlay();
-				}
+		if (game.getTour() == 0 && players[0].isHumanPlayer()) {
+			players[0].play(game, temp, finder);
+			if (game.win(players[0])){
+				panel.repaint();
+				winScreen("Joueur Jaune");
 			}else {
 				makeRobotPlay();
 			}
-		}catch (InterruptedException ie){
-			System.err.println("Erreur dans le sleep");
-			ie.printStackTrace();
-		}finally {
-			panel.repaint();
 		}
-		
-	}
-	
-	public void makeRobotPlay() throws InterruptedException {
-		// ca je le met pour directement check si les joueur suivant est un robot. Ainsi je profite du fait que le joueur reel ait clicke
-		// pour faire joueur ceux qui ne sont pas reels.
-		if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
-			IRobot IA = (IRobot) players[0];
-			IA.play(game, finder, players[1]);
-			game.nextPlayer();
-			panel.repaint();
-			if (game.win((Player) (IA))) {
-				winScreen("Robot Jaune");
+		else if (game.getTour() == 1 && players[1].isHumanPlayer()) {
+			players[1].play(game, temp, finder);
+			if (game.win(players[1])){
+				panel.repaint();
+				winScreen("Joueur Bleu");
+			}else {
+				makeRobotPlay();
 			}
 		}
-		if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
-			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
-			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
-			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
-			IRobot IA = (IRobot) players[1];
-			System.out.println("---------------");
-			System.out.println("le robot 2 joue");
-			IA.play(game, finder, players[0]);
-			System.out.println("C'était le tour de " + game.getTour());
-			game.nextPlayer();
-			System.out.println("C'est maintenant le tour de: " + game.getTour());
-			panel.repaint();
-			if (game.win((Player) (IA))) {
-				winScreen("Robot Bleu");
+		else if (game.getTour() == 2 && players[2].isHumanPlayer()) {
+			players[2].play(game, temp, finder);
+			if (game.win(players[2])){
+				panel.repaint();
+				winScreen("Joueur Violet");
+			}else {
+				makeRobotPlay();
 			}
 		}
-
-
-		if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
-			IRobot IA = (IRobot) players[2];
-			System.out.println("---------------");
-			System.out.println("le robot 3 joue");
-			IA.play(game, finder, players[3]);
-			System.out.println("C'était le tour de " + game.getTour());
-			game.nextPlayer();
-			System.out.println("C'est maintenant le tour de: " + game.getTour());
-			panel.repaint();
-			if (game.win((Player) (IA))) {
-				winScreen("Robot Violet");
+		else if (game.getTour() == 3 && players[3].isHumanPlayer()) {
+			players[3].play(game, temp, finder);
+			if (game.win(players[3])){
+				panel.repaint();
+				winScreen("Joueur Vert");
+			}else {
+				makeRobotPlay();
 			}
-		}
-
-
-		if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
-			IRobot IA = (IRobot) players[3];
-			System.out.println("---------------");
-			System.out.println("le robot 4 joue");
-			IA.play(game, finder, players[2]);
-			System.out.println("C'était le tour de " + game.getTour());
-			game.nextPlayer();
-			System.out.println("C'est maintenant le tour de: " + game.getTour());
-			panel.repaint();
-			if (game.win((Player) (IA))) {
-				winScreen("Robot Vert");
-			}
+		}else {
+			makeRobotPlay();
 		}
 	}
 	
 	/**
-	 * Fait jouer toutes les IA
+	 * Vérifie un joueur d'une partie et c'est une IA, alors le fait jouer. 
+	 * Passe au prochain tour et revérifie pour le joueur suivant, etc...
+	 * @throws InterruptedException
+	 */
+	public void makeRobotPlay(){
+		try{
+			if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
+				IRobot IA = (IRobot) players[0];
+				Thread.sleep(250);
+				IA.play(game, finder, players[1]);
+				game.nextPlayer();
+				panel.repaint();
+				if (game.win((Player) (IA))) {
+					winScreen("Robot Jaune");
+				}
+			}
+			if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
+				IRobot IA = (IRobot) players[1];
+				panel.repaint();
+				Thread.sleep(250);
+				IA.play(game, finder, players[0]);
+				game.nextPlayer();
+				if (game.win((Player) (IA))) {
+					winScreen("Robot Bleu");
+				}
+			}
+	
+	
+			if (game.getTour() == 2 && !players[2].isHumanPlayer()) {
+				IRobot IA = (IRobot) players[2];
+				System.out.println("---------------");
+				System.out.println("le robot 3 joue");
+				IA.play(game, finder, players[3]);
+				System.out.println("C'était le tour de " + game.getTour());
+				game.nextPlayer();
+				System.out.println("C'est maintenant le tour de: " + game.getTour());
+				panel.repaint();
+				if (game.win((Player) (IA))) {
+					winScreen("Robot Violet");
+				}
+			}
+	
+	
+			if (game.getTour() == 3 && !players[3].isHumanPlayer()) {
+				IRobot IA = (IRobot) players[3];
+				System.out.println("---------------");
+				System.out.println("le robot 4 joue");
+				IA.play(game, finder, players[2]);
+				System.out.println("C'était le tour de " + game.getTour());
+				game.nextPlayer();
+				System.out.println("C'est maintenant le tour de: " + game.getTour());
+				panel.repaint();
+				if (game.win((Player) (IA))) {
+					winScreen("Robot Vert");
+				}
+			}
+		}catch(InterruptedException ie){
+			ie.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Précondition: à executer dans la classe MainStat pour le mode console. 
+	 * Précondition: tous les joueurs sont des IA.
+	 * Fait jouer toutes les IA jusqu'à ce qu'une IA gagne
 	 * @return le numéro du joueur qui a gagné (1, 2, 3 ou 4) sinon retourne -1
 	 */
 	public int makeRobotPlayTerminal() {
@@ -174,9 +178,6 @@ public class Controller {
 			}
 		}
 		if (game.getTour() == 1 && !players[1].isHumanPlayer()) {
-			//on sait alors que c est un robot donc on cast pour acceder a la methode move de l IA
-			//parce que le move de MediumIA n est pas la surcharge du move de player (il aurait fallu qu ils aient la meme signature)
-			//donc, si on cast pas, il va chercher si player a un move avec cette signature, ce qui est faux, donc bug compil
 			IRobot IA = (IRobot) players[1];
 			IA.play(game, finder, players[0]);
 			System.out.println("Joueur " + game.getTour() + " joue");
@@ -207,11 +208,16 @@ public class Controller {
 		}return makeRobotPlayTerminal();
 	}
 	
+	/**
+	 * Met à jour le panel qui représente la grille.
+	 */
 	public void updatePanel(){
 		panel.repaint();
 	}
 	 /**
-	  * Fait apparaître la fenetre informant le joueur du gagnat de la partie !
+	  * Fait apparaître la fenetre informant le joueur du gagnant de la partie !
+	  * @player un string représentant le joueur qui a gagné. 
+	  * e.g. "Joueur jaune" ou "Robot bleu"
 	  */
 	public  void winScreen(String player) {
 		final QuoridorGUI parentFrame = (QuoridorGUI) ((BoardGUI)panel).getParent().getParent().getParent();
@@ -267,6 +273,12 @@ public class Controller {
 		win.setVisible(true);
 	}
 	
+	/**
+	 * Converti des des coordonnées pixel (correspondant à un pixel du panel)
+	 * en coordonnées tableau (correspondant à un élement du plateau de jeu)
+	 * @param loc les coordonnées à convertir
+	 * @return un Location représentant les coordonnées tableau
+	 */
 	public static Location pixelToCoord(Location loc) {
 		int x = loc.getLocX();
 		int y = loc.getLocY();
@@ -292,8 +304,10 @@ public class Controller {
 	}
 
 	/**
-	 * Transforme un objet Location en des coordonées pixel
-	 * @return un Objet Location correspondant au coordonnées pixel sur le panel pour la grille
+	 * Converti des coordonnées tableau (correspondant à un élement du plateau de jeu)
+	 * en coordonnées pixel (correspondant à un pixel du panel)
+	 * @param loc les coordonnées à convertir
+	 * @return un Location représentant les coordonnées pixel
 	 */
 	public static Location coordToPixel(Location loc) {
 		int x = loc.getLocX();
