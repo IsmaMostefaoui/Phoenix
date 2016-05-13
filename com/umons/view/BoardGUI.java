@@ -9,10 +9,12 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,8 @@ import javax.swing.JPanel;
 
 import com.umons.controller.Controller;
 import com.umons.controller.MyMouseListener;
-import com.umons.model.*;
+import com.umons.model.ARules;
+import com.umons.model.Game;
 import com.umons.model.board.Location;
 import com.umons.model.playerAbstraction.Player;
 
@@ -43,6 +46,8 @@ public class BoardGUI extends JPanel{
 	private Player player2;
 	private Player player3;
 	private Player player4;
+	
+	Controller controller;
 	
 	InfoGUI infoPanel;
 	
@@ -78,7 +83,9 @@ public class BoardGUI extends JPanel{
 	 * @param player1 une instance du joueur 1
 	 * @param player2 une instance du joueur 2
 	 */
-	public BoardGUI(Game game) {
+	public BoardGUI(Game game, Controller controller) {
+		
+		this.controller = controller;
 		
 		this.player1 = game.getMode().getPlayer()[0]; 
 		this.player2 = game.getMode().getPlayer()[1];
@@ -144,7 +151,7 @@ public class BoardGUI extends JPanel{
 	 */
 	public void drawPawn(Graphics2D g2d, Location locPawn, Color c, int numberOfWall) {
 		g2d.setColor(c);
-		Location locPix = Controller.coordToPixel(locPawn);
+		Location locPix = controller.coordToPixel(locPawn);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.fillOval(locPix.getLocX(), locPix.getLocY(), lPawn-2, lPawn-2);
 		g2d.setColor(Color.WHITE);
@@ -169,7 +176,7 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallHorizontal.size(); i++) {
 			Location loc = locWallHorizontal.get(i);
-			Location locPix = Controller.coordToPixel(loc);
+			Location locPix = controller.coordToPixel(loc);
 			g2d.fillRect(locPix.getLocX(), locPix.getLocY() + lSpaceWall/2, 2*lSquare+lWall, lWall - lSpaceWall);
 		}
 	}
@@ -185,7 +192,7 @@ public class BoardGUI extends JPanel{
 		g2d.setColor(c);
 		for (int i = 0; i < locWallVertical.size(); i++) {
 			Location loc = locWallVertical.get(i);
-			Location locPix = Controller.coordToPixel(loc);
+			Location locPix = controller.coordToPixel(loc);
 			g2d.fillRect(locPix.getLocX()+lSpaceWall/2, locPix.getLocY(), lWall - (lSpaceWall), 2*lSquare+lWall);
 		}
 	}
@@ -234,7 +241,7 @@ public class BoardGUI extends JPanel{
 	public void drawPreview(Graphics2D g2d, Color c, Player player) {
 		Location motionCoord = MyMouseListener.getMotionCoord();
 		if (motionCoord != null) {
-			Location motionCoordPix = Controller.coordToPixel(motionCoord);
+			Location motionCoordPix = controller.coordToPixel(motionCoord);
 			if (motionCoord != null && motionCoord.isSquare()){ 
 				List<Location> list = ARules.rSquareAvailable(player);
 				if (list.contains(motionCoord)) {
@@ -284,19 +291,19 @@ public class BoardGUI extends JPanel{
 	public void drawTour(Graphics2D g2d) {
 		if (game.getTour() == 0) {
 			g2d.setColor(new Color(243, 156, 18, 175));
-			Location player = Controller.coordToPixel(player1.getLoc());
+			Location player = controller.coordToPixel(player1.getLoc());
 			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
 		}else if (game.getTour() == 1){
 			g2d.setColor(new Color(100, 50, 250, 175));
-			Location player = Controller.coordToPixel(player2.getLoc());
+			Location player = controller.coordToPixel(player2.getLoc());
 			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
 		}else if (game.getTour() == 2) {
 			g2d.setColor(new Color(220, 50, 250, 175));
-			Location player = Controller.coordToPixel(player3.getLoc());
+			Location player = controller.coordToPixel(player3.getLoc());
 			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
 		}else if (game.getTour() == 3) {
 			g2d.setColor(new Color(46, 204, 113, 175));
-			Location player = Controller.coordToPixel(player4.getLoc());
+			Location player = controller.coordToPixel(player4.getLoc());
 			g2d.fillRect(player.getLocX(), player.getLocY(), lSquare-5, lSquare-5);
 		}
 	}

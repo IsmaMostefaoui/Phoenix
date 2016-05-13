@@ -17,12 +17,11 @@ import com.umons.model.playerAbstraction.Player;
 import com.umons.view.BoardGUI;
 import com.umons.view.QuoridorGUI;
 
-public class Controller {
+public class Controller implements ICoordinatesChange{
 	
 	private AMode mode;
 	private IPathFinder finder;
 	private Game game;
-	private JPanel panel;
 	private Player[] players;
 	
 	/**
@@ -32,25 +31,17 @@ public class Controller {
 	 * @param game une instance de game régissant certaines règles
 	 * @param finder l'instance de l'algorithme choisi pour le pathfinding
 	 */
-	public Controller(AMode mode, JPanel panel, Game game, IPathFinder finder){
-		this.panel = panel;
-		this.game = game;
-		this.finder = finder;
-		this.mode = mode;
-		players = mode.getPlayer();
-	}
-	
-	/**
-	 * Constructeur du controller pour le mode console
-	 * @param mode Instance du mode de jeu (1vs1, 2vs2)
-	 * @param game une instance de game régissant certaines règles
-	 * @param finder l'instance de l'algorithme choisi pour le pathfinding
-	 */
 	public Controller(AMode mode, Game game, IPathFinder finder){
 		this.game = game;
 		this.finder = finder;
 		this.mode = mode;
 		players = mode.getPlayer();
+	}
+	/**
+	 * Constructeur pour l'utilisation des méthodes de changement de coordonnées.
+	 */
+	public Controller(){
+		
 	}
 	
 	/**
@@ -62,7 +53,8 @@ public class Controller {
 	 * @see Controller#makeRobotPlay()
 	 */
 	public void makePlayerPlay(){
-		Location temp = Controller.pixelToCoord(MyMouseListener.getClickCoord());
+		Location temp = this.pixelToCoord(MyMouseListener.getClickCoord());
+		JPanel panel = mode.getPane();
 		if (game.getTour() == 0 && players[0].isHumanPlayer()) {
 			players[0].play(game, temp, finder);
 			if (game.win(players[0])){
@@ -109,6 +101,7 @@ public class Controller {
 	 * @throws InterruptedException
 	 */
 	public void makeRobotPlay(){
+		JPanel panel = mode.getPane();
 		try{
 			if (game.getTour() == 0 && !players[0].isHumanPlayer()) {
 				IRobot IA = (IRobot) players[0];
@@ -216,7 +209,7 @@ public class Controller {
 	 * Met à jour le panel qui représente la grille.
 	 */
 	public void updatePanel(){
-		panel.repaint();
+		mode.getPane().repaint();
 	}
 	 /**
 	  * Fait apparaître la fenetre informant le joueur du gagnant de la partie !
@@ -224,6 +217,7 @@ public class Controller {
 	  * e.g. "Joueur jaune" ou "Robot bleu"
 	  */
 	public  void winScreen(String player) {
+		JPanel panel = mode.getPane();
 		final QuoridorGUI parentFrame = (QuoridorGUI) ((BoardGUI)panel).getParent().getParent().getParent();
 		final JDialog win = new JDialog(parentFrame, true);
 		win.setTitle("!! Félicitations !!");
@@ -284,7 +278,8 @@ public class Controller {
 	 * @param loc les coordonnées à convertir
 	 * @return un Location représentant les coordonnées tableau
 	 */
-	public static Location pixelToCoord(Location loc) {
+	@Override
+	public Location pixelToCoord(Location loc) {
 		int x = loc.getLocX();
 		int y = loc.getLocY();
 		int xtemp = -1;
@@ -314,7 +309,8 @@ public class Controller {
 	 * @param loc les coordonnées à convertir
 	 * @return un Location représentant les coordonnées pixel
 	 */
-	public static Location coordToPixel(Location loc) {
+	@Override
+	public Location coordToPixel(Location loc) {
 		int x = loc.getLocX();
 		int y = loc.getLocY();
 		int xtemp;

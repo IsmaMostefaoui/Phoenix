@@ -3,15 +3,12 @@ package com.umons.controller;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
-import com.umons.model.playerAbstraction.MediumIA;
-import com.umons.model.playerAbstraction.Player;
-import com.umons.model.Audio;
 import com.umons.model.board.Location;
 
 
 public class MyMouseListener implements MouseInputListener{
 
-	private int x1, y1, xpressed, ypressed, xreleased, yreleased;
+	private int xpressed, ypressed, xreleased, yreleased;
 	private static Location clickCoord;
 	private static Location motionCoord;
 	public static Location prevCoord;
@@ -43,7 +40,7 @@ public class MyMouseListener implements MouseInputListener{
 		xreleased = e.getX(); yreleased = e.getY();
 		Location pressed = new Location(xpressed, ypressed);
 		Location released = new Location(xreleased, yreleased);
-		if (Controller.pixelToCoord(pressed).equals(Controller.pixelToCoord(released))) {
+		if (controller.pixelToCoord(pressed).equals(controller.pixelToCoord(released))) {
 			clickCoord = released;
 			controller.makePlayerPlay();
 		}
@@ -71,7 +68,7 @@ public class MyMouseListener implements MouseInputListener{
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		motionCoord = Controller.pixelToCoord(new Location(e.getX(), e.getY()));
+		motionCoord = controller.pixelToCoord(new Location(e.getX(), e.getY()));
 		controller.updatePanel();
 	}
 	

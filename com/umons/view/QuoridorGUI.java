@@ -180,8 +180,7 @@ public class QuoridorGUI extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Game game = ((BoardGUI) QuoridorGUI.this.nextPanes[BOARDGUI]).getGame();
-					game.nextPlayer();
-					QuoridorGUI.this.repaint();
+					game.nextPlayer();					QuoridorGUI.this.repaint();
 				}
 			});
 

@@ -100,6 +100,7 @@ public class MenuGUI extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				Mode1Vs1 mode = new Mode1Vs1(AMode.MEDIUM, 1);
 				Game game = new Game(mode);
+				System.out.println("controller de mode dans menugui: " + mode.getController());
 				mode.init(parentFrame, game);
 				parentFrame.setPane(mode.getPane(), QuoridorGUI.BOARDGUI);
 				parentFrame.switchToPanel(QuoridorGUI.BOARDGUI);
@@ -131,7 +132,7 @@ public class MenuGUI extends JPanel{
 				try {
 					d.open(new File("./misc/regle_du_jeu.pdf"));
 				} catch (IOException ie) {
-					ie.printStackTrace();
+					
 				}
 			}
 		});

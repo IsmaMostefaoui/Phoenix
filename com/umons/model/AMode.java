@@ -42,13 +42,12 @@ public abstract class AMode implements Serializable{
 	 */
 	public void init(QuoridorGUI frame, Game game){
 		ARules.setBoard(board);
-		JPanel board = new BoardGUI(game);
-		
+		System.out.println("controller: " + controller);
+		controller = new Controller(this, game, finder);
+		JPanel board = new BoardGUI(game, controller);
 		this.boardPanel = board;
 		this.frame = frame;
-		
 		board.setFocusable(true);
-		controller = new Controller(this, board, game, finder);
 		MyMouseListener l = new MyMouseListener(controller);
 		board.addMouseListener(l);
 		board.addMouseMotionListener(l);
