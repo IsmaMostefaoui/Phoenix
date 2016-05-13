@@ -94,6 +94,13 @@ public abstract class AMode implements Serializable{
 			return new RegularIA(board, POS, nbreWall, order, this);
 		}return null;
 	}
+	/**
+	 * Accesseur de board
+	 * @return l'instance de Grid
+	 */
+	public Grid getBoard() {
+		return this.board;
+	}
 	
 	public Controller getController(){
 		return controller;
