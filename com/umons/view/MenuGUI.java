@@ -2,8 +2,12 @@ package com.umons.view;
 
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -14,12 +18,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -35,6 +40,9 @@ public class MenuGUI extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	Image image;
+	Font customFont;
+	JLabel title;
+	
 	MyButton startButton;
 	MyButton quitButton;
 	MyButton reloadButton;
@@ -59,6 +67,20 @@ public class MenuGUI extends JPanel{
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		try {
+            //create the font to use. Specify the size!
+			InputStream myStream = new BufferedInputStream(new FileInputStream("./misc/cowboy.ttf"));
+            customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch(FontFormatException e) {
+            e.printStackTrace();
+        }
+		customFont = new Font(customFont.getName(), Font.PLAIN, 27);
+		
 		setLayout(new GridBagLayout());
 		
 		GridBagLayout gb = new GridBagLayout();
@@ -138,6 +160,12 @@ public class MenuGUI extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(Color.BLACK);
 		g2d.drawImage(image, -450, -75, this);
+		if (title == null){
+			title =  new JLabel("THE QUORIDOR");
+			title.setFont(customFont);
+			title.setSize(new Dimension(500, 250));
+			this.add(title);
+		}
 	}
 	
 	/**

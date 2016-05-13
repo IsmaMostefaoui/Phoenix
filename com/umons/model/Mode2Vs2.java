@@ -36,9 +36,9 @@ public class Mode2Vs2 extends AMode{
 			players[2] = new Player(board, Player.POS3, 5, 3, this);
 			players[3] = new Player(board, Player.POS4, 5, 4, this);
 		}else if (nbreHumans == 1){
-			players[1] = setPlayerTo(IA2, Player.POS2, 5, 2);
-			players[2] = setPlayerTo(IA3, Player.POS3, 5, 3);
-			players[3] = setPlayerTo(IA4, Player.POS4, 5, 4);
+			players[1] = setPlayerTo(IA, Player.POS2, 5, 2);
+			players[2] = setPlayerTo(IA, Player.POS3, 5, 3);
+			players[3] = setPlayerTo(IA, Player.POS4, 5, 4);
 		}
 		heuristic = new AStarHeuristic();
 		finder = new AStarPathFinder(board, 500, heuristic);

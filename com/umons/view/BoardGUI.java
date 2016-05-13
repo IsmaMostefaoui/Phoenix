@@ -103,7 +103,7 @@ public class BoardGUI extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(customFont);
 		
-		g2d.setColor(new Color(170, 57, 43));
+		g2d.setColor(new Color(150, 62, 48));
 		g2d.fillRect(0, 0, lBack, QuoridorGUI.HEIGHT);
 		
 		drawSquares(g2d, new Color(236, 240, 241));
@@ -220,7 +220,7 @@ public class BoardGUI extends JPanel{
 				g2d.fillRect(START_X+SPACE, START_Y+HEIGHT, lSquare-lSpaceEdge, lSquare-lSpaceEdge);
 				SPACE += lSquare + lWall;
 			}
-			SPACE =0;
+			SPACE = 0;
 			HEIGHT += lSquare + lWall;
 		}
 	}
@@ -262,15 +262,8 @@ public class BoardGUI extends JPanel{
 	 * @return True si la preview peut se faire normalement
 	 */
 	public boolean canPreviewHor(Location motionCoord, Player player) {
-		if (MyMouseListener.prevCoord != null && motionCoord.equals(MyMouseListener.prevCoord)) {
-			return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
-					&& player.getNbreOfWall() > 0;
-		}else {
-			//TODO mettre getter et setter
-			MyMouseListener.prevCoord = motionCoord;
-			return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
+		return motionCoord != null && motionCoord.isWallHorizontal() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 					&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
-		}
 	}
 	
 	/**
@@ -280,16 +273,8 @@ public class BoardGUI extends JPanel{
 	 * @return True si la preview peut se faire normalement
 	 */
 	public boolean canPreviewVer(Location motionCoord, Player player) {
-		//TODO opti comme pour horizontal sinon previexw meme si bloque joueur
-		if (MyMouseListener.prevCoord != null && motionCoord.equals(MyMouseListener.prevCoord)) {
-			return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
-					&& player.getNbreOfWall() > 0;
-		}else {
-			//TODO mettre getter et setter
-			MyMouseListener.prevCoord = motionCoord;
 			return motionCoord != null && motionCoord.isWallVertical() && ARules.rPutWall(motionCoord) && ARules.rSlotFull(motionCoord)
 					&& player.getNbreOfWall() > 0 && game.getMode().testFinder(player, motionCoord, game.getMode().getFinder());
-		}
 	}
 	
 	/**

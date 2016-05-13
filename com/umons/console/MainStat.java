@@ -61,7 +61,7 @@ public class MainStat {
 	 * @return le pourcentage de réussite de chaque IA ou -1 si l'IA n'a pas joué
 	 */
 	public static float[] playConsole(AMode mode, int gameNumber) {
-		float[] percentOfWin = {-1, -1, -1, -1};
+		float[] percentOfWin = {0, 0, 0, 0};
 		int defautGameNumber = gameNumber;
 		while (gameNumber > 0){
 			System.out.println("New game ! ");
